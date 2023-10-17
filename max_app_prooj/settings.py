@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ SECRET_KEY = 'django-insecure-=&d(1-t@ed44$s0agslv&p=b$z2a5yxr&k9ky69#(kld29)y4a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["django.lightshoes.in", "www.django.lightshoes.in"]
+ALLOWED_HOSTS = ["django.lightshoes.in", "www.django.lightshoes.in", "localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -75,17 +76,23 @@ WSGI_APPLICATION = 'max_app_prooj.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'lighvzkx_max',
-        'USER': 'lighvzkx_max_user',
-        'PASSWORD': '?_RVb@AmPDxA',
-        'HOST': 'localhost',
-        'PORT': '3306',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'NAME': 'lighvzkx_max',
+#         'USER': 'lighvzkx_max_user',
+#         'PASSWORD': '?_RVb@AmPDxA',
+#         'HOST': 'localhost',
+#         'PORT': '3306',
+#     }
+# }
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.sqlite3',
+#         'NAME': BASE_DIR / 'db.sqlite3',
+#     }
+# }
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
@@ -122,7 +129,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = 'static/'
-STATIC_ROOT = '/home/lighvzkx/django.lightshoes.in/static'
+# STATIC_ROOT = '/home/lighvzkx/django.lightshoes.in/static'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
 
 WHATSAPP_URL = 'https://graph.facebook.com/v17.0/128538200341271/messages'
 WHATSAPP_TOKEN =  "Bearer EAAUovSpndZBABO6m0npKSC9M9cGGWwZCD1Rlc1OZAWaiLnvldsq1nOM7TLogU4ZBZCZBZBdZAIFSGKIAWIJesotLXQ88P5yZB5P1fTFrZAZCnodPfXfTusY5iH6Hz7WjBDuzZBmLDvZAdPIyWZAmAZCM1HUD5Ky6fwnBkqJcPlI6GwTJbgyMN6NX95bSNQCFSwZA6vWEQsZBX"
