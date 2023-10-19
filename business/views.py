@@ -7,11 +7,6 @@ from django.conf import settings
 import requests
 import os
 
-
-
-
-# Create your views here.
-
 # Create your views here.
 def home(request):
     # return HttpResponse("Hellaao Worldasas2")
@@ -74,15 +69,20 @@ def whatsAppWebhook(request):
                                     message = f'RE: {text} was received'
 
                                     sendWhatsAppMessage(phoneNumber, message)
+                                    # Save WhatsApp message to the database
+                                    save_whatsapp_message(
+                                        phoneId,
+                                        profileName,
+                                        whatsAppId,
+                                        fromId,
+                                        messageId,
+                                        timestamp,
+                                        text,
+                                        phoneNumber,
+                                        message
+                                    )
             except Exception as e:
                 print(e)
                 # Handle exceptions here
-
-
-
-        # sendWhatsAppMessage("9956929372", "aushu")
-        # with open("business/test.txt" , "w" , encoding="utf8") as f:
-        #     f.write(request.body)
-        # sendWhatsAppMessage("9956929372", data_str = str(request.body, 'utf-8'))
 
         return HttpResponse('success', status=200)
