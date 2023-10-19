@@ -31,7 +31,6 @@ def whatsAppWebhook(request):
             return HttpResponse('error', status=403)
 
     if request.method == 'POST':
-        print(data)
         data = json.loads(request.body)
         sendWhatsAppMessage("9956929372", "aushu")
         with open("business/test.txt" , "w" , encoding="utf8") as f:
