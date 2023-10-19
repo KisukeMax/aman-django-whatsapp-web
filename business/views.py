@@ -33,5 +33,6 @@ def whatsAppWebhook(request):
     if request.method == 'POST':
         data = json.loads(request.body)
         sendWhatsAppMessage("9956929372", "post  auisas")
+        sendWhatsAppMessage("9956929372", data)
 
         return HttpResponse('success', status=200)
