@@ -2,7 +2,9 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 import json
-from functions import *
+# from functions import *
+from django.conf import settings
+import requests
 
 
 
@@ -14,7 +16,7 @@ def home(request):
     return render(request, "business/index.html")
 
 @csrf_exempt
-def whatsappWebhook(request):
+def whatsAppWebhook(request):
     if request.method == 'GET':
         VERIFY_TOKEN ="a36563b3-800a-43ec-ad4a-7043005b488c"
         mode = request.GET['hub.mode']
