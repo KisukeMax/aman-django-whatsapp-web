@@ -6,7 +6,6 @@ from .functions import *
 from django.conf import settings
 import requests
 import os
-from django.conf import settings
 
 
 
