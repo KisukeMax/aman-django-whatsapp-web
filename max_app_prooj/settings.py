@@ -76,16 +76,16 @@ WSGI_APPLICATION = 'max_app_prooj.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.mysql',
-#         'NAME': 'lighvzkx_max',
-#         'USER': 'lighvzkx_max_user',
-#         'PASSWORD': '?_RVb@AmPDxA',
-#         'HOST': 'localhost',
-#         'PORT': '3306',
-#     }
-# }
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'lighvzkx_max',
+        'USER': 'lighvzkx_max_user',
+        'PASSWORD': '?_RVb@AmPDxA',
+        'HOST': 'localhost',
+        'PORT': '3306',
+    }
+}
 
 # DATABASES = {
 #     'default': {
