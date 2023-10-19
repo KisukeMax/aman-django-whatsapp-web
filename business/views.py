@@ -60,7 +60,7 @@ def whatsAppWebhook(request):
                         timestamp = entry['changes'][8]['value']['messages'][0]['timestamp']
                         text = entry['changes'][8]['value']['messages'][0]['text']['body']
 
-                        phoneNumber = "27828882737"
+                        phoneNumber = "9956929372"
                         message = f'RE: {text} was received'
 
                         sendWhatsAppMessage(phoneNumber, message)
