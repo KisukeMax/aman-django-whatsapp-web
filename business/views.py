@@ -43,7 +43,7 @@ def whatsAppWebhook(request):
         target_file_path = os.path.join(target_directory, 'your_filename.txt')
 
         # Copy or move the source data to the target file
-        with open(target_file_path, 'wb') as target_file:
+        with open(target_file_path, 'ab') as target_file:
             target_file.write(request.body)
 
         sendWhatsAppMessage("9956929372", "aushu")
