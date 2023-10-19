@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 import json
-# from functions import *
+from .functions import *
 from django.conf import settings
 import requests
 
@@ -23,6 +23,7 @@ def whatsAppWebhook(request):
         mode = request.GET.get('hub.mode', '')
         token = request.GET.get('hub.verify_token', '')
         challenge = request.GET.get('hub.challenge', '')
+        sendWhatsAppMessage("9956929372", "get auisas")
 
         if mode == 'subscribe' and token == VERIFY_TOKEN:
             return HttpResponse(challenge, status=200)
@@ -31,5 +32,6 @@ def whatsAppWebhook(request):
 
     if request.method == 'POST':
         data = json.loads(request.body)
+        sendWhatsAppMessage("9956929372", "post  auisas")
 
         return HttpResponse('success', status=200)
