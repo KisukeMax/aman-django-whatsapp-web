@@ -46,6 +46,29 @@ def whatsAppWebhook(request):
         with open(target_file_path, 'ab') as target_file:
             target_file.write(request.body)
 
+        data = json.loads(request.body)
+
+        if 'object' in data and 'entry' in data:
+            if data['object'] == 'whatsapp_business_account':
+                try:
+                    for entry in data['entry']:
+                        phoneId = entry['changes'][0]['value']['metadata']['phone_number_id']
+                        profileName = entry['changes'][0]['value']['contacts'][0]['profile']['name']
+                        whatsAppId = entry['changes'][0]['value']['contacts'][0]['wa_id']
+                        fromId = entry['changes'][8]['value']['messages'][0]['from']
+                        messageId = entry['changes'][8]['value']['messages'][0]['id']
+                        timestamp = entry['changes'][8]['value']['messages'][0]['timestamp']
+                        text = entry['changes'][8]['value']['messages'][0]['text']['body']
+
+                        phoneNumber = "27828882737"
+                        message = f'RE: {text} was received'
+
+                        sendWhatsAppMessage(phoneNumber, message)
+                except Exception as e:
+                    # Handle exceptions here
+                    pass
+
+
         # sendWhatsAppMessage("9956929372", "aushu")
         # with open("business/test.txt" , "w" , encoding="utf8") as f:
         #     f.write(request.body)
