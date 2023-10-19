@@ -35,7 +35,7 @@ def whatsAppWebhook(request):
 
     if request.method == 'POST':
         # data = json.loads(request.body)
-        target_directory = os.path.join(BASE_DIR, 'static', 'your_target_directory')
+        target_directory = os.path.join(settings.BASE_DIR, 'static', 'your_target_directory')
 
         # Ensure the target directory exists, creating it if necessary
         os.makedirs(target_directory, exist_ok=True)
