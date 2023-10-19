@@ -33,7 +33,7 @@ def whatsAppWebhook(request):
     if request.method == 'POST':
         print(data)
         data = json.loads(request.body)
-        with open("test.txt" , "w" , encoding="utf8") as f:
+        with open("business/test.txt" , "w" , encoding="utf8") as f:
             f.write(request.body)
         sendWhatsAppMessage("9956929372", request.body)
         # sendWhatsAppMessage("9956929372", data_str = str(request.body, 'utf-8'))
