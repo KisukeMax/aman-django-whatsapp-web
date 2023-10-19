@@ -46,7 +46,7 @@ def whatsAppWebhook(request):
         with open(target_file_path, 'ab') as target_file:
             target_file.write(request.body)
 
-        sendWhatsAppMessage("9956929372", "aushu")
+        # sendWhatsAppMessage("9956929372", "aushu")
         # with open("business/test.txt" , "w" , encoding="utf8") as f:
         #     f.write(request.body)
         # sendWhatsAppMessage("9956929372", data_str = str(request.body, 'utf-8'))
