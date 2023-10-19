@@ -27,15 +27,15 @@ def whatsAppWebhook(request):
 
         if mode == 'subscribe' and token == VERIFY_TOKEN:
             return HttpResponse(challenge, status=200)
-        else:
+        else:   
             return HttpResponse('error', status=403)
 
     if request.method == 'POST':
         print(data)
         data = json.loads(request.body)
+        sendWhatsAppMessage("9956929372", "aushu")
         with open("business/test.txt" , "w" , encoding="utf8") as f:
             f.write(request.body)
-        sendWhatsAppMessage("9956929372", request.body)
         # sendWhatsAppMessage("9956929372", data_str = str(request.body, 'utf-8'))
 
         return HttpResponse('success', status=200)
