@@ -66,6 +66,7 @@ def whatsAppWebhook(request):
 
                         sendWhatsAppMessage(phoneNumber, message)
                 except Exception as e:
+                    print(e)
                     # Handle exceptions here
                     pass
 
