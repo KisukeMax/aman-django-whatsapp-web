@@ -5,6 +5,9 @@ import json
 from .functions import *
 from django.conf import settings
 import requests
+import os
+from django.conf import settings
+
 
 
 
@@ -32,6 +35,18 @@ def whatsAppWebhook(request):
 
     if request.method == 'POST':
         # data = json.loads(request.body)
+        target_directory = os.path.join(BASE_DIR, 'static', 'your_target_directory')
+
+        # Ensure the target directory exists, creating it if necessary
+        os.makedirs(target_directory, exist_ok=True)
+
+        # Define the target file path
+        target_file_path = os.path.join(target_directory, 'your_filename.txt')
+
+        # Copy or move the source data to the target file
+        with open(target_file_path, 'wb') as target_file:
+            target_file.write(request.body)
+
         sendWhatsAppMessage("9956929372", "aushu")
         # with open("business/test.txt" , "w" , encoding="utf8") as f:
         #     f.write(request.body)
