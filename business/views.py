@@ -64,12 +64,13 @@ def whatsAppWebhook(request):
                                 messages = first_change['value']['messages']
                                 if messages:
                                     first_message = messages[0]
+                                    phoneNumber = first_message['from']
                                     fromId = first_message['from']
                                     messageId = first_message['id']
                                     timestamp = first_message['timestamp']
                                     text = first_message['text']['body']
 
-                                    phoneNumber = "9956929372"
+                                    # phoneNumber = "9956929372"
                                     message = f'RE: {text} was received'
 
                                     sendWhatsAppMessage(phoneNumber, message)
