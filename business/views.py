@@ -10,4 +10,5 @@ import json
 
 # Create your views here.
 def home(request):
-    return HttpResponse("Hellaao World2")
+    # return HttpResponse("Hellaao World2")
+    return render(request, "business/index.html")
