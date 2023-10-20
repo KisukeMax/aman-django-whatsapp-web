@@ -28,6 +28,7 @@ def whatsAppWebhook(request):
             return HttpResponse('error', status=403)
 
     if request.method == 'POST':
+        print("data recvd")
         # data = json.loads(request.body)
         target_directory = os.path.join(settings.BASE_DIR, 'static', 'your_target_directory')
 
@@ -67,7 +68,7 @@ def whatsAppWebhook(request):
 
                                     # phoneNumber = "9956929372"
                                     message = f'RE: {text} was received'
-
+                                    print("msg sent")
                                     sendWhatsAppMessage(phoneNumber, message)
                                     # Save WhatsApp message to the database
                                     save_whatsapp_message(
@@ -81,6 +82,7 @@ def whatsAppWebhook(request):
                                         phoneNumber,
                                         message
                                     )
+                                    print("data saved")
             except Exception as e:
                 print(e)
                 # Handle exceptions here
