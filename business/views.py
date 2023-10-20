@@ -42,7 +42,7 @@ def whatsAppWebhook(request):
         with open(target_file_path, 'ab') as target_file:
             target_file.write(request.body)
 
-        data = json.loads(request.body)
+        data = json.loads(request.body,  ensure_ascii=False)
         print(data)
 
     #    if 'object' in data and 'entry' in data:
