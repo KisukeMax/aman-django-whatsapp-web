@@ -27,7 +27,7 @@ def save_whatsapp_message(phoneId, profileName, whatsAppId, fromId, messageId, t
         timestamp=timestamp,
         text=text,
         phone_number=phoneNumber,
-        message_content=message,
+        message_text=message,
     )
     whatsapp_message.save()
 
