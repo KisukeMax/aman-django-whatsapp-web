@@ -42,10 +42,7 @@ def whatsAppWebhook(request):
         with open(target_file_path, 'ab') as target_file:
             target_file.write(request.body)
 
-        # data = json.loads(request.body,  ensure_ascii=False)
-        data = json.loads(request.body.decode('utf-8'))
-
-        print(data)
+        data = json.loads(request.body)
 
     #    if 'object' in data and 'entry' in data:
         if data['object'] == 'whatsapp_business_account':
