@@ -16,8 +16,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+# from django.conf.urls import url
+from business.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('business.urls')),
+    path('react/<int:id>', ReactView.as_view(), name="anything"),
+    path('react/', ReactView.as_view(), name="anything_no_id"),
+    path('react_rooms/', ReactView_rooms.as_view(), name="rooms"),
 ]

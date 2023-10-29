@@ -1,3 +1,4 @@
+from django.db.models import Max, OuterRef, Subquery
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
@@ -6,6 +7,67 @@ from .functions import *
 from django.conf import settings
 import requests
 import os
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from .serializer import *
+from .models import *
+
+
+
+# class ReactView_rooms(APIView):
+#     def get(self, request):
+#         # An 'id' is provided, fetch and display the specific item
+#         try:
+#             unique_phone_numbers = WhatsAppMessage.objects.values('phone_number').distinct().order_by('-timestamp')
+#             print(len(unique_phone_numbers))
+#             return Response(unique_phone_numbers)
+#         except WhatsAppMessage.DoesNotExist:
+#             return Response({"error": "Item not found"}, status=404)
+
+
+class ReactView_rooms(APIView):
+    def get(self, request):
+        try:
+            # Get the most recent timestamp for each phone number
+            subquery = WhatsAppMessage.objects.values('phone_number').annotate(
+                max_timestamp=Max('timestamp')
+            )
+
+            # Use the subquery to retrieve the corresponding rows with the most recent timestamps
+            # unique_phone_numbers = WhatsAppMessage.objects.filter(
+            #     phone_number=OuterRef('phone_number'),
+            #     timestamp=OuterRef('timestamp')
+            # ).values('phone_number').order_by('-timestamp')
+
+            return Response(subquery)
+        except WhatsAppMessage.DoesNotExist:
+            return Response({"error": "Item not found"}, status=404)
+
+class ReactView(APIView):
+    def get(self, request, id=None):
+        if id is not None:
+            print(id)
+            # An 'id' is provided, fetch and display the specific item
+            try:
+                items = WhatsAppMessage.objects.filter(phone_number=id)
+                fields = ["phone_id", "whatsapp_id", "from_id", "timestamp", "profile_name", "phone_number", "text"]
+                data = [
+                    {field: getattr(item, field) for field in fields}
+                    for item in items
+                ]
+                return Response(data)
+            except WhatsAppMessage.DoesNotExist:
+                return Response({"error": "Item not found"}, status=404)
+        else:
+            # No 'id' is provided, display all items
+            queryset = WhatsAppMessage.objects.all()
+            output = [{"profile_name": item.profile_name, "phone_number": item.phone_number} for item in queryset]
+            return Response(output)
+
+    # def post(self, request):
+    #     serializer = ReactSerializer(data=request.data)
+    #     print(serializer)
+    #     return Response(serializer.data)
 
 # Create your views here.
 def home(request):
@@ -83,7 +145,8 @@ def whatsAppWebhook(request):
                                     )
                                     print("data saved")
             except Exception as e:
-                print(e)
+                # print(e)
+                pass
                 # Handle exceptions here
 
         return HttpResponse('success', status=200)
