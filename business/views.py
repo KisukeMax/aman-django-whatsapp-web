@@ -42,7 +42,7 @@ class ReactView_rooms(APIView):
                 timestamp=Subquery(subquery)
             ).values('profile_name','text', "phone_number")
             
-            print(recent_messages)
+            # print(recent_messages)
              # Encode text and handle non-ASCII characters
             for message in recent_messages:
                 message['text'] = message['text'].encode(sys.stdout.encoding, errors='replace').decode()
