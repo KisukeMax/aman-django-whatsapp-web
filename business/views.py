@@ -36,7 +36,7 @@ class ReactView_rooms(APIView):
             ).values('phone_number').annotate(
                 max_timestamp=Max('timestamp')
             ).values('max_timestamp')
-            recent_messages = subquery.order_by('-max_timestamp')
+            # recent_messages = subquery.order_by('-max_timestamp')
             # Query to get the most recent messages
             recent_messages = WhatsAppMessage.objects.filter(
                 timestamp=Subquery(subquery)
