@@ -2,6 +2,7 @@ from django.conf import settings
 import requests
 from .models import WhatsAppMessage
 
+#
 def sendWhatsAppMessage(phoneNumber, message):
     headers = {"Authorization" : settings.WHATSAPP_TOKEN}
     payload = {

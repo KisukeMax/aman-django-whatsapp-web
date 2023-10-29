@@ -1,5 +1,6 @@
 from django.db import models
 
+#
 class WhatsAppMessage(models.Model):
     phone_id = models.CharField(max_length=255)
     profile_name = models.CharField(max_length=255)
