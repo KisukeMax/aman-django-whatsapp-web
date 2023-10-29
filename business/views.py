@@ -31,16 +31,16 @@ class ReactView_rooms(APIView):
         try:
             # Get the most recent timestamp for each phone number
             subquery = WhatsAppMessage.objects.values('phone_number').annotate(
-                max_timestamp=Max('-timestamp')
+                max_timestamp=Max('timestamp')
             )
-
+            recent_messages = subquery.order_by('-max_timestamp')
             # Use the subquery to retrieve the corresponding rows with the most recent timestamps
             # unique_phone_numbers = WhatsAppMessage.objects.filter(
             #     phone_number=OuterRef('phone_number'),
             #     timestamp=OuterRef('timestamp')
             # ).values('phone_number').order_by('-timestamp')
 
-            return Response(subquery)
+            return Response(recent_messages)
         except WhatsAppMessage.DoesNotExist:
             return Response({"error": "Item not found"}, status=404)
 
