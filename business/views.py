@@ -31,7 +31,8 @@ class ReactView_rooms(APIView):
         try:
             # Get the most recent timestamp for each phone number
             subquery = WhatsAppMessage.objects.values('phone_number').annotate(
-                max_timestamp=Max('timestamp')
+                max_timestamp=Max('timestamp'),
+                text=Max('text')
             )
             recent_messages = subquery.order_by('-max_timestamp')
             # Use the subquery to retrieve the corresponding rows with the most recent timestamps
