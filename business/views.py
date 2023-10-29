@@ -30,12 +30,18 @@ class ReactView_rooms(APIView):
     def get(self, request):
         try:
             # Get the most recent timestamp for each phone number
-            subquery = WhatsAppMessage.objects.values('phone_number').annotate(
-                max_timestamp=Max('timestamp'),
-                text=Max('text')
-            )
-            recent_messages = subquery.order_by('-max_timestamp')
+            subquery = WhatsAppMessage.objects.filter(
+                phone_number=OuterRef('phone_number')
+            ).values('phone_number').annotate(
+                max_timestamp=Max('timestamp')
+            ).values('max_timestamp')
             
+            # Query to get the most recent messages
+            recent_messages = WhatsAppMessage.objects.filter(
+                timestamp=Subquery(subquery)
+            ).values('profile_name','text', "phone_number")
+            
+            print(recent_messages)
             # Use the subquery to retrieve the corresponding rows with the most recent timestamps
             # unique_phone_numbers = WhatsAppMessage.objects.filter(
             #     phone_number=OuterRef('phone_number'),
