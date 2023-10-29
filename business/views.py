@@ -35,6 +35,15 @@ class ReactView_rooms(APIView):
                 text=Max('text')
             )
             recent_messages = subquery.order_by('-max_timestamp')
+             # Now, you can access the most recent text for each phone number
+            data = {}
+            for message in recent_messages:
+                phone_number = message.phone_number
+                text = message.text
+                data[phone_number] = text
+
+            # 'data' now contains the most recent text for each phone number
+            return Response(data)
             # Use the subquery to retrieve the corresponding rows with the most recent timestamps
             # unique_phone_numbers = WhatsAppMessage.objects.filter(
             #     phone_number=OuterRef('phone_number'),
