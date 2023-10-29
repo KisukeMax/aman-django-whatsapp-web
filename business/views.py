@@ -40,7 +40,7 @@ class ReactView_rooms(APIView):
             # Query to get the most recent messages
             recent_messages = WhatsAppMessage.objects.filter(
                 timestamp=Subquery(subquery)
-            ).values('profile_name','text', "phone_number")
+            ).values('profile_name','text', "phone_number").order_by('-max_timestamp')
             
             # print(recent_messages)
              # Encode text and handle non-ASCII characters
