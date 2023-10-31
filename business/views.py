@@ -186,7 +186,7 @@ def whatsAppWebhook(request):
                                     messageId = first_message['id']
                                     timestamp = first_message['timestamp']
                                     text = first_message['text']['body']
-                                    message_text_sent_by = "aiyigs"
+                                    message_text_sent_by = profileName
                                     msg_status_code = "READ"
                                     # phoneNumber = "9956929372"
                                     message = f'RE: {text} was received'
