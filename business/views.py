@@ -105,6 +105,7 @@ def send_message(request):
         phone_number = data.get("phone_number")
         message_text = data.get("message_text")
         message_status = ""
+        msg_sent_by = "DJANGO ADMIN"
         
         # Send the message using your sendWhatsAppMessage function
         res_wp_msg_id = sendWhatsAppMessage(phone_number,message_text)  # Assuming sendWhatsAppMessage returns a message ID
@@ -121,7 +122,7 @@ def send_message(request):
             text=text,
             phone_number=phone_number,
             message_text=message_text,
-            message_text_sent_by = message_status,
+            message_text_sent_by = msg_sent_by,
             msg_status_code = message_status,
         )
         
@@ -184,7 +185,8 @@ def whatsAppWebhook(request):
                                     messageId = first_message['id']
                                     timestamp = first_message['timestamp']
                                     text = first_message['text']['body']
-
+                                    message_text_sent_by = profileName,
+                                    msg_status_code = "READ",
                                     # phoneNumber = "9956929372"
                                     message = f'RE: {text} was received'
                                     print("msg sent")
@@ -199,7 +201,9 @@ def whatsAppWebhook(request):
                                         timestamp,
                                         text,
                                         phoneNumber,
-                                        message
+                                        message,
+                                        message_text_sent_by,
+                                        msg_status_code
                                     )
                                     print("data saved")
             except Exception as e:
