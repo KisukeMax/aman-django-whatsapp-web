@@ -121,7 +121,8 @@ def send_message(request):
             text=text,
             phone_number=phone_number,
             message_text=message_text,
-            # message_status=message_status
+            message_text_sent_by = "DJANGO ADMIN",
+            msg_status_code = "SENT"
         )
         
         # Return a success response or handle any errors as needed
