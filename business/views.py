@@ -104,7 +104,7 @@ def send_message(request):
         text = data.get("message_text")
         phone_number = data.get("phone_number")
         message_text = data.get("message_text")
-        message_status = ""
+        message_status = "sent"
         msg_sent_by = "DJANGO ADMIN"
         
         # Send the message using your sendWhatsAppMessage function
