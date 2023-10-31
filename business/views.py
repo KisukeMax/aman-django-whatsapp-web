@@ -104,7 +104,7 @@ def send_message(request):
         text = ""
         phone_number = data.get("phone_number")
         message_text = data.get("message_text")
-        message_status = ""
+        # message_status = ""
         
         # Send the message using your sendWhatsAppMessage function
         res_wp_msg_id = sendWhatsAppMessage(phone_number,message_text)  # Assuming sendWhatsAppMessage returns a message ID
@@ -121,7 +121,7 @@ def send_message(request):
             text=text,
             phone_number=phone_number,
             message_text=message_text,
-            message_status=message_status
+            # message_status=message_status
         )
         
         # Return a success response or handle any errors as needed
