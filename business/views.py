@@ -1,7 +1,7 @@
 from django.db.models import Max, OuterRef, Subquery
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
-from django.http import HttpResponse
+from django.http import HttpResponse , JsonResponse
 import json
 from .functions import *
 from django.conf import settings
@@ -87,6 +87,49 @@ class ReactView(APIView):
 def home(request):
     # return HttpResponse("Hellaao Worldasas2")
     return render(request, "business/index.html")
+
+@csrf_exempt
+def send_message(request):
+    if request.method == 'POST':
+        # Get data from the request and load it as JSON
+        data = json.loads(request.body.decode('utf-8'))
+        print(data)
+        
+        # Extract the data from the JSON
+        phone_id = ""
+        profile_name = data.get("profile_name")
+        whatsapp_id = ""
+        from_id = ""
+        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        text = ""
+        phone_number = data.get("phone_number")
+        message_text = data.get("message_text")
+        message_status = ""
+        
+        # Send the message using your sendWhatsAppMessage function
+        res_wp_msg_id = sendWhatsAppMessage(phone_number,message_text)  # Assuming sendWhatsAppMessage returns a message ID
+        message_id = res_wp_msg_id
+        
+        # Create a WhatsAppMessage instance and save it to the database
+        WhatsAppMessage.objects.create(
+            phone_id=phone_id,
+            profile_name=profile_name,
+            whatsapp_id=whatsapp_id,
+            from_id=from_id,
+            message_id=message_id,
+            timestamp=timestamp,
+            text=text,
+            phone_number=phone_number,
+            message_text=message_text,
+            message_status=message_status
+        )
+        
+        # Return a success response or handle any errors as needed
+        return HttpResponse("Message sent and saved successfully")
+        
+    else:
+        return JsonResponse({'message': 'Invalid data received.'}, status=200)
+
 
 @csrf_exempt
 def whatsAppWebhook(request):

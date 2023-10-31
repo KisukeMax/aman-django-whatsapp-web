@@ -3,7 +3,7 @@ import requests
 from .models import WhatsAppMessage
 
 #
-def sendWhatsAppMessage(phoneNumber, message):
+def sendWhatsAppMessage(phoneNumber, message ):
     headers = {"Authorization" : settings.WHATSAPP_TOKEN}
     payload = {
             "messaging_product": "whatsapp",
@@ -14,6 +14,7 @@ def sendWhatsAppMessage(phoneNumber, message):
             }
     response = requests.post(settings.WHATSAPP_URL, headers=headers, json=payload)
     ans = response.json()
+    return ""
 
  # Import the WhatsAppMessage model
 

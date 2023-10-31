@@ -25,4 +25,5 @@ urlpatterns = [
     path('react/<int:id>', ReactView.as_view(), name="anything"),
     path('react/', ReactView.as_view(), name="anything_no_id"),
     path('react_rooms/', ReactView_rooms.as_view(), name="rooms"),
+    path('react_rooms_sendmsg/', ReactView_rooms.as_view(), name="rooms_send_msg"),
 ]
