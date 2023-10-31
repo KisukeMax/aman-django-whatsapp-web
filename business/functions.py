@@ -14,7 +14,11 @@ def sendWhatsAppMessage(phoneNumber, message ):
             }
     response = requests.post(settings.WHATSAPP_URL, headers=headers, json=payload)
     ans = response.json()
-    return ans
+    try:
+        message_id = ans['messages'][0]['id']
+        return message_id
+    except:
+        return "Error in sending"
 
  # Import the WhatsAppMessage model
 
