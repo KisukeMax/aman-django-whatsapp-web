@@ -13,6 +13,7 @@ from .serializer import *
 from .models import *
 import sys
 from datetime import datetime
+import time
 
 
 # class ReactView_rooms(APIView):
@@ -100,7 +101,7 @@ def send_message(request):
         profile_name = data.get("profile_name")
         whatsapp_id = ""
         from_id = ""
-        timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        timestamp = time.time()
         text = data.get("message_text")
         phone_number = data.get("phone_number")
         message_text = data.get("message_text")
