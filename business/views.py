@@ -137,7 +137,7 @@ def send_message(request):
 @csrf_exempt
 def whatsAppWebhook(request):
     if request.method == 'GET':
-        print(request.GET)  # Debugging line to check request.GET contents
+        # print(request.GET)  # Debugging line to check request.GET contents
         VERIFY_TOKEN = "a36563b3-800a-43ec-ad4a-7043005b488c"
         mode = request.GET.get('hub.mode', '')
         token = request.GET.get('hub.verify_token', '')
@@ -186,7 +186,7 @@ def whatsAppWebhook(request):
                                     messageId = first_message['id']
                                     timestamp = first_message['timestamp']
                                     text = first_message['text']['body']
-                                    message_text_sent_by = profileName
+                                    message_text_sent_by = "aiyigs"
                                     msg_status_code = "READ"
                                     # phoneNumber = "9956929372"
                                     message = f'RE: {text} was received'
