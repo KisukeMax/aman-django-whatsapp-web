@@ -101,7 +101,7 @@ def send_message(request):
         whatsapp_id = ""
         from_id = ""
         timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
-        text = ""
+        text = data.get("message_text")
         phone_number = data.get("phone_number")
         message_text = data.get("message_text")
         message_status = ""
