@@ -65,7 +65,7 @@ class ReactView(APIView):
             # An 'id' is provided, fetch and display the specific item
             try:
                 items = WhatsAppMessage.objects.filter(phone_number=id).order_by('-timestamp')
-                fields = ["phone_id", "whatsapp_id", "from_id", "timestamp", "profile_name", "phone_number", "text"]
+                fields = ["phone_id", "whatsapp_id", "from_id", "timestamp", "profile_name", "phone_number", "text","message_text_sent_by", "msg_status_code"]
                 data = [
                     {field: getattr(item, field) for field in fields}
                     for item in items
