@@ -11,4 +11,4 @@ class WhatsAppMessage(models.Model):
     text = models.TextField()
     phone_number = models.CharField(max_length=255)
     message_text = models.TextField()
-    message_status = models.TextField()
+    message_status = models.CharField(max_length=255)
