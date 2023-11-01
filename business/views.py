@@ -191,7 +191,7 @@ def whatsAppWebhook(request):
                                     # phoneNumber = "9956929372"
                                     message = f'RE: {text} was received'
                                     print("msg sent")
-                                    sendWhatsAppMessage(phoneNumber, message)
+                                    # sendWhatsAppMessage(phoneNumber, message)
                                     # Save WhatsApp message to the database
                                     save_whatsapp_message(
                                         phoneId,
