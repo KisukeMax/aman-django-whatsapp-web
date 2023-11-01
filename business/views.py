@@ -98,7 +98,7 @@ def send_message(request):
         
         # Extract the data from the JSON
         phone_id = ""
-        profile_name = data.get("profile_name")
+        profile_name = data.get("profile_name", "no name")
         whatsapp_id = ""
         from_id = ""
         timestamp = time.time()
