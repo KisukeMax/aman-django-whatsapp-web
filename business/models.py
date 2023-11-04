@@ -13,5 +13,5 @@ class WhatsAppMessage(models.Model):
     message_text = models.TextField()
     message_text_sent_by = models.TextField()
     msg_status_code = models.TextField()
-    upload_media_path = models.TextField()
-    fb_media_id = models.TextField()
+    upload_media_path = models.TextField(default=None, null=True)
+    fb_media_id = models.TextField(default=None, null=True)
