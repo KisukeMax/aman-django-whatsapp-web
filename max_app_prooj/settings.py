@@ -141,11 +141,13 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
 STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
+# STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
+STATIC_ROOT = "/home/lighvzkx/django.lightshoes.in/static"
+MEDIA_ROOT = "/home/lighvzkx/django.lightshoes.in/media"
 
-MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
-MEDIA_URL = '/uploads/'
+# MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
+# MEDIA_URL = '/uploads/'
 
 WHATSAPP_URL = 'https://graph.facebook.com/v17.0/128538200341271/messages'
 WHATSAPP_TOKEN =  "Bearer EAAUovSpndZBABO6m0npKSC9M9cGGWwZCD1Rlc1OZAWaiLnvldsq1nOM7TLogU4ZBZCZBZBdZAIFSGKIAWIJesotLXQ88P5yZB5P1fTFrZAZCnodPfXfTusY5iH6Hz7WjBDuzZBmLDvZAdPIyWZAmAZCM1HUD5Ky6fwnBkqJcPlI6GwTJbgyMN6NX95bSNQCFSwZA6vWEQsZBX"
