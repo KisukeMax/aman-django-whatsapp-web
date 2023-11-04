@@ -222,6 +222,7 @@ def whatsAppWebhook(request):
 def upload_image(request):
     image = request.data.get('image')
     print(image)
+    print(request.data)
     
     if not image:
         return Response({'error': 'No image data received'}, status=status.HTTP_400_BAD_REQUEST)
