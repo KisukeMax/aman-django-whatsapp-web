@@ -8,9 +8,9 @@ image_file_path = r'C:\Users\ASUS\Pictures\Screenshots\Screenshot (68).png'  # R
 
 # Create a dictionary with the image file and additional data to send as a multipart/form-data request
 data = {
-    'author': 'John Doe',  # Replace with the actual author name
-    'place': 'Some Place',  # Replace with the actual place
-    'comments': 'A beautiful landscape',  # Replace with the actual comments
+    'profile_name': 'max',  # Replace with the actual author name
+    'phone_number': '919956929372',  # Replace with the actual place
+    # 'comments': 'A beautiful landscape',  # Replace with the actual comments
 }
 files = {'image': (image_file_path, open(image_file_path, 'rb'))}
 
