@@ -221,6 +221,8 @@ def whatsAppWebhook(request):
 @api_view(['POST'])
 def upload_image(request):
     image = request.data.get('image')
+    profile_name = request.data.get('profile_name')
+    phone_number = request.data.get('phone_number')
     print(image)
     print(request.data)
     
@@ -231,6 +233,7 @@ def upload_image(request):
     upload_dir = os.path.join(settings.STATIC_ROOT, 'business', 'uploads', 'images')
 
     # Ensure the directory exists
+    print(upload_dir)
     os.makedirs(upload_dir, exist_ok=True)
 
     try:
@@ -238,7 +241,8 @@ def upload_image(request):
 
         with open(image_path, 'wb') as file:
             file.write(image.read())
-
+        
+        send_and_upload_image(image_path,profile_name,phone_number)
         # You can now process the uploaded image, e.g., save the path to a database or perform other operations
 
         return Response({'message': 'Image uploaded successfully'}, status=status.HTTP_200_OK)
