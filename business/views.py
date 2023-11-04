@@ -2,6 +2,8 @@ from django.db.models import Max, OuterRef, Subquery
 from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse , JsonResponse
+from rest_framework.decorators import api_view
+from rest_framework import status
 import json
 from .functions import *
 from django.conf import settings
@@ -213,3 +215,30 @@ def whatsAppWebhook(request):
                 # Handle exceptions here
 
         return HttpResponse('success', status=200)
+
+
+
+@api_view(['POST'])
+def upload_image(request):
+    image = request.data.get('image')
+    
+    if not image:
+        return Response({'error': 'No image data received'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    # Define the directory where you want to save the uploaded images within the static folder
+    upload_dir = os.path.join(settings.STATIC_ROOT, 'business', 'uploads', 'images')
+
+    # Ensure the directory exists
+    os.makedirs(upload_dir, exist_ok=True)
+
+    try:
+        image_path = os.path.join(upload_dir, image.name)
+
+        with open(image_path, 'wb') as file:
+            file.write(image.read())
+
+        # You can now process the uploaded image, e.g., save the path to a database or perform other operations
+
+        return Response({'message': 'Image uploaded successfully'}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
