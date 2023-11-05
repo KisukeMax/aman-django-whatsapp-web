@@ -248,3 +248,21 @@ def upload_image(request):
         return Response({'message': 'Image uploaded successfully'}, status=status.HTTP_200_OK)
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+
+
+@csrf_exempt  # Add this decorator if you want to allow cross-origin requests
+def update_msg_status(request):
+    if request.method == 'POST':
+        message_id = request.POST.get('message_id')
+        msg_status_code = request.POST.get('msg_status_code')
+
+        try:
+            message = WhatsAppMessage.objects.get(message_id=message_id)
+            message.msg_status_code = msg_status_code
+            message.save()
+            return JsonResponse({'message': 'Message status updated successfully'})
+        except WhatsAppMessage.DoesNotExist:
+            return JsonResponse({'error': 'WhatsApp message not found'}, status=404)
+
+    return JsonResponse({'error': 'Invalid request method'}, status=400)
