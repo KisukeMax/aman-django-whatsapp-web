@@ -83,3 +83,71 @@ def send_and_upload_image(file_path, profile_name, phone_number):
     except Exception as e:
         print(e)
 
+
+
+def process_msg_rec(data):
+    try:
+        for entry in data['entry']:
+            if 'changes' in entry:
+                changes = entry['changes']
+                if changes:
+                    first_change = changes[0]
+                    phoneId = first_change['value']['metadata']['phone_number_id']
+                    profileName = first_change['value']['contacts'][0]['profile']['name']
+                    whatsAppId = first_change['value']['contacts'][0]['wa_id']
+                    if 'messages' in first_change['value']:
+                        messages = first_change['value']['messages']
+                        if messages:
+                            first_message = messages[0]
+                            phoneNumber = first_message['from']
+                            fromId = first_message['from']
+                            messageId = first_message['id']
+                            timestamp = first_message['timestamp']
+                            text = first_message['text']['body']
+                            message_text_sent_by = profileName
+                            msg_status_code = "READ"
+                            message = f'RE: {text} was received'
+                            print("msg sent")
+                            # sendWhatsAppMessage(phoneNumber, message)
+                            # Save WhatsApp message to the database
+                            save_whatsapp_message(
+                                phoneId,
+                                profileName,
+                                whatsAppId,
+                                fromId,
+                                messageId,
+                                timestamp,
+                                text,
+                                phoneNumber,
+                                message,
+                                message_text_sent_by,
+                                msg_status_code
+                            )
+                            
+                            print("data saved")
+    except Exception as e:
+        print(e)
+        pass
+
+
+def process_msg_status(json_data):
+    for entry in json_data.get("entry"):
+        error_msg = ''
+        status_json = entry.get("changes")[0].get("value").get("statuses")[0]
+        wp_msg_id = status_json.get("id")
+        wp_msg_status = status_json.get("status")
+        print(wp_msg_id,wp_msg_status)
+        if status_json.get("errors"):
+            error_msg = status_json.get("errors")[0].get("error_data").get("details")
+            print(error_msg)
+        
+        try:
+            message = WhatsAppMessage.objects.get(message_id=wp_msg_id)
+            message.msg_status_code = wp_msg_status
+            message.msg_status_comment = error_msg
+            message.save()
+
+        except Exception as e:
+            print(e)
+        
+    pass

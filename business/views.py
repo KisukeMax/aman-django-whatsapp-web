@@ -64,7 +64,7 @@ class ReactView_rooms(APIView):
 class ReactView(APIView):
     def get(self, request, id=None):
         if id is not None:
-            print(id)
+            # print(id)
             # An 'id' is provided, fetch and display the specific item
             try:
                 items = WhatsAppMessage.objects.filter(phone_number=id).order_by('-timestamp')
@@ -171,45 +171,13 @@ def whatsAppWebhook(request):
 
     #    if 'object' in data and 'entry' in data:
         if data['object'] == 'whatsapp_business_account':
-            try:
-                for entry in data['entry']:
-                    if 'changes' in entry:
-                        changes = entry['changes']
-                        if changes:
-                            first_change = changes[0]
-                            phoneId = first_change['value']['metadata']['phone_number_id']
-                            profileName = first_change['value']['contacts'][0]['profile']['name']
-                            whatsAppId = first_change['value']['contacts'][0]['wa_id']
-                            if 'messages' in first_change['value']:
-                                messages = first_change['value']['messages']
-                                if messages:
-                                    first_message = messages[0]
-                                    phoneNumber = first_message['from']
-                                    fromId = first_message['from']
-                                    messageId = first_message['id']
-                                    timestamp = first_message['timestamp']
-                                    text = first_message['text']['body']
-                                    message_text_sent_by = profileName
-                                    msg_status_code = "READ"
-                                    # phoneNumber = "9956929372"
-                                    message = f'RE: {text} was received'
-                                    print("msg sent")
-                                    # sendWhatsAppMessage(phoneNumber, message)
-                                    # Save WhatsApp message to the database
-                                    save_whatsapp_message(
-                                        phoneId,
-                                        profileName,
-                                        whatsAppId,
-                                        fromId,
-                                        messageId,
-                                        timestamp,
-                                        text,
-                                        phoneNumber,
-                                        message,
-                                        message_text_sent_by,
-                                        msg_status_code
-                                    )
-                                    print("data saved")
+            try:    
+                contacts = data.get("entry", [])[0].get("changes", [])[0].get("value", {}).get("contacts")
+                if contacts:
+                    process_msg_rec(data)
+                else:
+                    process_msg_status(data)
+
             except Exception as e:
                 print(e)
                 pass
