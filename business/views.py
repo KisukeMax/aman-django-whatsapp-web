@@ -219,24 +219,3 @@ def upload_image(request):
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-
-@api_view(['POST'])
-@csrf_exempt
-def update_msg_status(request):
-    if request.method == 'POST':
-        message_id = request.POST.get('message_id')
-        if message_id is not None:
-            message_id = unquote(message_id)
-            msg_status_code = request.POST.get('msg_status_code')
-
-            try:
-                message = WhatsAppMessage.objects.get(message_id=message_id)
-                message.msg_status_code = msg_status_code
-                message.save()
-                return JsonResponse({'message': 'Message status updated successfully'})
-            except WhatsAppMessage.DoesNotExist:
-                return JsonResponse({'error': 'WhatsApp message not found'}, status=404)
-        else:
-            return JsonResponse({'error': 'Missing message_id in the request'}, status=400)
-
-    return JsonResponse({'error': 'Invalid request method'}, status=400)
