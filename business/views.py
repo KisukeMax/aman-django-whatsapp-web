@@ -262,7 +262,7 @@ def update_msg_status(request):
             message.msg_status_code = msg_status_code
             message.save()
             return JsonResponse({'message': 'Message status updated successfully'})
-        except WhatsAppMessage.DoesNotExist:
-            return JsonResponse({'error': 'WhatsApp message not found'}, status=404)
+        except Exception as e:
+            return JsonResponse({'error': 'WhatsApp message not found', "log" : str(e)}, status=404)
 
     return JsonResponse({'error': 'Invalid request method'}, status=400)
