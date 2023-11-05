@@ -250,7 +250,7 @@ def upload_image(request):
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
-
+@api_view(['POST'])
 @csrf_exempt  # Add this decorator if you want to allow cross-origin requests
 def update_msg_status(request):
     if request.method == 'POST':
