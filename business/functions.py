@@ -53,7 +53,7 @@ def send_and_upload_image(file_path, profile_name, phone_number):
         media_id = messenger.upload_media(media=file_path).get("id")
         wp_msg_id = messenger.send_image(
         image=media_id,
-        recipient_id="919956929372",
+        recipient_id=phone_number,
         link=False
         ).get("messages")[0].get("id")
         phone_id = ""

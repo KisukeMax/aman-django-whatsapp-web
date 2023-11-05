@@ -68,7 +68,7 @@ class ReactView(APIView):
             # An 'id' is provided, fetch and display the specific item
             try:
                 items = WhatsAppMessage.objects.filter(phone_number=id).order_by('-timestamp')
-                fields = ["phone_id", "whatsapp_id", "from_id", "timestamp", "profile_name", "phone_number", "text","message_text_sent_by", "msg_status_code", "upload_media_path" , "fb_media_id"]
+                fields = ["phone_id", "whatsapp_id", "from_id", "timestamp", "profile_name", "phone_number", "text","message_text_sent_by", "msg_status_code", "upload_media_path" , "fb_media_id", "msg_status_comment"]
                 data = [
                     {field: getattr(item, field) for field in fields}
                     for item in items
@@ -145,7 +145,7 @@ def whatsAppWebhook(request):
         mode = request.GET.get('hub.mode', '')
         token = request.GET.get('hub.verify_token', '')
         challenge = request.GET.get('hub.challenge', '')
-        sendWhatsAppMessage("9956929372", "get auisas")
+        # sendWhatsAppMessage("9956929372", "get auisas")
 
         if mode == 'subscribe' and token == VERIFY_TOKEN:
             return HttpResponse(challenge, status=200)
