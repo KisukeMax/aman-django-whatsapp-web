@@ -16,6 +16,7 @@ from .models import *
 import sys
 from datetime import datetime
 import time
+from urllib.parse import unquote
 
 
 # class ReactView_rooms(APIView):
@@ -254,7 +255,7 @@ def upload_image(request):
 @csrf_exempt  # Add this decorator if you want to allow cross-origin requests
 def update_msg_status(request):
     if request.method == 'POST':
-        message_id = request.POST.get('message_id')
+        message_id = unquote(request.POST.get('message_id'))
         msg_status_code = request.POST.get('msg_status_code')
 
         try:
