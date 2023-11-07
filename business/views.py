@@ -180,6 +180,7 @@ def whatsAppWebhook(request):
                 if message_type:
                     if not message_type == "text":
                         print("porocess it")
+                        parse_recd_media_msgs(data)
                 contacts = data.get("entry", [])[0].get("changes", [])[0].get("value", {}).get("contacts")
                 if contacts:
                     process_msg_rec(data)
