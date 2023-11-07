@@ -171,7 +171,7 @@ def parse_recd_media_msgs(data):
         image_id, mime_type = image["id"], image["mime_type"]
         image_url = messenger.query_media_url(image_id)
         upload_dir = os.path.join(settings.STATIC_ROOT, 'business', 'dowmloads', 'image')
-        image_path = f"{upload_dir}/{image_path}"
+        image_path = f"{upload_dir}/{image_id}"
         print(image_path)
         image_filename = messenger.download_media(image_url, mime_type, image_path)
 
