@@ -255,18 +255,21 @@ def parse_recd_media_msgs(data):
         video_id, mime_type = video["id"], video["mime_type"]
         video_url = messenger.query_media_url(video_id)
         upload_dir = os.path.join(business_downloads, 'video')
+        os.makedirs(upload_dir, exist_ok=True)
         filename = messenger.download_media(video_url, mime_type, os.path.join(upload_dir, video_id))
     elif message_type == "audio":
         audio = messenger.get_audio(data)
         audio_id, mime_type = audio["id"], audio["mime_type"]
         audio_url = messenger.query_media_url(audio_id)
         upload_dir = os.path.join(business_downloads, 'audio')
+        os.makedirs(upload_dir, exist_ok=True)
         filename = messenger.download_media(audio_url, mime_type)
     elif message_type == "document":
         file = messenger.get_document(data)
         file_id, mime_type = file["id"], file["mime_type"]
         file_url = messenger.query_media_url(file_id)
         upload_dir = os.path.join(business_downloads, 'documents')
+        os.makedirs(upload_dir, exist_ok=True)
         filename = messenger.download_media(file_url, mime_type)
 
     if upload_dir and filename:
