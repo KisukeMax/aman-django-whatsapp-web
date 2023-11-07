@@ -171,7 +171,12 @@ def whatsAppWebhook(request):
 
     #    if 'object' in data and 'entry' in data:
         if data['object'] == 'whatsapp_business_account':
-            try:    
+            try: 
+                token =  settings.WHATSAPP_TOKEN.replace("Bearer ", "")
+                # Default primary key field type
+                messenger = WhatsApp(token , "128538200341271")
+                message_type = messenger.get_message_type(data)
+                print(message_type)   
                 contacts = data.get("entry", [])[0].get("changes", [])[0].get("value", {}).get("contacts")
                 if contacts:
                     process_msg_rec(data)
