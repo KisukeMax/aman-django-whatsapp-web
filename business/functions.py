@@ -155,67 +155,130 @@ def process_msg_status(json_data):
     pass
 
 
+# def parse_recd_media_msgs(data):
+#     token =  settings.WHATSAPP_TOKEN.replace("Bearer ", "")
+#     messenger = WhatsApp(token , "128538200341271")
+#     message_type = messenger.get_message_type(data)
+#     upload_dir = os.path.join(settings.STATIC_ROOT, 'business', 'dowmloads', 'images')
+#     profile_name = messenger.get_name(data)
+#     wp_id = messenger.get_mobile(data)
+#     message_id = messenger.get_message_id(data)
+#     timestamp = messenger.get_message_timestamp(data)
+
+
+#     if message_type == "location":
+#         message_location = messenger.get_location(data)
+#         message_latitude = message_location["latitude"]
+#         message_longitude = message_location["longitude"]
+
+#     elif message_type == "image":
+#         image = messenger.get_image(data)
+#         image_id, mime_type = image["id"], image["mime_type"]
+#         image_url = messenger.query_media_url(image_id)
+#         upload_dir = os.path.join(settings.STATIC_ROOT, 'business', 'dowmloads', 'image')
+#         os.makedirs(upload_dir, exist_ok=True)
+#         image_path = f"{upload_dir}/{image_id}"
+#         image_filename = messenger.download_media(image_url, mime_type, str(image_path))
+#         print(image_filename)
+#         save_whatsapp_message(phoneId= "128538200341271",
+#                               profileName=profile_name,
+#                               whatsAppId= wp_id,
+#                               fromId=  wp_id,
+#                               messageId=message_id,
+#                               timestamp=timestamp,
+#                               text= "",
+#                               phoneNumber= wp_id,
+#                               message= "",
+#                               message_text_sent_by= profile_name,
+#                               msg_status_code= "read",
+#                               upload_media_path = image_filename
+#                               )
+
+
+#     elif message_type == "video":
+#         video = messenger.get_video(data)
+#         video_id, mime_type = video["id"], video["mime_type"]
+#         video_url = messenger.query_media_url(video_id)
+#         upload_dir = os.path.join(settings.STATIC_ROOT, 'business', 'dowmloads', 'video')
+#         video_path = os.path.join(upload_dir, video_id)
+#         print(video_path)
+#         video_filename = messenger.download_media(video_url, mime_type, video_path)
+
+#     elif message_type == "audio":
+#         audio = messenger.get_audio(data)
+#         audio_id, mime_type = audio["id"], audio["mime_type"]
+#         audio_url = messenger.query_media_url(audio_id)
+#         upload_dir = os.path.join(settings.STATIC_ROOT, 'business', 'dowmloads', 'audio')
+
+#         audio_filename = messenger.download_media(audio_url, mime_type)
+
+#     elif message_type == "document":
+#         file = messenger.get_document(data)
+#         file_id, mime_type = file["id"], file["mime_type"]
+#         file_url = messenger.query_media_url(file_id)
+#         upload_dir = os.path.join(settings.STATIC_ROOT, 'business', 'dowmloads', 'documents')
+
+#         file_filename = messenger.download_media(file_url, mime_type)
+
+
+
+
 def parse_recd_media_msgs(data):
-    token =  settings.WHATSAPP_TOKEN.replace("Bearer ", "")
-    messenger = WhatsApp(token , "128538200341271")
+    token = settings.WHATSAPP_TOKEN.replace("Bearer ", "")
+    messenger = WhatsApp(token, "128538200341271")
     message_type = messenger.get_message_type(data)
-    upload_dir = os.path.join(settings.STATIC_ROOT, 'business', 'dowmloads', 'images')
+    
+    static_root = settings.STATIC_ROOT
+    business_downloads = os.path.join(static_root, 'business', 'dowmloads')
+    
+    upload_dir = None
+    filename = None
+
     profile_name = messenger.get_name(data)
     wp_id = messenger.get_mobile(data)
     message_id = messenger.get_message_id(data)
     timestamp = messenger.get_message_timestamp(data)
 
-
     if message_type == "location":
         message_location = messenger.get_location(data)
         message_latitude = message_location["latitude"]
         message_longitude = message_location["longitude"]
-
     elif message_type == "image":
         image = messenger.get_image(data)
         image_id, mime_type = image["id"], image["mime_type"]
         image_url = messenger.query_media_url(image_id)
-        upload_dir = os.path.join(settings.STATIC_ROOT, 'business', 'dowmloads', 'image')
+        upload_dir = os.path.join(business_downloads, 'image')
         os.makedirs(upload_dir, exist_ok=True)
-        image_path = f"{upload_dir}/{image_id}"
-        image_filename = messenger.download_media(image_url, mime_type, str(image_path))
-        print(image_filename)
-        save_whatsapp_message(phoneId= "128538200341271",
-                              profileName=profile_name,
-                              whatsAppId= wp_id,
-                              fromId=  wp_id,
-                              messageId=message_id,
-                              timestamp=timestamp,
-                              text= "",
-                              phoneNumber= wp_id,
-                              message= "",
-                              message_text_sent_by= profile_name,
-                              msg_status_code= "read",
-                              upload_media_path = image_filename
-                              )
-
-
+        filename = messenger.download_media(image_url, mime_type, os.path.join(upload_dir, image_id))
     elif message_type == "video":
         video = messenger.get_video(data)
         video_id, mime_type = video["id"], video["mime_type"]
         video_url = messenger.query_media_url(video_id)
-        upload_dir = os.path.join(settings.STATIC_ROOT, 'business', 'dowmloads', 'video')
-        video_path = os.path.join(upload_dir, video_id)
-        print(video_path)
-        video_filename = messenger.download_media(video_url, mime_type, video_path)
-
+        upload_dir = os.path.join(business_downloads, 'video')
+        filename = messenger.download_media(video_url, mime_type, os.path.join(upload_dir, video_id))
     elif message_type == "audio":
         audio = messenger.get_audio(data)
         audio_id, mime_type = audio["id"], audio["mime_type"]
         audio_url = messenger.query_media_url(audio_id)
-        upload_dir = os.path.join(settings.STATIC_ROOT, 'business', 'dowmloads', 'audio')
-
-        audio_filename = messenger.download_media(audio_url, mime_type)
-
+        upload_dir = os.path.join(business_downloads, 'audio')
+        filename = messenger.download_media(audio_url, mime_type)
     elif message_type == "document":
         file = messenger.get_document(data)
         file_id, mime_type = file["id"], file["mime_type"]
         file_url = messenger.query_media_url(file_id)
-        upload_dir = os.path.join(settings.STATIC_ROOT, 'business', 'dowmloads', 'documents')
+        upload_dir = os.path.join(business_downloads, 'documents')
+        filename = messenger.download_media(file_url, mime_type)
 
-        file_filename = messenger.download_media(file_url, mime_type)
+    if upload_dir and filename:
+        save_whatsapp_message(phoneId="128538200341271",
+                              profileName=profile_name,
+                              whatsAppId=wp_id,
+                              fromId=wp_id,
+                              messageId=message_id,
+                              timestamp=timestamp,
+                              text="",
+                              phoneNumber=wp_id,
+                              message="",
+                              message_text_sent_by=profile_name,
+                              msg_status_code="read",
+                              upload_media_path=filename)
