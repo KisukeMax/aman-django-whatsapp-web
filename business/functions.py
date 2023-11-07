@@ -263,14 +263,14 @@ def parse_recd_media_msgs(data):
         audio_url = messenger.query_media_url(audio_id)
         upload_dir = os.path.join(business_downloads, 'audio')
         os.makedirs(upload_dir, exist_ok=True)
-        filename = messenger.download_media(audio_url, mime_type)
+        filename = messenger.download_media(audio_url, mime_type, os.path.join(upload_dir, audio_id))
     elif message_type == "document":
         file = messenger.get_document(data)
         file_id, mime_type = file["id"], file["mime_type"]
         file_url = messenger.query_media_url(file_id)
         upload_dir = os.path.join(business_downloads, 'documents')
         os.makedirs(upload_dir, exist_ok=True)
-        filename = messenger.download_media(file_url, mime_type)
+        filename = messenger.download_media(file_url, mime_type, os.path.join(upload_dir, file_id))
 
     if upload_dir and filename:
         save_whatsapp_message(phoneId="128538200341271",
