@@ -175,6 +175,7 @@ def whatsAppWebhook(request):
                 token =  settings.WHATSAPP_TOKEN.replace("Bearer ", "")
                 # Default primary key field type
                 messenger = WhatsApp(token , "128538200341271")
+                print("type")
                 message_type = messenger.get_message_type(data)
                 print(message_type)   
                 contacts = data.get("entry", [])[0].get("changes", [])[0].get("value", {}).get("contacts")
