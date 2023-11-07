@@ -25,7 +25,7 @@ def sendWhatsAppMessage(phoneNumber, message ):
 
  # Import the WhatsAppMessage model
 
-def save_whatsapp_message(phoneId, profileName, whatsAppId, fromId, messageId, timestamp, text, phoneNumber, message, message_text_sent_by, msg_status_code):
+def save_whatsapp_message(phoneId, profileName, whatsAppId, fromId, messageId, timestamp, text, phoneNumber, message, message_text_sent_by, msg_status_code, upload_media_path):
     # Create a new WhatsAppMessage instance and save it to the database
     whatsapp_message = WhatsAppMessage(
         phone_id=phoneId,
@@ -39,6 +39,7 @@ def save_whatsapp_message(phoneId, profileName, whatsAppId, fromId, messageId, t
         message_text=message,
         message_text_sent_by = message_text_sent_by,
         msg_status_code = msg_status_code,
+        upload_media_path = upload_media_path,
     )
     whatsapp_message.save()
 
@@ -189,7 +190,9 @@ def parse_recd_media_msgs(data):
                               phoneNumber= wp_id,
                               message= "",
                               message_text_sent_by= profile_name,
-                              msg_status_code= "read")
+                              msg_status_code= "read",
+                              upload_media_path = image_filename
+                              )
 
 
     elif message_type == "video":
