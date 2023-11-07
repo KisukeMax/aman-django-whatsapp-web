@@ -159,6 +159,10 @@ def parse_recd_media_msgs(data):
     messenger = WhatsApp(token , "128538200341271")
     message_type = messenger.get_message_type(data)
     upload_dir = os.path.join(settings.STATIC_ROOT, 'business', 'dowmloads', 'images')
+    profile_name = messenger.get_name
+    wp_id = messenger.get_mobile
+    message_id = messenger.get_message_id
+    timestamp = messenger.get_message_timestamp
 
 
     if message_type == "location":
@@ -173,12 +177,19 @@ def parse_recd_media_msgs(data):
         upload_dir = os.path.join(settings.STATIC_ROOT, 'business', 'dowmloads', 'image')
         os.makedirs(upload_dir, exist_ok=True)
         image_path = f"{upload_dir}/{image_id}"
-        print(image_path)
-        print("here")
-        print(image_url)
         image_filename = messenger.download_media(image_url, mime_type, str(image_path))
         print(image_filename)
-
+        save_whatsapp_message(phoneId=None,
+                              profileName=profile_name,
+                              whatsAppId= wp_id,
+                              fromId=  wp_id,
+                              messageId=message_id,
+                              timestamp=timestamp,
+                              text= "",
+                              phoneNumber= wp_id,
+                              message= "",
+                              message_text_sent_by= profile_name,
+                              msg_status_code= "read")
 
 
     elif message_type == "video":
