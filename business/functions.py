@@ -159,10 +159,10 @@ def parse_recd_media_msgs(data):
     messenger = WhatsApp(token , "128538200341271")
     message_type = messenger.get_message_type(data)
     upload_dir = os.path.join(settings.STATIC_ROOT, 'business', 'dowmloads', 'images')
-    profile_name = messenger.get_name
-    wp_id = messenger.get_mobile
-    message_id = messenger.get_message_id
-    timestamp = messenger.get_message_timestamp
+    profile_name = messenger.get_name(data)
+    wp_id = messenger.get_mobile(data)
+    message_id = messenger.get_message_id(data)
+    timestamp = messenger.get_message_timestamp(data)
 
 
     if message_type == "location":
