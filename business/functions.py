@@ -179,7 +179,7 @@ def parse_recd_media_msgs(data):
         image_path = f"{upload_dir}/{image_id}"
         image_filename = messenger.download_media(image_url, mime_type, str(image_path))
         print(image_filename)
-        save_whatsapp_message(phoneId=None,
+        save_whatsapp_message(phoneId= "128538200341271",
                               profileName=profile_name,
                               whatsAppId= wp_id,
                               fromId=  wp_id,
