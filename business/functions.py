@@ -25,7 +25,9 @@ def sendWhatsAppMessage(phoneNumber, message ):
 
  # Import the WhatsAppMessage model
 
-def save_whatsapp_message(phoneId, profileName, whatsAppId, fromId, messageId, timestamp, text, phoneNumber, message, message_text_sent_by, msg_status_code, upload_media_path):
+# def save_whatsapp_message(phoneId, profileName, whatsAppId, fromId, messageId, timestamp, text, phoneNumber, message, message_text_sent_by, msg_status_code, upload_media_path):
+def save_whatsapp_message(phoneId=None, profileName=None, whatsAppId=None, fromId=None, messageId=None, timestamp=None, text=None, phoneNumber=None, message=None, message_text_sent_by=None, msg_status_code=None, upload_media_path=None):
+
     # Create a new WhatsAppMessage instance and save it to the database
     whatsapp_message = WhatsAppMessage(
         phone_id=phoneId,
@@ -163,7 +165,8 @@ def process_msg_rec(data):
                                 phoneNumber,
                                 message,
                                 message_text_sent_by,
-                                msg_status_code
+                                msg_status_code,
+                                
                             )
                             
                             print("data saved")
