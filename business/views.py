@@ -49,8 +49,9 @@ class ReactView_rooms(APIView):
             message_counts = WhatsAppMessage.objects.values('phone_number').annotate(message_count=Count('id'))
             recent_messages_with_count = []
             admin_seen_message_counts = WhatsAppMessage.objects.values('phone_number').annotate(
-                admin_seen_count=Count('id', filter=Q(msg_seen_by_admin=True))
+                admin_seen_count=Count('id', filter=Q(admin_seen_count__gt=0))
             )
+
 
             # Combine the message counts with the recent messages
             recent_messages_with_count = []
