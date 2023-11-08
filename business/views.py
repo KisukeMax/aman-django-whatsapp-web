@@ -17,6 +17,7 @@ import sys
 from datetime import datetime
 import time
 from urllib.parse import unquote
+from django.db.models import Count
 
 
 # class ReactView_rooms(APIView):
@@ -45,7 +46,15 @@ class ReactView_rooms(APIView):
             recent_messages = WhatsAppMessage.objects.filter(
                 timestamp=Subquery(subquery)
             ).values('profile_name','text', "phone_number", "timestamp")
-            
+            message_counts = WhatsAppMessage.objects.values('phone_number').annotate(message_count=Count('id'))
+            recent_messages_with_count = []
+            for message in recent_messages:
+                phone_number = message['phone_number']
+                message_count = next((item['message_count'] for item in message_counts if item['phone_number'] == phone_number), 0)
+                message['message_count'] = message_count
+                recent_messages_with_count.append(message)
+
+
             # print(recent_messages)
              # Encode text and handle non-ASCII characters
             for message in recent_messages:
