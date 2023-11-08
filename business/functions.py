@@ -328,3 +328,14 @@ def parse_recd_media_msgs(data):
                               message_text_sent_by=profile_name,
                               msg_status_code="read",
                               upload_media_path=filename)
+
+
+def mark_msg_seen_by_admin_func(data):
+        msg_id = data.get("whatsapp_id")
+        try:
+            message = WhatsAppMessage.objects.get(message_id=msg_id)
+            message.admin_seen_count = 1
+            message.save()
+
+        except Exception as e:
+            print(e)
