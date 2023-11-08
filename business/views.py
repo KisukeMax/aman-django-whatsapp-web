@@ -17,7 +17,7 @@ import sys
 from datetime import datetime
 import time
 from urllib.parse import unquote
-from django.db.models import Count
+from django.db.models import Count , Q
 
 
 # class ReactView_rooms(APIView):
@@ -48,11 +48,20 @@ class ReactView_rooms(APIView):
             ).values('profile_name','text', "phone_number", "timestamp")
             message_counts = WhatsAppMessage.objects.values('phone_number').annotate(message_count=Count('id'))
             recent_messages_with_count = []
+            admin_seen_message_counts = WhatsAppMessage.objects.values('phone_number').annotate(
+                admin_seen_count=Count('id', filter=Q(msg_seen_by_admin=True))
+            )
+
+            # Combine the message counts with the recent messages
+            recent_messages_with_count = []
             for message in recent_messages:
                 phone_number = message['phone_number']
-                message_count = next((item['message_count'] for item in message_counts if item['phone_number'] == phone_number), 0)
-                message['message_count'] = message_count
+                total_message_count = next((item['message_count'] for item in message_counts if item['phone_number'] == phone_number), 0)
+                admin_seen_count = next((item['admin_seen_count'] for item in admin_seen_message_counts if item['phone_number'] == phone_number), 0)
+                message['message_count'] = total_message_count
+                message['admin_seen_count'] = admin_seen_count
                 recent_messages_with_count.append(message)
+
 
 
             # print(recent_messages)
