@@ -48,9 +48,7 @@ class ReactView_rooms(APIView):
             ).values('profile_name','text', "phone_number", "timestamp", "admin_seen_count")
             message_counts = WhatsAppMessage.objects.values('phone_number').annotate(message_count=Count('id'))
             recent_messages_with_count = []
-            admin_seen_message_counts = WhatsAppMessage.objects.values('phone_number').annotate(
-                admin_seen_count=Count('id', filter=Q(admin_seen_count__gt=0))
-            )
+            admin_unseen_message_counts = WhatsAppMessage.objects.values('phone_number').annotate(admin_unseen_count=Count('id', filter=Q(admin_seen_count=False) | Q(admin_seen_count=0)))
 
 
             # Combine the message counts with the recent messages
@@ -58,11 +56,10 @@ class ReactView_rooms(APIView):
             for message in recent_messages:
                 phone_number = message['phone_number']
                 total_message_count = next((item['message_count'] for item in message_counts if item['phone_number'] == phone_number), 0)
-                admin_seen_count = next((item['admin_seen_count'] for item in admin_seen_message_counts if item['phone_number'] == phone_number), 0)
+                admin_unseen_count = next((item['admin_unseen_count'] for item in admin_unseen_message_counts if item['phone_number'] == phone_number), 0)
                 message['message_count'] = total_message_count
-                message['admin_seen_count'] = admin_seen_count
+                message['admin_unseen_count'] = admin_unseen_count
                 recent_messages_with_count.append(message)
-
 
 
             # print(recent_messages)
