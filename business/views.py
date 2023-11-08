@@ -228,3 +228,35 @@ def upload_image(request):
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
 
+@api_view(['POST'])
+def upload_document(request):
+    document = request.data.get('document')
+    profile_name = request.data.get('profile_name')
+    phone_number = request.data.get('phone_number')
+    # print(document)
+    print(request.data)
+    
+    if not document:
+        return Response({'error': 'No document data received'}, status=status.HTTP_400_BAD_REQUEST)
+    
+    # Define the directory where you want to save the uploaded documents within the static folder
+    upload_dir = os.path.join(settings.STATIC_ROOT, 'business', 'uploads', 'document')
+
+    # Ensure the directory exists
+    print(upload_dir)
+    os.makedirs(upload_dir, exist_ok=True)
+
+    try:
+        doc_path = os.path.join(upload_dir, document.name)
+
+        with open(doc_path, 'wb') as file:
+            file.write(document.read())
+        
+        send_and_upload_document(doc_path,profile_name,phone_number)
+        # You can now process the uploaded image, e.g., save the path to a database or perform other operations
+
+        return Response({'message': 'document uploaded successfully'}, status=status.HTTP_200_OK)
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+

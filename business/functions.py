@@ -86,6 +86,46 @@ def send_and_upload_image(file_path, profile_name, phone_number):
         print(e)
 
 
+def send_and_upload_document(file_path, profile_name, phone_number):
+    token =  settings.WHATSAPP_TOKEN.replace("Bearer ", "")
+    # Default primary key field type
+    messenger = WhatsApp(token , "128538200341271")
+    # status_label.config(text=f"Uploading file")
+    try:
+        media_id = messenger.upload_media(media=file_path).get("id")
+        wp_msg_id = messenger.send_document(
+        document=media_id,
+        recipient_id=phone_number,
+        link=False
+        ).get("messages")[0].get("id")
+        phone_id = ""
+        profile_name = profile_name
+        timestamp = time.time()
+        text = ""
+        message_text = ""
+        message_status = "sent"
+        msg_sent_by = "DJANGO ADMIN"
+
+        whatsapp_message = WhatsAppMessage(phone_id="128538200341271",
+        profile_name=profile_name,
+        whatsapp_id=phone_number,
+        from_id=phone_number,
+        message_id=wp_msg_id,
+        timestamp=timestamp,
+        text=text,
+        phone_number=phone_number,
+        message_text=message_text,
+        message_text_sent_by = msg_sent_by,
+        msg_status_code = message_status,
+        fb_media_id = media_id,
+        upload_media_path = file_path
+        )
+        whatsapp_message.save()
+
+    except Exception as e:
+        print(e)
+
+
 
 def process_msg_rec(data):
     try:
