@@ -45,7 +45,7 @@ class ReactView_rooms(APIView):
             # Query to get the most recent messages
             recent_messages = WhatsAppMessage.objects.filter(
                 timestamp=Subquery(subquery)
-            ).values('profile_name','text', "phone_number", "timestamp")
+            ).values('profile_name','text', "phone_number", "timestamp", "admin_seen_count")
             message_counts = WhatsAppMessage.objects.values('phone_number').annotate(message_count=Count('id'))
             recent_messages_with_count = []
             admin_seen_message_counts = WhatsAppMessage.objects.values('phone_number').annotate(
