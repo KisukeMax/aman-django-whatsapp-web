@@ -28,3 +28,20 @@
 #     print('Error uploading image')
 #     print(response.text)
 
+
+
+import requests
+
+# Define the URL of your Django REST API endpoint
+url = 'https://django.lightshoes.in/update_msg_seen'  # Replace with the actual URL of your API
+
+
+data = {"whatsapp_id": "wamid.HBgMOTE5OTU2OTI5MzcyFQIAERgSMDRCQkM0OTM0NzgyNjE1OEZBAA=="}
+
+response = requests.post(url, json=data)
+
+# Check the response from the API
+if response.status_code == 200:
+    print("Message marked as seen by admin successfully.")
+else:
+    print("Error:", response.status_code, response.text)
