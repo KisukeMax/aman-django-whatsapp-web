@@ -96,9 +96,10 @@ DATABASES = {
         'PASSWORD': '?_RVb@AmPDxA',
         'HOST': 'localhost',
         'PORT': '3306',
-        'OPTIONS': {
-            'charset': 'utf8mb4',
-    }
+     'OPTIONS': {
+    'charset': 'utf8mb4',
+    'init_command': "SET sql_mode='';",
+}
     }
 }
 # asa
