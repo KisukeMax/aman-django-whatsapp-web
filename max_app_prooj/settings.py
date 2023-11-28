@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-=&d(1-t@ed44$s0agslv&p=b$z2a5yxr&k9ky69#(kld29)y4a
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["django.lightshoes.in", "www.django.lightshoes.in", "localhost", "127.0.0.1"]
+ALLOWED_HOSTS = ["django.casualfootwears.com", "www.django.casualfootwears.com", "localhost", "127.0.0.1"]
 
 
 # Application definition
@@ -146,8 +146,8 @@ USE_TZ = True
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [os.path.join(BASE_DIR,'static')]
 # STATIC_ROOT = os.path.join(BASE_DIR,'staticfiles')
-STATIC_ROOT = "/home/lighvzkx/django.lightshoes.in/static"
-MEDIA_ROOT = "/home/lighvzkx/django.lightshoes.in/media"
+STATIC_ROOT = "/home/lighvzkx/django.casualfootwears.com/static"
+MEDIA_ROOT = "/home/lighvzkx/django.casualfootwears.com/media"
 
 # MEDIA_ROOT = os.path.join(BASE_DIR, 'uploads')
 # MEDIA_URL = '/uploads/'
