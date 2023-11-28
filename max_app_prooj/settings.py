@@ -91,8 +91,8 @@ WSGI_APPLICATION = 'max_app_prooj.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'lighvzkx_django2',
-        'USER': 'lighvzkx_max_user',
+        'NAME': 'lighbgsz_django2',
+        'USER': 'lighbgsz_max_user',
         'PASSWORD': '?_RVb@AmPDxA',
         'HOST': 'localhost',
         'PORT': '3306',
