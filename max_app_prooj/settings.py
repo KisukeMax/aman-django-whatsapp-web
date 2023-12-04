@@ -98,6 +98,7 @@ DATABASES = {
         'PORT': '3306',
      'OPTIONS': {
     'charset': 'utf8mb4',
+    'collation': 'utf8mb4_unicode_ci',
     'init_command': "SET sql_mode='';",
 }
     }
