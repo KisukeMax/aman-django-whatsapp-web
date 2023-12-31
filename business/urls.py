@@ -9,7 +9,7 @@ path('upload_media', views.upload_image, name = 'whatsapp-webhook-media-upload')
 path('upload_media_document', views.upload_document, name = 'whatsapp-webhook-media-upload-document'),
 path('upload_media_video', views.upload_video, name = 'whatsapp-webhook-media-upload-video'),
 path('update_msg_seen', views.mark_msg_seen_by_admin, name = 'whatsapp-webhook-msg-seen-update'),
-path('wp-send-template-api-for-website', views.send_rest_template, name = 'wp-send-template-api-for-website'),
+path('testapi', views.send_rest_template, name = 'wp-send-template-api-for-website'),
 # path('send_rest_template', views., name = 'whatsapp-webhook-msg-seen-update'),
 
 
