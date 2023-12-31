@@ -126,6 +126,7 @@ def send_message(request):
         message_text = data.get("message_text")
         message_status = "sent"
         msg_sent_by = "DJANGO ADMIN"
+
         
         # Send the message using your sendWhatsAppMessage function
         res_wp_msg_id = sendWhatsAppMessage(phone_number,message_text)  # Assuming sendWhatsAppMessage returns a message ID
@@ -144,6 +145,7 @@ def send_message(request):
             message_text=message_text,
             message_text_sent_by = msg_sent_by,
             msg_status_code = message_status,
+            admin_seen_count =  1
         )
         
         # Return a success response or handle any errors as needed
