@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+import business
 # from django.conf.urls import url
 from business.views import *
 
@@ -26,4 +27,6 @@ urlpatterns = [
     path('react/', ReactView.as_view(), name="anything_no_id"),
     path('react_rooms/', ReactView_rooms.as_view(), name="rooms"),
     path('react_rooms_sendmsg/', send_message, name="rooms_send_msg"),
+    path('hiii/', business.views.send_rest_template, name="rooms_send_msg"),
+
 ]

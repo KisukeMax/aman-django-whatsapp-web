@@ -384,7 +384,7 @@ def mark_msg_seen_by_admin_func(data):
             print(e)
 
 def send_abandoned_checkout_template(data):
-    messenger = WhatsApp(settings.WHATSAPP_TOKEN,  "128538200341271")
+    messenger = WhatsApp(settings.WHATSAPP_TOKEN.replace("Bearer ", ""),  "128538200341271")
     n = messenger.send_template("abandoned_checkout", "9956929372", components=[
     {
             "type": "body",
