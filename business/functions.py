@@ -382,3 +382,30 @@ def mark_msg_seen_by_admin_func(data):
 
         except Exception as e:
             print(e)
+
+def send_abandoned_checkout_template(data):
+    messenger = WhatsApp(settings.WHATSAPP_TOKEN,  "128538200341271")
+    n = messenger.send_template("abandoned_checkout", "9956929372", components=[
+    {
+            "type": "body",
+            "parameters": [
+            {
+                "type": "text",
+                "text": data.get("components")[0]
+            },
+            {
+                "type": "text",
+                "text": data.get("components")[1]
+            },
+            {
+                "type": "text",
+                "text": data.get("components")[2]
+            },
+            {
+                "type": "text",
+                "text": data.get("components")[3]
+            },
+            ]
+    }
+    ])
+    print(n)

@@ -45,3 +45,32 @@
 # #     print("Message marked as seen by admin successfully.")
 # # else:
 # #     print("Error:", response.status_code, response.text)
+
+from heyoo import WhatsApp
+WHATSAPP_TOKEN =  "EAAUovSpndZBABO6m0npKSC9M9cGGWwZCD1Rlc1OZAWaiLnvldsq1nOM7TLogU4ZBZCZBZBdZAIFSGKIAWIJesotLXQ88P5yZB5P1fTFrZAZCnodPfXfTusY5iH6Hz7WjBDuzZBmLDvZAdPIyWZAmAZCM1HUD5Ky6fwnBkqJcPlI6GwTJbgyMN6NX95bSNQCFSwZA6vWEQsZBX"
+messenger = WhatsApp(WHATSAPP_TOKEN,  "128538200341271")
+n = messenger.send_template("abandoned_checkout", "9956929372", components=[
+ {
+        "type": "body",
+        "parameters": [
+          {
+            "type": "text",
+            "text": "COD"
+          },
+          {
+            "type": "text",
+            "text": "https://www.ledshoes.in/led-multicolor-top-lace"
+          },
+          {
+            "type": "text",
+            "text": "https://www.ledshoes.in/"
+          },
+          {
+            "type": "text",
+            "text": "LEDSHOES"
+          },
+          ]
+ }
+])
+
+print(n)

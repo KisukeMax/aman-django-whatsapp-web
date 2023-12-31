@@ -320,3 +320,18 @@ def mark_msg_seen_by_admin(request):
     
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    
+
+@api_view(['POST'])
+def send_rest_template(request):
+    try:
+        data = json.loads(request.body)
+        if data.get("template_name") ==  "abandoned_checkout":
+            if len(data.get("components")) == 4:
+                send_abandoned_checkout_template(data)
+                return  Response({'message': 'msg updated'}, status=status.HTTP_200_OK)
+            else:
+                Response({'error': "Please pass all 4 parameters"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+    except Exception as e:
+        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+   
