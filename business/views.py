@@ -360,7 +360,7 @@ def send_rest_template(request):
 
                     return Response({'message': 'document uploaded successfully'}, status=status.HTTP_200_OK)
                 except Exception as e:
-                    return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                    return Response({'error': str(e), "data" : data}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             else:
                 Response({'error': "Please pass all 3 parameters"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     except Exception as e:
