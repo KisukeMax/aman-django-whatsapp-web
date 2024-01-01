@@ -1,32 +1,33 @@
-# import requests
+import requests
 
-# # Define the URL of your Django REST API endpoint
-# url = 'https://django.lightshoes.in/upload_media_video'  # Replace with the actual URL of your API
+# Define the URL of your Django REST API endpoint
+url = 'https://django.casualfootwears.com/wp-send-template-api-for-website/'  # Replace with the actual URL of your API
 
-# # Define the path to the image file you want to upload
-# image_file_path = r'C:\Users\ASUS\Videos\Captures\record screen windows 11 - Google Search - Google Chrome 2023-02-11 23-21-55.mp4'  # Replace with the actual path to your image file
+# Define the path to the image file you want to upload
+image_file_path = "testvideo.mp4"  # Replace with the actual path to your image file
 
-# # Create a dictionary with the image file and additional data to send as a multipart/form-data request
-# data = {
-#     'profile_name': 'max',  # Replace with the actual author name
-#     'phone_number': '919956929372',  # Replace with the actual place
-#     # 'comments': 'A beautiful landscape',  # Replace with the actual comments
-# }
-# files = {'video': (image_file_path, open(image_file_path, 'rb'))}
+# Create a dictionary with the image file and additional data to send as a multipart/form-data request
+data = {"template_name" : "cancelled",
+    'profile_name': 'max',  # Replace with the actual author name
+    'phone_number': '919956929372',  # Replace with the actual place
+    # 'comments': 'A beautiful landscape',  # Replace with the actual comments
+    "components" : [1,2,3]
+}
+files = {'video': (image_file_path, open(image_file_path, 'rb'))}
 
-# # Send a POST request to the API endpoint with the image and additional data
-# response = requests.post(url, data=data, files=files)
+# Send a POST request to the API endpoint with the image and additional data
+response = requests.post(url, data=data, files=files)
 
-# # Check the response
-# if response.status_code == 200:
-#     print('Image uploaded successfully')
-#     print(response.json())
-# elif response.status_code == 400:
-#     print('Bad request - No image data received')
-#     print(response.json())
-# else:
-#     print('Error uploading image')
-#     print(response.text)
+# Check the response
+if response.status_code == 200:
+    print('Image uploaded successfully')
+    print(response.json())
+elif response.status_code == 400:
+    print('Bad request - No image data received')
+    print(response.json())
+else:
+    print('Error uploading image')
+    print(response.text)
 
 
 
@@ -46,57 +47,57 @@
 # # else:
 # #     print("Error:", response.status_code, response.text)
 
-from heyoo import WhatsApp
+# from heyoo import WhatsApp
 
-def upload_media(WHATSAPP_TOKEN,file_path):
-    token =  WHATSAPP_TOKEN
-    messenger = WhatsApp(token , "128538200341271")
-    # status_label.config(text=f"Uploading file")
-    try:
-        media_id = messenger.upload_media(
-        media=file_path,
-    )['id']
+# def upload_media(WHATSAPP_TOKEN,file_path):
+#     token =  WHATSAPP_TOKEN
+#     messenger = WhatsApp(token , "128538200341271")
+#     # status_label.config(text=f"Uploading file")
+#     try:
+#         media_id = messenger.upload_media(
+#         media=file_path,
+#     )['id']
 
-        return media_id
-    except:
-        print(f"Error cant upload")
-        return None
+#         return media_id
+#     except:
+#         print(f"Error cant upload")
+#         return None
 
 
 
-WHATSAPP_TOKEN =  "EAAUovSpndZBABO6m0npKSC9M9cGGWwZCD1Rlc1OZAWaiLnvldsq1nOM7TLogU4ZBZCZBZBdZAIFSGKIAWIJesotLXQ88P5yZB5P1fTFrZAZCnodPfXfTusY5iH6Hz7WjBDuzZBmLDvZAdPIyWZAmAZCM1HUD5Ky6fwnBkqJcPlI6GwTJbgyMN6NX95bSNQCFSwZA6vWEQsZBX"
-messenger = WhatsApp(WHATSAPP_TOKEN,  "128538200341271")
-# media_id = upload_media(WHATSAPP_TOKEN,"testvideo.mp4")
-n = messenger.send_template("cancelled", "9956929372", components=[
-{
-  "type": "header",
-  "parameters": [
-    {
-      "type": "video",
-      "video": {
-        "id": 2560395534123713
-      }
-    }
-  ]
-},
-{
+# WHATSAPP_TOKEN =  "EAAUovSpndZBABO6m0npKSC9M9cGGWwZCD1Rlc1OZAWaiLnvldsq1nOM7TLogU4ZBZCZBZBdZAIFSGKIAWIJesotLXQ88P5yZB5P1fTFrZAZCnodPfXfTusY5iH6Hz7WjBDuzZBmLDvZAdPIyWZAmAZCM1HUD5Ky6fwnBkqJcPlI6GwTJbgyMN6NX95bSNQCFSwZA6vWEQsZBX"
+# messenger = WhatsApp(WHATSAPP_TOKEN,  "128538200341271")
+# # media_id = upload_media(WHATSAPP_TOKEN,"testvideo.mp4")
+# n = messenger.send_template("cancelled", "9956929372", components=[
+# {
+#   "type": "header",
+#   "parameters": [
+#     {
+#       "type": "video",
+#       "video": {
+#         "id": 2560395534123713
+#       }
+#     }
+#   ]
+# },
+# {
 
-  "type": "BODY",
-  "parameters": [
-    {
-      "type": "text",
-      "text": "COD"
-    },
-    {
-      "type": "text",
-      "text": "https://www.ledshoes.in/led-multicolor-top-lace"
-    },
-    {
-      "type": "text",
-      "text": "https://www.ledshoes.in/"
-    }
-    ]
-}
-])
+#   "type": "BODY",
+#   "parameters": [
+#     {
+#       "type": "text",
+#       "text": "COD"
+#     },
+#     {
+#       "type": "text",
+#       "text": "https://www.ledshoes.in/led-multicolor-top-lace"
+#     },
+#     {
+#       "type": "text",
+#       "text": "https://www.ledshoes.in/"
+#     }
+#     ]
+# }
+# ])
 
-print(n)
+# print(n)
