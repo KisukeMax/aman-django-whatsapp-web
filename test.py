@@ -4,7 +4,7 @@ import requests
 url = 'https://django.casualfootwears.com/wp-send-template-api-for-website/'  # Replace with the actual URL of your API
 
 # Define the path to the image file you want to upload
-image_file_path = "testvideo.mp4"  # Replace with the actual path to your image file
+image_file_path = "12.mp4"  # Replace with the actual path to your image file
 
 # Create a dictionary with the image file and additional data to send as a multipart/form-data request
 data = {"template_name" : "cancelled",
