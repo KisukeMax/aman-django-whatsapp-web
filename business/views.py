@@ -334,6 +334,34 @@ def send_rest_template(request):
                 return  Response({'message': 'msg updated'}, status=status.HTTP_200_OK)
             else:
                 Response({'error': "Please pass all 4 parameters"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        if data.get("template_name") ==  "cancelled":
+            if len(data.get("components")) == 3:
+                document = request.data.get('video')    
+                if not document:
+                    return Response({'error': 'No document data received'}, status=status.HTTP_400_BAD_REQUEST)
+    
+                # Define the directory where you want to save the uploaded documents within the static folder
+                upload_dir = os.path.join(settings.STATIC_ROOT, 'business', 'uploads', 'video')
+
+                # Ensure the directory exists
+                print(upload_dir)
+                os.makedirs(upload_dir, exist_ok=True)
+
+                try:
+                    doc_path = os.path.join(upload_dir, document.name)
+
+                    with open(doc_path, 'wb') as file:
+                        file.write(document.read())
+                    
+                    send_cancelled_template(doc_path)
+                    # You can now process the uploaded image, e.g., save the path to a database or perform other operations
+
+                    return Response({'message': 'document uploaded successfully'}, status=status.HTTP_200_OK)
+                except Exception as e:
+                    return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+            else:
+                Response({'error': "Please pass all 3 parameters"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
    

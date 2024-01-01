@@ -47,30 +47,56 @@
 # #     print("Error:", response.status_code, response.text)
 
 from heyoo import WhatsApp
+
+def upload_media(WHATSAPP_TOKEN,file_path):
+    token =  WHATSAPP_TOKEN
+    messenger = WhatsApp(token , "128538200341271")
+    # status_label.config(text=f"Uploading file")
+    try:
+        media_id = messenger.upload_media(
+        media=file_path,
+    )['id']
+
+        return media_id
+    except:
+        print(f"Error cant upload")
+        return None
+
+
+
 WHATSAPP_TOKEN =  "EAAUovSpndZBABO6m0npKSC9M9cGGWwZCD1Rlc1OZAWaiLnvldsq1nOM7TLogU4ZBZCZBZBdZAIFSGKIAWIJesotLXQ88P5yZB5P1fTFrZAZCnodPfXfTusY5iH6Hz7WjBDuzZBmLDvZAdPIyWZAmAZCM1HUD5Ky6fwnBkqJcPlI6GwTJbgyMN6NX95bSNQCFSwZA6vWEQsZBX"
 messenger = WhatsApp(WHATSAPP_TOKEN,  "128538200341271")
-n = messenger.send_template("abandoned_checkout", "9956929372", components=[
- {
-        "type": "body",
-        "parameters": [
-          {
-            "type": "text",
-            "text": "COD"
-          },
-          {
-            "type": "text",
-            "text": "https://www.ledshoes.in/led-multicolor-top-lace"
-          },
-          {
-            "type": "text",
-            "text": "https://www.ledshoes.in/"
-          },
-          {
-            "type": "text",
-            "text": "LEDSHOES"
-          },
-          ]
- }
+# media_id = upload_media(WHATSAPP_TOKEN,"testvideo.mp4")
+n = messenger.send_template("cancelled", "9956929372", components=[
+{
+  "type": "header",
+  "parameters": [
+    {
+      "type": "video",
+      "video": {
+        "id": 2560395534123713
+      }
+    }
+  ]
+},
+{
+
+  "type": "BODY",
+  "parameters": [
+    {
+      "type": "text",
+      "text": "COD"
+    },
+    {
+      "type": "text",
+      "text": "https://www.ledshoes.in/led-multicolor-top-lace"
+    },
+    {
+      "type": "text",
+      "text": "https://www.ledshoes.in/"
+    }
+    ]
+}
 ])
 
 print(n)

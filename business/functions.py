@@ -383,9 +383,25 @@ def mark_msg_seen_by_admin_func(data):
         except Exception as e:
             print(e)
 
+
+def upload_media_on_wp(file_path):
+    token =  settings.WHATSAPP_TOKEN.replace
+    messenger = WhatsApp(token , "128538200341271")
+    # status_label.config(text=f"Uploading file")
+    try:
+        media_id = messenger.upload_media(
+        media=file_path,
+    )['id']
+
+        return media_id
+    except:
+        print(f"Error cant upload")
+        return None
+
+
 def send_abandoned_checkout_template(data):
     messenger = WhatsApp(settings.WHATSAPP_TOKEN.replace("Bearer ", ""),  "128538200341271")
-    n = messenger.send_template("abandoned_checkout", "9956929372", components=[
+    res = messenger.send_template("abandoned_checkout", "9956929372", components=[
     {
             "type": "body",
             "parameters": [
@@ -408,4 +424,39 @@ def send_abandoned_checkout_template(data):
             ]
     }
     ])
-    print(n)
+    print(res)
+
+def send_cancelled_template(file_path):
+    messenger = WhatsApp(settings.WHATSAPP_TOKEN.replace("Bearer ", ""),  "128538200341271")
+    res = messenger.send_template("cancelled", "9956929372", components=[
+    {
+        "type": "header",
+        "parameters": [
+            {
+            "type": "video",
+            "video": {
+                "id": upload_media_on_wp(file_path)
+            }
+            }
+        ]
+    },
+    {
+
+        "type": "BODY",
+        "parameters": [
+            {
+            "type": "text",
+            "text": "COD"
+            },
+            {
+            "type": "text",
+            "text": "https://www.ledshoes.in/led-multicolor-top-lace"
+            },
+            {
+            "type": "text",
+            "text": "https://www.ledshoes.in/"
+            }
+            ]
+    }
+    ])
+    print(res)
