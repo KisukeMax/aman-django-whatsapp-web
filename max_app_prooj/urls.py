@@ -26,8 +26,9 @@ urlpatterns = [
     path('react/<int:id>', ReactView.as_view(), name="anything"),
     path('react/', ReactView.as_view(), name="anything_no_id"),
     path('react_rooms/', ReactView_rooms.as_view(), name="rooms"),
-    path('react_rooms2/', ReactView_rooms.as_view(), name="rooms"),
+    path('react_rooms2w/', ReactView_rooms.as_view(), name="rooms22"),
     path('react_rooms_sendmsg/', send_message, name="rooms_send_msg"),
+    # path('react_rooms_sendmsg/', send_message, name="rooms_send_msg"),
     path('hiii/', business.views.send_rest_template, name="rooms_send_msg"),
 
 ]
