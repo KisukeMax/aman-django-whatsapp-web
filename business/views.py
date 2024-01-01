@@ -328,6 +328,7 @@ def mark_msg_seen_by_admin(request):
 def send_rest_template(request):
     try:
         data = json.loads(request.body)
+        print(request.data)
         if data.get("template_name") ==  "abandoned_checkout":
             if len(data.get("components")) == 4:
                 send_abandoned_checkout_template(data)
