@@ -228,6 +228,8 @@ def process_msg_status(json_data):
         if status_json.get("errors"):
             error_msg = status_json.get("errors")[0].get("error_data").get("details")
             print(error_msg)
+        else:
+            error_msg = "this one"
         
         try:
             message = WhatsAppMessage.objects.get(message_id=wp_msg_id)
