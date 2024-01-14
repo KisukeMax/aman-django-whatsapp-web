@@ -229,7 +229,7 @@ def process_msg_status(json_data):
         if status_json.get("errors"):
             error_msg = status_json.get("errors")[0].get("error_data").get("details")
             print(error_msg)
-        elif status_json.get("read"):
+        elif wp_msg_status == "read":
             current_datetime = datetime.now()
             date_format = "%m/%d/%Y %I:%M %p"
             error_msg = current_datetime.strftime(date_format)
