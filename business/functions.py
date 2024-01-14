@@ -471,7 +471,7 @@ def send_cancelled_template(file_path):
 
 def send_business_chat_start_normaltext(data):
     messenger = WhatsApp(settings.WHATSAPP_TOKEN.replace("Bearer ", ""),  "128538200341271")
-    res = messenger.send_template("send_business_chat_start_normaltext", "9956929372", components=[
+    res = messenger.send_template("business_chat_start_normaltext ", "9956929372", components=[
     {
             "type": "body",
             "parameters": [
