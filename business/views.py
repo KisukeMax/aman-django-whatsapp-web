@@ -355,7 +355,7 @@ def send_rest_template(request):
         print(content_type)
         data = request.POST.dict()
         print(data)
-        data = json.loads(request.body)
+        # data = json.loads(request.body)
         print(request.data)
         if data.get("template_name") ==  "abandoned_checkout":
             if len(data.get("components")) == 4:
