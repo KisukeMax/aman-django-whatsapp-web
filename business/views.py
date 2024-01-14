@@ -409,6 +409,7 @@ def send_rest_template(request):
                 return Response({'error': "Please pass all  parameters"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         if data.get("template_name") == "test":
+            print(data)
             media_path = upload_parser_media(request)
             if media_path:
                 # You can use media_path as needed, e.g., pass it to another function or save it to a database
