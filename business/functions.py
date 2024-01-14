@@ -4,6 +4,7 @@ from .models import WhatsAppMessage
 from heyoo import WhatsApp
 import time
 import os
+from datetime import datetime
 
 #
 def sendWhatsAppMessage(phoneNumber, message ):
@@ -228,8 +229,10 @@ def process_msg_status(json_data):
         if status_json.get("errors"):
             error_msg = status_json.get("errors")[0].get("error_data").get("details")
             print(error_msg)
-        else:
-            error_msg = "this one"
+        elif status_json.get("read"):
+            current_datetime = datetime.now()
+            date_format = "%m/%d/%Y %I:%M %p"
+            error_msg = current_datetime.strftime(date_format)
         
         try:
             message = WhatsAppMessage.objects.get(message_id=wp_msg_id)
