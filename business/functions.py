@@ -465,3 +465,21 @@ def send_cancelled_template(file_path):
     }
     ])
     print(res)
+
+
+
+
+def send_abandoned_checkout_template(data):
+    messenger = WhatsApp(settings.WHATSAPP_TOKEN.replace("Bearer ", ""),  "128538200341271")
+    res = messenger.send_template("send_business_chat_start_normaltext", "9956929372", components=[
+    {
+            "type": "body",
+            "parameters": [
+            {
+                "type": "text",
+                "text": data.get("components")[0]
+            },
+            ]
+    }
+    ])
+    print(res)
