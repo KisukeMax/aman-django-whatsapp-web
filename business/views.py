@@ -23,6 +23,7 @@ from django.db.models import Count , Q
 
 
 def upload_parser_media(data):
+    print(data)
     media = data.get('media')        
     upload_dir = os.path.join(settings.STATIC_ROOT, 'business', 'uploads', data.get("media_type"))
 
