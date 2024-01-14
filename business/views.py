@@ -334,7 +334,7 @@ def send_rest_template(request):
                 send_abandoned_checkout_template(data)
                 return  Response({'message': 'msg updated'}, status=status.HTTP_200_OK)
             else:
-                Response({'error': "Please pass all 4 parameters"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                return Response({'error': "Please pass all 4 parameters"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         if data.get("template_name") ==  "cancelled":
             if len(data.get("components")) == 3:
@@ -367,9 +367,9 @@ def send_rest_template(request):
         if data.get("template_name") ==  "business_chat_start_normaltext":
             if len(data.get("components")) == 1:
                 send_business_chat_start_normaltext(data)
-                return  Response({'message': 'msg updated'}, status=status.HTTP_200_OK)
+                return Response({'message': 'msg updated'}, status=status.HTTP_200_OK)
             else:
-                Response({'error': "Please pass all  parameters"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                return Response({'error': "Please pass all  parameters"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
    
