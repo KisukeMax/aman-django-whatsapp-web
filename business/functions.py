@@ -489,10 +489,10 @@ def send_business_start_chat_realtext(data):
     messenger = WhatsApp(settings.WHATSAPP_TOKEN.replace("Bearer ", ""),  "128538200341271")
     res = messenger.send_template("business_start_chat_realtext ", "9956929372", components=[
     {
-            "type": "body",
+            "type": "HEADER",
             "parameters": [
             {
-                "type": "HEADER",
+                "type": "text",
                 "text": data.get("components")[0]
             },
             ]
