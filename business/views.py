@@ -20,6 +20,27 @@ from urllib.parse import unquote
 from django.db.models import Count , Q
 
 
+
+
+def upload_parser_media(data):
+    media = data.get('media')        
+    upload_dir = os.path.join(settings.STATIC_ROOT, 'business', 'uploads', data.get("media_type"))
+
+    # Ensure the directory exists
+    print(upload_dir)
+    os.makedirs(upload_dir, exist_ok=True)
+
+    try:
+        media_path = os.path.join(upload_dir, media.name)
+        with open(media_path, 'wb') as file:
+            file.write(media.read())
+ 
+    except Exception as e:
+        print(e)
+
+
+
+
 # class ReactView_rooms(APIView):
 #     def get(self, request):
 #         # An 'id' is provided, fetch and display the specific item
@@ -377,6 +398,13 @@ def send_rest_template(request):
                 return Response({'message': 'msg updated'}, status=status.HTTP_200_OK)
             else:
                 return Response({'error': "Please pass all  parameters"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        if data.get("template_name") ==  "test":
+            # if len(data.get("components")) == 1:
+            upload_parser_media(data)
+            return Response({'message': 'msg updated'}, status=status.HTTP_200_OK)
+            # else:
+                # return Response({'error': "Please pass all  parameters"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
