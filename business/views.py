@@ -353,6 +353,8 @@ def send_rest_template(request):
     try:
         content_type = request.content_type
         print(content_type)
+        data = request.POST.dict()
+        print(data)
         data = json.loads(request.body)
         print(request.data)
         if data.get("template_name") ==  "abandoned_checkout":
