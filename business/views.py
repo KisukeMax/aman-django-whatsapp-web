@@ -351,6 +351,8 @@ def mark_msg_seen_by_admin(request):
 @api_view(['POST'])
 def send_rest_template(request):
     try:
+        content_type = request.content_type
+        print(content_type)
         data = json.loads(request.body)
         print(request.data)
         if data.get("template_name") ==  "abandoned_checkout":
