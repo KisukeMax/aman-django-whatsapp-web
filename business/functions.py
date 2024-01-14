@@ -492,7 +492,7 @@ def send_business_start_chat_realtext(data):
             "type": "body",
             "parameters": [
             {
-                "type": "text",
+                "type": "HEADER",
                 "text": data.get("components")[0]
             },
             ]
