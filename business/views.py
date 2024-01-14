@@ -18,6 +18,7 @@ from datetime import datetime
 import time
 from urllib.parse import unquote
 from django.db.models import Count , Q
+import traceback
 
 
 
@@ -411,5 +412,6 @@ def send_rest_template(request):
 
 
     except Exception as e:
-        return Response({'error 2': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        error_traceback = traceback.format_exc()
+        return Response({'error': f'{str(e)}\n{error_traceback}'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
    
