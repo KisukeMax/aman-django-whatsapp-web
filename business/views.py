@@ -22,22 +22,23 @@ from django.db.models import Count , Q
 
 
 
-def upload_parser_media(data):
-    print(data)
-    media = data.get('media')        
-    upload_dir = os.path.join(settings.STATIC_ROOT, 'business', 'uploads', data.get("media_type"))
-
-    # Ensure the directory exists
-    print(upload_dir)
-    os.makedirs(upload_dir, exist_ok=True)
-
+def upload_parser_media(request):
     try:
+        media = request.FILES.get('media')  # Access file data using request.FILES
+        upload_dir = os.path.join(settings.STATIC_ROOT, 'business', 'uploads', request.data.get("media_type"))
+
+        # Ensure the directory exists
+        os.makedirs(upload_dir, exist_ok=True)
+
         media_path = os.path.join(upload_dir, media.name)
+        
         with open(media_path, 'wb') as file:
             file.write(media.read())
- 
+
+        return media_path  # Return the path to the uploaded file
     except Exception as e:
         print(e)
+        return None
 
 
 
@@ -400,12 +401,14 @@ def send_rest_template(request):
             else:
                 return Response({'error': "Please pass all  parameters"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        if data.get("template_name") ==  "test":
-            # if len(data.get("components")) == 1:
-            upload_parser_media(data)
-            return Response({'message': 'msg updated'}, status=status.HTTP_200_OK)
-            # else:
-                # return Response({'error': "Please pass all  parameters"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        if data.get("template_name") == "test":
+            media_path = upload_parser_media(request)
+            if media_path:
+                # You can use media_path as needed, e.g., pass it to another function or save it to a database
+                return Response({'message': 'document uploaded successfully'}, status=status.HTTP_200_OK)
+            else:
+                return Response({'error': 'Error uploading media'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
 
     except Exception as e:
         return Response({'error 2': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
