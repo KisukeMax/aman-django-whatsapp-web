@@ -353,10 +353,12 @@ def send_rest_template(request):
     try:
         content_type = request.content_type
         print(content_type)
-        data = request.POST.dict()
-        print(data)
-        # data = json.loads(request.body)
-        print(request.data)
+        if request.content_type.startswith('multipart/form-data'):
+            # Use request.POST for form data
+            data = request.POST.dict()
+        else:
+            # Assume JSON if not multipart/form-data
+            data = json.loads(request.body.decode('utf-8'))
         if data.get("template_name") ==  "abandoned_checkout":
             if len(data.get("components")) == 4:
                 send_abandoned_checkout_template(data)
