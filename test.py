@@ -1,33 +1,34 @@
-# import requests
+import requests
 
-# # Define the URL of your Django REST API endpoint
-# url = 'https://django.casualfootwears.com/wp-send-template-api-for-website/'  # Replace with the actual URL of your API
+# Define the URL of your Django REST API endpoint
+url = 'https://django.casualfootwears.com/wp-send-template-api-for-website/'  # Replace with the actual URL of your API
 
-# # Define the path to the image file you want to upload
-# image_file_path = "12.mp4"  # Replace with the actual path to your image file
+# Define the path to the image file you want to upload
+image_file_path = "122121.mp4"  # Replace with the actual path to your image file
 
-# # Create a dictionary with the image file and additional data to send as a multipart/form-data request
-# data = {"template_name" : "cancelled",
-#     'profile_name': 'max',  # Replace with the actual author name
-#     'phone_number': '919956929372',  # Replace with the actual place
-#     # 'comments': 'A beautiful landscape',  # Replace with the actual comments
-#     "components" : [1,2,3]
-# }
-# files = {'video': (image_file_path, open(image_file_path, 'rb'))}
+# Create a dictionary with the image file and additional data to send as a multipart/form-data request
+data = {"template_name" : "test",
+    'profile_name': 'max',  # Replace with the actual author name
+    'phone_number': '919956929372',  # Replace with the actual place
+    # 'comments': 'A beautiful landscape',  # Replace with the actual comments
+    "components" : [1,2,3],
+    "media_type" :"test"
+}
+files = {'media': (image_file_path, open(image_file_path, 'rb'))}
 
-# # Send a POST request to the API endpoint with the image and additional data
-# response = requests.post(url, data=data, files=files)
+# Send a POST request to the API endpoint with the image and additional data
+response = requests.post(url, data=data, files=files)
 
-# # Check the response
-# if response.status_code == 200:
-#     print('Image uploaded successfully')
-#     print(response.json())
-# elif response.status_code == 400:
-#     print('Bad request - No image data received')
-#     print(response.json())
-# else:
-#     print('Error uploading')
-#     print(response.text)
+# Check the response
+if response.status_code == 200:
+    print('Image uploaded successfully')
+    print(response.json())
+elif response.status_code == 400:
+    print('Bad request - No image data received')
+    print(response.json())
+else:
+    print('Error uploading')
+    print(response.text)
 
 
 
