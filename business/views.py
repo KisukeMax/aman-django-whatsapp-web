@@ -408,5 +408,5 @@ def send_rest_template(request):
                 # return Response({'error': "Please pass all  parameters"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
     except Exception as e:
-        return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+        return Response({'error 2': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
    
