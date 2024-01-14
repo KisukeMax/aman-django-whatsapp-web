@@ -370,6 +370,14 @@ def send_rest_template(request):
                 return Response({'message': 'msg updated'}, status=status.HTTP_200_OK)
             else:
                 return Response({'error': "Please pass all  parameters"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+        if data.get("template_name") ==  "business_start_chat_realtext":
+            if len(data.get("components")) == 1:
+                send_business_start_chat_realtext(data)
+                return Response({'message': 'msg updated'}, status=status.HTTP_200_OK)
+            else:
+                return Response({'error': "Please pass all  parameters"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
     except Exception as e:
         return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
    
