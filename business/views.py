@@ -412,6 +412,7 @@ def send_rest_template(request):
             print(data)
             if media_path:
                 media_path = upload_parser_media(request)
+                print(media_path)
                 send_business_chat_start_document(media_path, data)
                 # You can use media_path as needed, e.g., pass it to another function or save it to a database
                 return Response({'message': 'document uploaded successfully'}, status=status.HTTP_200_OK)
