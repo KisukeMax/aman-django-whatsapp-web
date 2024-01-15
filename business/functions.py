@@ -393,6 +393,8 @@ def upload_media_on_wp(file_path):
     token =  settings.WHATSAPP_TOKEN.replace
     messenger = WhatsApp(token , "128538200341271")
     # status_label.config(text=f"Uploading file")
+    print("uploading")
+    print(file_path)
     try:
         media_id = messenger.upload_media(
         media=file_path,
