@@ -66,18 +66,18 @@ def upload_media(WHATSAPP_TOKEN,file_path):
 
 
 WHATSAPP_TOKEN =  "EAAUovSpndZBABO6m0npKSC9M9cGGWwZCD1Rlc1OZAWaiLnvldsq1nOM7TLogU4ZBZCZBZBdZAIFSGKIAWIJesotLXQ88P5yZB5P1fTFrZAZCnodPfXfTusY5iH6Hz7WjBDuzZBmLDvZAdPIyWZAmAZCM1HUD5Ky6fwnBkqJcPlI6GwTJbgyMN6NX95bSNQCFSwZA6vWEQsZBX"
-media_id = upload_media(WHATSAPP_TOKEN,"a.pdf")
+media_id = upload_media(WHATSAPP_TOKEN,r"C:\Users\ASUS\Videos\Recording 2023-12-02 114610.mp4")
 print(media_id)
 messenger = WhatsApp(WHATSAPP_TOKEN,  "128538200341271")
 
 
 
-res = messenger.send_template("business_chat_start_document", "9956929372", components=[
+res = messenger.send_template("busines_start_chat_text", "9956929372", components=[
     {
                         "type": "HEADER",
                         "parameters": [{
-                            "type": "document",
-                            "document": {
+                            "type": "video",
+                            "video": {
                             "id": media_id
                             }}]
                             },
@@ -88,7 +88,12 @@ res = messenger.send_template("business_chat_start_document", "9956929372", comp
             {
                 "type": "text",
                 "text": "maax"
-    }]
+    
+    },
+     {
+            "type": "text",
+            "text": "COD"
+            }]
             }
             ]
   
