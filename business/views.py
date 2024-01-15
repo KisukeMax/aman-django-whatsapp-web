@@ -421,8 +421,8 @@ def send_rest_template(request):
                 return Response({'error': 'Error uploading media'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             
         if data.get("template_name") == "business_start_chat_photo":
-            print("business_start_chat_photo")
-            print(data)
+            # print("business_start_chat_photo")
+            # print(data)
             media_path = upload_parser_media(request)
             if media_path:
                 print("uploaded at - ", media_path)
