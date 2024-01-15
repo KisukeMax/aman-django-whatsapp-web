@@ -33,7 +33,6 @@ def upload_parser_media(request):
         os.makedirs(upload_dir, exist_ok=True)
 
         media_path = os.path.join(upload_dir, media.name)
-        
         with open(media_path, 'wb') as file:
             file.write(media.read())
         print("uploaded")
