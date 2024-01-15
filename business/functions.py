@@ -396,9 +396,7 @@ def upload_media_on_wp(file_path):
     print("uploading")
     print(file_path)
     try:
-        media_id = messenger.upload_media(
-        media=file_path,
-    )['id']
+        media_id = messenger.upload_media(media=file_path)['id']
 
         return media_id
     except Exception as e:
