@@ -390,7 +390,7 @@ def mark_msg_seen_by_admin_func(data):
 
 
 def upload_media_on_wp(file_path):
-    token =  settings.WHATSAPP_TOKEN.replace
+    token =  settings.WHATSAPP_TOKEN.replace("Bearer ", "")
     messenger = WhatsApp(token , "128538200341271")
     # status_label.config(text=f"Uploading file")
     print("uploading")
@@ -504,7 +504,7 @@ def send_business_start_chat_realtext(data):
 def send_business_chat_start_document(media_path,data):
     messenger = WhatsApp(settings.WHATSAPP_TOKEN.replace("Bearer ", ""),  "128538200341271")
     media_id = upload_media_on_wp(media_path)
-    print(media_path,data)
+    # print(media_path,data)
     print(media_id)
     res = messenger.send_template("business_start_chat_realtext ", "9956929372", components=[
         {
