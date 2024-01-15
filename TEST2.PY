@@ -1,40 +1,56 @@
-# import requests
-# from requests_toolbelt.multipart.encoder import MultipartEncoder
+import requests
 
-# # Define the URL of your Django REST API endpoint
-# url = 'https://django.casualfootwears.com/wp-send-template-api-for-website/'  # Replace with the actual URL of your API
+def send_location_template(access_token, recipient_id):
+    api_endpoint = f'https://graph.facebook.com/v15.0/me/messages?access_token={access_token}'
 
-# # Define the path to the image file you want to upload
-# image_file_path = "Screenshot 2023-07-16 210502.png"  # Replace with the actual path to your image file
+    location_template = {
+        "recipient": {"id": recipient_id},
+        "message": {
+            "attachment": {
+                "type": "template",
+                "payload": {
+                    "template_type": "business_start_chat_location",
+                    "elements": [
+                        {
+                            "type": "HEADER",
+                            "format": "LOCATION"
+                        },
+                        {
+                            "type": "BODY",
+                            "text": "Hi,\n\nPlease check the attachment for your reference\n\nTeam {{1}}",
+                            "example": {
+                                "body_text": [["LEDSHOES"]]
+                            }
+                        },
+                        {
+                            "type": "FOOTER",
+                            "text": "Please reply with \"STOP\" to unsubscribe"
+                        },
+                        {
+                            "type": "BUTTONS",
+                            "buttons": [
+                                {
+                                    "type": "URL",
+                                    "text": "Follow Instagram",
+                                    "url": "https://www.instagram.com/ledshoes.in/"
+                                },
+                                {
+                                    "type": "QUICK_REPLY",
+                                    "text": "Chat Support"
+                                }
+                            ]
+                        }
+                    ]
+                }
+            }
+        }
+    }
 
-# # Create a dictionary with the additional data to send as a multipart/form-data request
-# data = {
-#     "template_name": "test",
-#     'profile_name': 'max',  # Replace with the actual author name
-#     'phone_number': '919956929372',  # Replace with the actual phone number
-#     "media_type": "test",
-#     "components": [1, 2, 3],
-# }
+    response = requests.post(api_endpoint, json=location_template)
+    print(response.json())
 
-# # Create a MultipartEncoder object for the files and data
-# multipart_data = MultipartEncoder(
-#     fields={'media': (image_file_path, open(image_file_path, 'rb'))},
-#     boundary='your_boundary_here',  # Use a unique boundary
-# )
+# Replace with your access token and recipient ID
+access_token = 'EAAUovSpndZBABO6m0npKSC9M9cGGWwZCD1Rlc1OZAWaiLnvldsq1nOM7TLogU4ZBZCZBZBdZAIFSGKIAWIJesotLXQ88P5yZB5P1fTFrZAZCnodPfXfTusY5iH6Hz7WjBDuzZBmLDvZAdPIyWZAmAZCM1HUD5Ky6fwnBkqJcPlI6GwTJbgyMN6NX95bSNQCFSwZA6vWEQsZBX'
+recipient_id = '919956929372'
 
-# # Set the Content-Type header to include the boundary
-# headers = {'Content-Type': multipart_data.content_type}
-
-# # Send a POST request to the API endpoint with the image and additional data
-# response = requests.post(url, data=data, headers=headers, files={'media': (image_file_path, open(image_file_path, 'rb'))})
-
-# # Check the response
-# if response.status_code == 200:
-#     print('Image uploaded successfully')
-#     print(response.json())
-# elif response.status_code == 400:
-#     print('Bad request - No image data received')
-#     print(response.json())
-# else:
-#     print('Error uploading')
-#     print(response.text)
+send_location_template(access_token, recipient_id)

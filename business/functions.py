@@ -499,3 +499,28 @@ def send_business_start_chat_realtext(data):
     }
     ])
     print(res)
+
+
+def send_business_chat_start_document(media_path,data):
+    messenger = WhatsApp(settings.WHATSAPP_TOKEN.replace("Bearer ", ""),  "128538200341271")
+    media_id = upload_media_on_wp(media_path)
+    res = messenger.send_template("business_start_chat_realtext ", "9956929372", components=[
+        {
+            "type": "HEADER",
+            "parameters": [{
+                "type": "document",
+                "document": {
+                    "id": media_id
+                }}]
+        },
+        {
+
+            "type": "body",
+            "parameters": [
+                {
+                    "type": "text",
+                    "text": "maax"
+                }]
+        }
+    ])
+    print(res)

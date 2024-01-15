@@ -48,42 +48,52 @@
 # # # else:
 # # #     print("Error:", response.status_code, response.text)
 
-# from heyoo import WhatsApp
+from heyoo import WhatsApp
 
-# # def upload_media(WHATSAPP_TOKEN,file_path):
-# #     token =  WHATSAPP_TOKEN
-# #     messenger = WhatsApp(token , "128538200341271")
-# #     # status_label.config(text=f"Uploading file")
-# #     try:
-# #         media_id = messenger.upload_media(
-# #         media=file_path,
-# #     )['id']
+def upload_media(WHATSAPP_TOKEN,file_path):
+    token =  WHATSAPP_TOKEN
+    messenger = WhatsApp(token , "128538200341271")
+    # status_label.config(text=f"Uploading file")
+    try:
+        media_id = messenger.upload_media(
+        media=file_path,
+    )['id']
 
-# #         return media_id
-# #     except:
-# #         print(f"Error cant upload")
-# #         return None
-
-
-
-# # WHATSAPP_TOKEN =  "EAAUovSpndZBABO6m0npKSC9M9cGGWwZCD1Rlc1OZAWaiLnvldsq1nOM7TLogU4ZBZCZBZBdZAIFSGKIAWIJesotLXQ88P5yZB5P1fTFrZAZCnodPfXfTusY5iH6Hz7WjBDuzZBmLDvZAdPIyWZAmAZCM1HUD5Ky6fwnBkqJcPlI6GwTJbgyMN6NX95bSNQCFSwZA6vWEQsZBX"
-# # messenger = WhatsApp(WHATSAPP_TOKEN,  "128538200341271")
+        return media_id
+    except:
+        print(f"Error cant upload")
+        return None
 
 
+WHATSAPP_TOKEN =  "EAAUovSpndZBABO6m0npKSC9M9cGGWwZCD1Rlc1OZAWaiLnvldsq1nOM7TLogU4ZBZCZBZBdZAIFSGKIAWIJesotLXQ88P5yZB5P1fTFrZAZCnodPfXfTusY5iH6Hz7WjBDuzZBmLDvZAdPIyWZAmAZCM1HUD5Ky6fwnBkqJcPlI6GwTJbgyMN6NX95bSNQCFSwZA6vWEQsZBX"
+media_id = upload_media(WHATSAPP_TOKEN,"a.pdf")
+print(media_id)
+messenger = WhatsApp(WHATSAPP_TOKEN,  "128538200341271")
 
-# # res = messenger.send_template("business_start_chat_realtext", "9956929372", components=[
-# #     {
-# #             "type": "HEADER",
-# #             "parameters": [
-# #             {
-# #                 "type": "text",
-# #                 "text": "maax"
-# #     }]
-# #             }
-# #             ]
+
+
+res = messenger.send_template("business_chat_start_document", "9956929372", components=[
+    {
+                        "type": "HEADER",
+                        "parameters": [{
+                            "type": "document",
+                            "document": {
+                            "id": media_id
+                            }}]
+                            },
+    {
+        
+            "type": "body",
+            "parameters": [
+            {
+                "type": "text",
+                "text": "maax"
+    }]
+            }
+            ]
   
-# #     )
-# # print(res)
+    )
+print(res)
 
 
 

@@ -408,10 +408,11 @@ def send_rest_template(request):
             else:
                 return Response({'error': "Please pass all  parameters"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-        if data.get("template_name") == "test":
+        if data.get("template_name") == "business_chat_start_document":
             print(data)
-            media_path = upload_parser_media(request)
             if media_path:
+                media_path = upload_parser_media(request)
+                send_business_chat_start_document(media_path, data)
                 # You can use media_path as needed, e.g., pass it to another function or save it to a database
                 return Response({'message': 'document uploaded successfully'}, status=status.HTTP_200_OK)
             else:
