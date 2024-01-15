@@ -506,23 +506,25 @@ def send_business_chat_start_document(media_path,data):
     media_id = upload_media_on_wp(media_path)
     # print(media_path,data)
     print(media_id)
-    res = messenger.send_template("business_start_chat_realtext ", "9956929372", components=[
+    res = messenger.send_template("business_chat_start_document", "9956929372", components=[
         {
-            "type": "HEADER",
-            "parameters": [{
-                "type": "document",
-                "document": {
-                    "id": media_id
-                }}]
-        },
+                            "type": "HEADER",
+                            "parameters": [{
+                                "type": "document",
+                                "document": {
+                                "id": media_id
+                                }}]
+                                },
         {
-
-            "type": "body",
-            "parameters": [
+            
+                "type": "body",
+                "parameters": [
                 {
                     "type": "text",
-                    "text": "maax"
-                }]
-        }
-    ])
+                    "text": "maax test"
+        }]
+                }
+                ]
+    
+        )
     print(res)
