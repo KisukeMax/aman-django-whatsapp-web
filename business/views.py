@@ -411,8 +411,8 @@ def send_rest_template(request):
 
         if data.get("template_name") == "business_chat_start_document":
             print(data)
+            media_path = upload_parser_media(request)
             if media_path:
-                media_path = upload_parser_media(request)
                 print(media_path)
                 send_business_chat_start_document(media_path, data)
                 # You can use media_path as needed, e.g., pass it to another function or save it to a database
