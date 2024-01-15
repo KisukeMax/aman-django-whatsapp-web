@@ -25,6 +25,7 @@ import traceback
 
 def upload_parser_media(request):
     try:
+        print("uploading")
         media = request.FILES.get('media')  # Access file data using request.FILES
         upload_dir = os.path.join(settings.STATIC_ROOT, 'business', 'uploads', request.data.get("media_type"))
 
@@ -35,7 +36,8 @@ def upload_parser_media(request):
         
         with open(media_path, 'wb') as file:
             file.write(media.read())
-
+        print("uploaded")
+        print(media_path)
         return media_path  # Return the path to the uploaded file
     except Exception as e:
         print(e)
