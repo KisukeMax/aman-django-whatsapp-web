@@ -401,8 +401,8 @@ def upload_media_on_wp(file_path):
     )['id']
 
         return media_id
-    except:
-        print(f"Error cant upload")
+    except Exception as e:
+        print(f"Error cant upload - {e}")
         return None
 
 
