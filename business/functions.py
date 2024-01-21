@@ -406,7 +406,7 @@ def upload_media_on_wp(file_path):
 
 def send_abandoned_checkout_template(data):
     messenger = WhatsApp(settings.WHATSAPP_TOKEN.replace("Bearer ", ""),  "128538200341271")
-    res = messenger.send_template("abandoned_checkout", "9956929372", components=[
+    res = messenger.send_template("abandoned_checkout", data.get("to_number"), components=[
     {
             "type": "body",
             "parameters": [
@@ -431,9 +431,9 @@ def send_abandoned_checkout_template(data):
     ])
     print(res)
 
-def send_cancelled_template(file_path):
+def send_cancelled_template(file_path, data):
     messenger = WhatsApp(settings.WHATSAPP_TOKEN.replace("Bearer ", ""),  "128538200341271")
-    res = messenger.send_template("cancelled", "9956929372", components=[
+    res = messenger.send_template("cancelled", data.get("to_number"), components=[
     {
         "type": "header",
         "parameters": [
@@ -471,7 +471,7 @@ def send_cancelled_template(file_path):
 
 def send_business_chat_start_normaltext(data):
     messenger = WhatsApp(settings.WHATSAPP_TOKEN.replace("Bearer ", ""),  "128538200341271")
-    res = messenger.send_template("business_chat_start_normaltext ", "9956929372", components=[
+    res = messenger.send_template("business_chat_start_normaltext ", data.get("to_number"), components=[
     {
             "type": "body",
             "parameters": [
@@ -487,7 +487,7 @@ def send_business_chat_start_normaltext(data):
 
 def send_business_start_chat_realtext(data):
     messenger = WhatsApp(settings.WHATSAPP_TOKEN.replace("Bearer ", ""),  "128538200341271")
-    res = messenger.send_template("business_start_chat_realtext ", "9956929372", components=[
+    res = messenger.send_template("business_start_chat_realtext ", data.get("to_number"), components=[
     {
             "type": "HEADER",
             "parameters": [
@@ -506,7 +506,7 @@ def send_business_chat_start_document(media_path,data):
     media_id = upload_media_on_wp(media_path)
     # print(media_path,data)
     print(media_id)
-    res = messenger.send_template("business_chat_start_document", "9956929372", components=[
+    res = messenger.send_template("business_chat_start_document", data.get("to_number"), components=[
         {
                             "type": "HEADER",
                             "parameters": [{
@@ -535,7 +535,7 @@ def send_business_start_chat_photo(media_path,data):
     media_id = upload_media_on_wp(media_path)
     # print(media_path,data)
     print(media_id)
-    res = messenger.send_template("business_start_chat_photo", "9956929372", components=[
+    res = messenger.send_template("business_start_chat_photo", data.get("to_number"), components=[
         {
                             "type": "HEADER",
                             "parameters": [{
@@ -564,30 +564,30 @@ def send_busines_start_chat_text(media_path,data):
     media_id = upload_media_on_wp(media_path)
     # print(media_path,data)
     print(media_id)
-    res = messenger.send_template("busines_start_chat_text", "9956929372", components=[
-    {
-                        "type": "HEADER",
-                        "parameters": [{
-                            "type": "video",
-                            "video": {
-                            "id": media_id
-                            }}]
-                            },
-    {
-        
+    res = messenger.send_template("busines_start_chat_text", data.get("to_number"), components=[
+        {
+            "type": "HEADER",
+            "parameters": [{
+                "type": "video",
+                "video": {
+                    "id": media_id
+                }}]
+        },
+        {
+
             "type": "body",
             "parameters": [
-            {
-                "type": "text",
-                "text": "maax"
-    
-    },
-     {
-            "type": "text",
-            "text": "COD"
-            }]
-            }
-            ]
-    
-        )
+                {
+                    "type": "text",
+                    "text": "maax"
+
+                },
+                {
+                    "type": "text",
+                    "text": "COD"
+                }]
+        }
+    ]
+
+    )
     print(res)

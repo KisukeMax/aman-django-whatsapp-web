@@ -386,7 +386,7 @@ def send_rest_template(request):
                     with open(doc_path, 'wb') as file:
                         file.write(document.read())
                     
-                    send_cancelled_template(doc_path)
+                    send_cancelled_template(doc_path, data)
                     # You can now process the uploaded image, e.g., save the path to a database or perform other operations
 
                     return Response({'message': 'document uploaded successfully'}, status=status.HTTP_200_OK)
