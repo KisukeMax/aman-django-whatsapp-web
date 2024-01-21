@@ -620,11 +620,38 @@ def send_shipped(media_path,data):
                 {
                     "type": "text",
                     "text": "COD"
-                },
+                }
+                ,
                 {
                     "type": "text",
                     "text": "COD"
-                }]
+                }
+                ,
+                {
+                    "type": "text",
+                    "text": "COD"
+                }
+                ,
+                {
+                    "type": "text",
+                    "text": "COD"
+                }
+                ,
+                {
+                    "type": "text",
+                    "text": "COD"
+                }
+                ,
+                {
+                    "type": "text",
+                    "text": "COD"
+                }
+                ,
+                {
+                    "type": "text",
+                    "text": "COD"
+                }
+                ]
         }
     ]
 
