@@ -591,3 +591,72 @@ def send_busines_start_chat_text(media_path,data):
 
     )
     print(res)
+
+
+
+def send_shipped(media_path,data):
+    messenger = WhatsApp(settings.WHATSAPP_TOKEN.replace("Bearer ", ""),  "128538200341271")
+    media_id = upload_media_on_wp(media_path)
+    # print(media_path,data)
+    print(media_id)
+    res = messenger.send_template("shipped", data.get("to_number"), components=[
+        {
+            "type": "HEADER",
+            "parameters": [{
+                "type": "video",
+                "video": {
+                    "id": media_id
+                }}]
+        },
+        {
+
+            "type": "body",
+            "parameters": [
+                {
+                    "type": "text",
+                    "text": "maax"
+
+                },
+                {
+                    "type": "text",
+                    "text": "COD"
+                },
+                {
+                    "type": "text",
+                    "text": "COD"
+                }]
+        }
+    ]
+
+    )
+    print(res)
+
+
+def send_order_confirmation(media_path,data):
+    messenger = WhatsApp(settings.WHATSAPP_TOKEN.replace("Bearer ", ""),  "128538200341271")
+    media_id = upload_media_on_wp(media_path)
+    # print(media_path,data)
+    print(media_id)
+    res = messenger.send_template("order_confirmation", data.get("to_number"), components=[
+        {
+            "type": "HEADER",
+            "parameters": [{
+                "type": "video",
+                "video": {
+                    "id": media_id
+                }}]
+        },
+        {
+
+            "type": "body",
+            "parameters": [
+                {
+                    "type": "text",
+                    "text": "maax"
+
+                }]
+        }
+    ]
+
+    )
+    print(res)

@@ -17,3 +17,4 @@ class WhatsAppMessage(models.Model):
     fb_media_id = models.TextField(default=None, null=True)
     msg_status_comment = models.TextField(default=None, null=True)
     admin_seen_count = models.IntegerField(default=0, null=True)
+    is_template = models.IntegerField(default=0, null=True)
