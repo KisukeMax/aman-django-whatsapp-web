@@ -137,7 +137,9 @@ def home(request):
 def send_message(request):
     if request.method == 'POST':
         # Get data from the request and load it as JSON
-        data = json.loads(request.body.decode('utf-8'))
+        # data = json.loads(request.body.decode('utf-8'))
+        data = json.loads(request.body.decode('utf-8'), object_hook=lambda d: {k: v.encode('latin-1').decode('utf-8') if isinstance(v, str) else v for k, v in d.items()})
+           
         print(data)
         
         # Extract the data from the JSON
