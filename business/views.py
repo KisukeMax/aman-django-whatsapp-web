@@ -140,7 +140,7 @@ def send_message(request):
         # data = json.loads(request.body.decode('utf-8'))
         data = json.loads(request.body.decode('utf-8'), object_hook=lambda d: {k: v.encode('latin-1').decode('utf-8') if isinstance(v, str) else v for k, v in d.items()})
            
-        print(data)
+        # print(data)
         
         # Extract the data from the JSON
         phone_id = ""
