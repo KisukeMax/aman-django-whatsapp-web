@@ -514,38 +514,38 @@ def send_cancelled_template(file_path, data):
         "parameters": [
             {
             "type": "text",
-            "text": data.get("components")[0]
+            "text": data.getlist("components")[0]
             },
             {
             "type": "text",
-            "text": data.get("components")[1]
+            "text": data.getlist("components")[1]
             },
             {
             "type": "text",
-            "text": data.get("components")[2]
+            "text": data.getlist("components")[2]
             }
             ]
     }
     ])
     print(res)
 
-    # save_whatsapp_message_template(phoneId="128538200341271",
-    #                             profileName=data.get("name"),
-    #                             whatsAppId=data.get("to_number"),
-    #                             fromId=data.get("from_id"),
-    #                             messageId=res.get("messages", [{}])[0].get("id"),
-    #                             timestamp=time.time(),
-    #                             text="",
-    #                             phoneNumber=data.get("to_number"),
-    #                             message="",
-    #                             message_text_sent_by="DJANGO ADMIN",
-    #                             msg_status_code=res.get("messages", [{}])[0].get("message_status"),
-    #                             is_template=1,
-    #                             template_json=data,
-    #                             wp_template_json=get_meta_template_json(data.get("template_name")),
-    #                             file_path=file_path,
-    #                             template_name = data.get("template_name")
-    # )
+    save_whatsapp_message_template(phoneId="128538200341271",
+                                profileName=data.get("name"),
+                                whatsAppId=data.get("to_number"),
+                                fromId=data.get("from_id"),
+                                messageId=res.get("messages", [{}])[0].get("id"),
+                                timestamp=time.time(),
+                                text="",
+                                phoneNumber=data.get("to_number"),
+                                message="",
+                                message_text_sent_by="DJANGO ADMIN",
+                                msg_status_code=res.get("messages", [{}])[0].get("message_status"),
+                                is_template=1,
+                                template_json=data,
+                                wp_template_json=get_meta_template_json(data.get("template_name")),
+                                file_path=file_path,
+                                template_name = data.get("template_name")
+    )
 
 
 
