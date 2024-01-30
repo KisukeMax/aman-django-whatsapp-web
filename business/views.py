@@ -358,7 +358,8 @@ def send_rest_template(request):
         print(content_type)
         if request.content_type.startswith('multipart/form-data'):
             # Use request.POST for form data
-            data = request.POST.dict()
+            # data = request.POST.dict()
+            data = request.data
             print("=======================================================")
             print(data)
             print("=======================================================")
