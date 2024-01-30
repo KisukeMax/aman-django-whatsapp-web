@@ -363,6 +363,7 @@ def send_rest_template(request):
             print("=======================================================")
             print(data)
             print(data.get("components"))
+            print(data.getlist("components"))
             print("=======================================================")
         else:
             # Assume JSON if not multipart/form-data
