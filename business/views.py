@@ -376,7 +376,7 @@ def send_rest_template(request):
 
         if data.get("template_name") ==  "cancelled":
             # if len(data.get('components')) == 1:
-            if data.get('components') == 1:
+            if data.get('components'):
                 document = request.data.get('video')    
                 if not document:
                     return Response({'error': 'No document data received'}, status=status.HTTP_400_BAD_REQUEST)
