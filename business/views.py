@@ -31,8 +31,9 @@ def upload_parser_media(request):
 
         # Ensure the directory exists
         os.makedirs(upload_dir, exist_ok=True)
-
-        media_path = os.path.join(upload_dir, media.name)
+        timestamp = datetime.now().strftime("%Y_%m_%d_%H_%M")
+        unique_filename = f"{timestamp}_{media.name}"
+        media_path = os.path.join(upload_dir, unique_filename)
         with open(media_path, 'wb') as file:
             file.write(media.read())
         print("uploaded")
