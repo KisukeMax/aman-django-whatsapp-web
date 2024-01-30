@@ -361,8 +361,8 @@ def send_rest_template(request):
             # data = request.POST.dict()
             data = request.data
             print("=======================================================")
-            print(data)
-            print(data.get("components"))
+            # print(data)
+            # print(data.get("components"))
             print("=======================================================")
         else:
             # Assume JSON if not multipart/form-data
