@@ -358,8 +358,8 @@ def send_rest_template(request):
         print(content_type)
         if request.content_type.startswith('multipart/form-data'):
             # Use request.POST for form data
-            # data = request.POST.dict()
-            data = request.data
+            data = request.POST.dict()
+            # data = request.data
             print("=======================================================")
             # print(data)
             # print(data.get("components"))
@@ -375,7 +375,7 @@ def send_rest_template(request):
                 return Response({'error': "Please pass all 4 parameters"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         if data.get("template_name") ==  "cancelled":
-            if len(data.getlist('components')) == 3:
+            if len(data.get('components')) == 1:
                 document = request.data.get('video')    
                 if not document:
                     return Response({'error': 'No document data received'}, status=status.HTTP_400_BAD_REQUEST)
@@ -388,11 +388,11 @@ def send_rest_template(request):
                 os.makedirs(upload_dir, exist_ok=True)
 
                 try:
-                    # doc_path = os.path.join(upload_dir, document.name)
-                    doc_path = ""
+                    doc_path = os.path.join(upload_dir, document.name)
+                    # doc_path = ""
 
-                    # with open(doc_path, 'wb') as file:
-                    #     file.write(document.read())
+                    with open(doc_path, 'wb') as file:
+                        file.write(document.read())
                     
                     send_cancelled_template(doc_path, data)
                     # You can now process the uploaded image, e.g., save the path to a database or perform other operations
