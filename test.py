@@ -11,7 +11,7 @@ data = {"template_name" : "cancelled",
     'profile_name': 'max',  # Replace with the actual author name
     'phone_number': '919956929372',  # Replace with the actual place
     # 'comments': 'A beautiful landscape',  # Replace with the actual comments
-    "components" : [1,2,5],
+    "components" : ['ji', 'a', 'as'],
     "media_type" :"test"
 }
 files = {'video': (image_file_path, open(image_file_path, 'rb'))}
