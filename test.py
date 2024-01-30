@@ -19,6 +19,8 @@ files = {'video': (image_file_path, open(image_file_path, 'rb'))}
 # Send a POST request to the API endpoint with the image and additional data
 response = requests.post(url, data=data, files=files)
 
+with open("404.html", "w", encoding="utf8") as f:
+    f.write(response.text)
 # Check the response
 if response.status_code == 200:
     print('Image uploaded successfully')

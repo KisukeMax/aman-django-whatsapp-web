@@ -395,7 +395,7 @@ def send_rest_template(request):
                 except Exception as e:
                     return Response({'error': str(e), "data" : data}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             else:
-                Response({'error': "Please pass all 3 parameters"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                return Response({'error': "Please pass all 3 parameters"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         if data.get("template_name") ==  "business_chat_start_normaltext":
             if len(data.get("components")) == 1:
