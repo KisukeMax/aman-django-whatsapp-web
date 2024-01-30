@@ -497,7 +497,7 @@ def send_abandoned_checkout_template(data):
 
 def send_cancelled_template(file_path, data):
     messenger = WhatsApp(settings.WHATSAPP_TOKEN.replace("Bearer ", ""),  "128538200341271")
-    res = messenger.send_template("cancelled", data.get("to_number"), components=[
+    res = messenger.send_template("cancelled", "919956929372", components=[
     {
         "type": "header",
         "parameters": [
