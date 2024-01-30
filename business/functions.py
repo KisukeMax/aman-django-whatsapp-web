@@ -68,7 +68,7 @@ def save_whatsapp_message(phoneId=None, profileName=None, whatsAppId=None, fromI
     whatsapp_message.save()
 
 
-def save_whatsapp_message_template(phoneId=None, profileName=None, whatsAppId=None, fromId=None, messageId=None, timestamp=None, text=None, phoneNumber=None, message=None, message_text_sent_by=None, msg_status_code=None, upload_media_path=None, is_template=None, template_json=None, wp_template_json=None):
+def save_whatsapp_message_template(phoneId=None, profileName=None, whatsAppId=None, fromId=None, messageId=None, timestamp=None, text=None, phoneNumber=None, message=None, message_text_sent_by=None, msg_status_code=None, upload_media_path=None, is_template=None, template_json=None, wp_template_json=None,template_name= None):
 
     # Create a new WhatsAppMessage instance and save it to the database
     whatsapp_message = WhatsAppMessage(
@@ -86,7 +86,8 @@ def save_whatsapp_message_template(phoneId=None, profileName=None, whatsAppId=No
         upload_media_path = upload_media_path,
         is_template = is_template,
         template_json = template_json,
-        wp_template_json = wp_template_json
+        wp_template_json = wp_template_json,
+        template_name = template_name
     )
     whatsapp_message.save()
 
@@ -489,7 +490,8 @@ def send_abandoned_checkout_template(data):
                                 msg_status_code=res.get("messages", [{}])[0].get("message_status"),
                                 is_template=1,
                                 template_json=data,
-                                wp_template_json=get_meta_template_json("abandoned_checkout")
+                                wp_template_json=get_meta_template_json(data.get("template_name")),
+                                template_name=data.get("template_name")
     )
 
 def send_cancelled_template(file_path, data):
@@ -512,21 +514,38 @@ def send_cancelled_template(file_path, data):
         "parameters": [
             {
             "type": "text",
-            "text": "COD"
+            "text": data.get("components")[0]
             },
             {
             "type": "text",
-            "text": "https://www.ledshoes.in/led-multicolor-top-lace"
+            "text": data.get("components")[1]
             },
             {
             "type": "text",
-            "text": "https://www.ledshoes.in/"
+            "text": data.get("components")[2]
             }
             ]
     }
     ])
     print(res)
 
+    save_whatsapp_message_template(phoneId="128538200341271",
+                                profileName=data.get("name"),
+                                whatsAppId=data.get("to_number"),
+                                fromId=data.get("from_id"),
+                                messageId=res.get("messages", [{}])[0].get("id"),
+                                timestamp=time.time(),
+                                text="",
+                                phoneNumber=data.get("to_number"),
+                                message="",
+                                message_text_sent_by="DJANGO ADMIN",
+                                msg_status_code=res.get("messages", [{}])[0].get("message_status"),
+                                is_template=1,
+                                template_json=data,
+                                wp_template_json=get_meta_template_json(data.get("template_name")),
+                                file_path=file_path,
+                                template_name = data.get("template_name")
+    )
 
 
 
