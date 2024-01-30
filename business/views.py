@@ -364,6 +364,10 @@ def send_rest_template(request):
             print(data)
             print(data.get("components"))
             print(request.POST.getlist("components"))
+            components = request.POST.getlist("components")
+
+            # Add components to the data dictionary
+            data["components"] = components
             print("=======================================================")
         else:
             # Assume JSON if not multipart/form-data
@@ -376,8 +380,7 @@ def send_rest_template(request):
                 return Response({'error': "Please pass all 4 parameters"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         if data.get("template_name") ==  "cancelled":
-            # if len(data.get('components')) == 1:
-            if data.get('components'):
+            if len(data.get('components')) == 3:
                 document = request.data.get('video')    
                 if not document:
                     return Response({'error': 'No document data received'}, status=status.HTTP_400_BAD_REQUEST)

@@ -505,7 +505,6 @@ def send_cancelled_template(file_path, data):
             "type": "video",
             "video": {
                 "id": upload_media_on_wp(file_path)
-                # "id": "1090850822225745"
             }
             }
         ]
@@ -516,15 +515,15 @@ def send_cancelled_template(file_path, data):
         "parameters": [
             {
             "type": "text",
-            "text": 0
+            "text": data.get("components")[0]
             },
             {
             "type": "text",
-            "text": 1
+            "text": data.get("components")[1]
             },
             {
             "type": "text",
-            "text": 2
+            "text": data.get("components")[2]
             }
             ]
     }
