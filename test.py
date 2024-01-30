@@ -98,10 +98,23 @@ res = messenger.send_template("busines_start_chat_text", "9956929372", component
             ]
   
     )
-print(res)
+print(res.get("messages", [{}])[0].get("message_status"))
 
 
 
+import requests
+
+url = "https://graph.facebook.com/v18.0/120126377855203/message_templates?name=abandoned_checkout"
+
+payload = {}
+headers = {
+  'Authorization': 'Bearer EAAUovSpndZBABO6m0npKSC9M9cGGWwZCD1Rlc1OZAWaiLnvldsq1nOM7TLogU4ZBZCZBZBdZAIFSGKIAWIJesotLXQ88P5yZB5P1fTFrZAZCnodPfXfTusY5iH6Hz7WjBDuzZBmLDvZAdPIyWZAmAZCM1HUD5Ky6fwnBkqJcPlI6GwTJbgyMN6NX95bSNQCFSwZA6vWEQsZBX',
+  'Cookie': 'ps_l=0; ps_n=0'
+}
+
+response = requests.request("GET", url, headers=headers, data=payload)
+
+print(response.text)
 
 
 

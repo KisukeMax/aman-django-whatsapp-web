@@ -53,4 +53,25 @@ def send_location_template(access_token, recipient_id):
 access_token = 'EAAUovSpndZBABO6m0npKSC9M9cGGWwZCD1Rlc1OZAWaiLnvldsq1nOM7TLogU4ZBZCZBZBdZAIFSGKIAWIJesotLXQ88P5yZB5P1fTFrZAZCnodPfXfTusY5iH6Hz7WjBDuzZBmLDvZAdPIyWZAmAZCM1HUD5Ky6fwnBkqJcPlI6GwTJbgyMN6NX95bSNQCFSwZA6vWEQsZBX'
 recipient_id = '919956929372'
 
-send_location_template(access_token, recipient_id)
+# send_location_template(access_token, recipient_id)
+
+
+
+import requests
+import json
+
+url = "https://django.casualfootwears.com/wp-send-template-api-for-website/"
+
+payload = {'name': 'max',
+'template_name': 'business_chat_start_normaltext',
+'media_type': 'jg',
+'to_number': '9956929372',
+'components': ["est", 'ash']}
+
+headers = {
+'Content-Type': 'application/json'
+}
+
+response = requests.request("POST", url, headers=headers, data=payload)
+
+print(response.text)

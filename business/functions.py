@@ -7,6 +7,27 @@ import os
 from datetime import datetime
 
 #
+
+def get_meta_template_json(template_name):
+    try:
+        import requests
+
+        url = f"https://graph.facebook.com/v18.0/120126377855203/message_templates?name={template_name}"
+
+        payload = {}
+        headers = {
+        'Authorization': 'Bearer EAAUovSpndZBABO6m0npKSC9M9cGGWwZCD1Rlc1OZAWaiLnvldsq1nOM7TLogU4ZBZCZBZBdZAIFSGKIAWIJesotLXQ88P5yZB5P1fTFrZAZCnodPfXfTusY5iH6Hz7WjBDuzZBmLDvZAdPIyWZAmAZCM1HUD5Ky6fwnBkqJcPlI6GwTJbgyMN6NX95bSNQCFSwZA6vWEQsZBX',
+        'Cookie': 'ps_l=0; ps_n=0'
+        }
+
+        response = requests.request("GET", url, headers=headers, data=payload)
+
+        # print(response.text)
+        return response.text
+
+    except:
+        return {}
+
 def sendWhatsAppMessage(phoneNumber, message ):
     headers = {"Authorization" : settings.WHATSAPP_TOKEN}
     payload = {
@@ -43,6 +64,29 @@ def save_whatsapp_message(phoneId=None, profileName=None, whatsAppId=None, fromI
         message_text_sent_by = message_text_sent_by,
         msg_status_code = msg_status_code,
         upload_media_path = upload_media_path,
+    )
+    whatsapp_message.save()
+
+
+def save_whatsapp_message_template(phoneId=None, profileName=None, whatsAppId=None, fromId=None, messageId=None, timestamp=None, text=None, phoneNumber=None, message=None, message_text_sent_by=None, msg_status_code=None, upload_media_path=None, is_template=None, template_json=None, wp_template_json=None):
+
+    # Create a new WhatsAppMessage instance and save it to the database
+    whatsapp_message = WhatsAppMessage(
+        phone_id=phoneId,
+        profile_name=profileName,
+        whatsapp_id=whatsAppId,
+        from_id=fromId,
+        message_id=messageId,
+        timestamp=timestamp,
+        text=text,
+        phone_number=phoneNumber,
+        message_text=message,
+        message_text_sent_by = message_text_sent_by,
+        msg_status_code = msg_status_code,
+        upload_media_path = upload_media_path,
+        is_template = is_template,
+        template_json = template_json,
+        wp_template_json = wp_template_json
     )
     whatsapp_message.save()
 
@@ -430,6 +474,23 @@ def send_abandoned_checkout_template(data):
     }
     ])
     print(res)
+
+    
+    save_whatsapp_message_template(phoneId="128538200341271",
+                                profileName=data.get("name"),
+                                whatsAppId=data.get("to_number"),
+                                fromId=data.get("from_id"),
+                                messageId=res.get("messages", [{}])[0].get("id"),
+                                timestamp=time.time(),
+                                text="",
+                                phoneNumber=data.get("to_number"),
+                                message="",
+                                message_text_sent_by="DJANGO ADMIN",
+                                msg_status_code=res.get("messages", [{}])[0].get("message_status"),
+                                is_template=1,
+                                template_json=data,
+                                wp_template_json=get_meta_template_json("abandoned_checkout")
+    )
 
 def send_cancelled_template(file_path, data):
     messenger = WhatsApp(settings.WHATSAPP_TOKEN.replace("Bearer ", ""),  "128538200341271")

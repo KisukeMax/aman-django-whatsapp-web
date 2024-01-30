@@ -18,3 +18,5 @@ class WhatsAppMessage(models.Model):
     msg_status_comment = models.TextField(default=None, null=True)
     admin_seen_count = models.IntegerField(default=0, null=True)
     is_template = models.IntegerField(default=0, null=True)
+    template_json = models.TextField(default=None, null=True)
+    wp_template_json = models.TextField(default=None, null=True)
