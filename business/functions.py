@@ -854,13 +854,7 @@ def send_order_confirmation(media_path,data):
                     "type": "text",
                     "text": data.get("components")[15]
 
-                },
-                {
-                    "type": "text",
-                    "text": data.get("components")[16]
-
-                }
-                ]
+                }                ]
         }
     ]
 
