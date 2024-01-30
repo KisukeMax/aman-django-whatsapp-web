@@ -359,6 +359,9 @@ def send_rest_template(request):
         if request.content_type.startswith('multipart/form-data'):
             # Use request.POST for form data
             data = request.POST.dict()
+            print("=======================================================")
+            print(data)
+            print("=======================================================")
         else:
             # Assume JSON if not multipart/form-data
             data = json.loads(request.body.decode('utf-8'))
@@ -395,7 +398,7 @@ def send_rest_template(request):
                 except Exception as e:
                     return Response({'error': str(e), "data" : data}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             else:
-                return Response({'error': "Please pass all 3 parameters", "data" : str(data)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                return Response({'error': "Please pass all 3 parameters"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         if data.get("template_name") ==  "business_chat_start_normaltext":
             if len(data.get("components")) == 1:
