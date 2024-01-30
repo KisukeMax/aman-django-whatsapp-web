@@ -9,7 +9,7 @@ image_file_path = "22121.mp4"  # Replace with the actual path to your image file
 # Create a dictionary with the image file and additional data to send as a multipart/form-data request
 data = {"template_name" : "cancelled",
     'profile_name': 'max',  # Replace with the actual author name
-    'phone_number': '919956929372',  # Replace with the actual place
+    'to_number': '919956929372',  # Replace with the actual place
     # 'comments': 'A beautiful landscape',  # Replace with the actual comments
     "components" : ["test", "test2", "test3"],
     "media_type" :"test"

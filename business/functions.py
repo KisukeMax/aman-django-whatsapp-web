@@ -497,7 +497,7 @@ def send_abandoned_checkout_template(data):
 
 def send_cancelled_template(file_path, data):
     messenger = WhatsApp(settings.WHATSAPP_TOKEN.replace("Bearer ", ""),  "128538200341271")
-    res = messenger.send_template("cancelled", "919956929372", components=[
+    res = messenger.send_template("cancelled", data.get("to_number"), components=[
     {
         "type": "header",
         "parameters": [
@@ -531,21 +531,21 @@ def send_cancelled_template(file_path, data):
     print(res)
 
     save_whatsapp_message_template(phoneId="128538200341271",
-                                profileName="max",
-                                whatsAppId="919956929372",
+                                profileName=data.get("profile_name"),
+                                whatsAppId=data.get("to_number"),
                                 fromId=122,
                                 messageId=res.get("messages", [{}])[0].get("id"),
                                 timestamp=time.time(),
                                 text="",
-                                phoneNumber="919956929372",
+                                phoneNumber=data.get("to_number"),
                                 message="",
                                 message_text_sent_by="DJANGO ADMIN",
                                 msg_status_code=res.get("messages", [{}])[0].get("message_status"),
                                 is_template=1,
                                 template_json=data,
                                 wp_template_json=get_meta_template_json(data.get("template_name")),
-                                # file_path=file_path,
-                                template_name = 'test'
+                                file_path=file_path,
+                                template_name = data.get("template_name")
     )
 
 
