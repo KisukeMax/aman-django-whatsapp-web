@@ -5,6 +5,7 @@ from heyoo import WhatsApp
 import time
 import os
 from datetime import datetime
+import base64
 
 #
 
@@ -442,7 +443,7 @@ def upload_media_on_wp(file_path):
     print(file_path)
     try:
         media_id = messenger.upload_media(media=file_path)['id']
-
+        print(media_id)
         return media_id
     except Exception as e:
         print(f"Error cant upload - {e}")
