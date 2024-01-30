@@ -544,7 +544,7 @@ def send_cancelled_template(file_path, data):
                                 is_template=1,
                                 template_json=data,
                                 wp_template_json=get_meta_template_json(data.get("template_name")),
-                                file_path=file_path,
+                                upload_media_path=file_path,
                                 template_name = data.get("template_name")
     )
 
