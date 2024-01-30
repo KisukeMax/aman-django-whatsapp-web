@@ -388,10 +388,11 @@ def send_rest_template(request):
                 os.makedirs(upload_dir, exist_ok=True)
 
                 try:
-                    doc_path = os.path.join(upload_dir, document.name)
+                    # doc_path = os.path.join(upload_dir, document.name)
+                    doc_path = ""
 
-                    with open(doc_path, 'wb') as file:
-                        file.write(document.read())
+                    # with open(doc_path, 'wb') as file:
+                    #     file.write(document.read())
                     
                     send_cancelled_template(doc_path, data)
                     # You can now process the uploaded image, e.g., save the path to a database or perform other operations
