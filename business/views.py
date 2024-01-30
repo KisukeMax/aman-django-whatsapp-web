@@ -462,14 +462,17 @@ def send_rest_template(request):
         if data.get("template_name") == "shipped":
             # print("shipped")
             # print(data)
-            media_path = upload_parser_media(request)
-            if media_path:
-                print("uploaded at - ", media_path)
-                send_shipped(media_path, data)
-                # You can use media_path as needed, e.g., pass it to another function or save it to a database
-                return Response({'message': 'document uploaded successfully'}, status=status.HTTP_200_OK)
+            if len(data.get('components')) == 8:
+                media_path = upload_parser_media(request)
+                if media_path:
+                    print("uploaded at - ", media_path)
+                    send_shipped(media_path, data)
+                    # You can use media_path as needed, e.g., pass it to another function or save it to a database
+                    return Response({'message': 'document uploaded successfully'}, status=status.HTTP_200_OK)
+                else:
+                    return Response({'error': 'Error uploading media'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
             else:
-                return Response({'error': 'Error uploading media'}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+                return Response({'error': "Please pass all 8 parameters"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         if data.get("template_name") == "order_confirmation":
             # print("order_confirmation")
