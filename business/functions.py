@@ -504,8 +504,8 @@ def send_cancelled_template(file_path, data):
             {
             "type": "video",
             "video": {
-                # "id": upload_media_on_wp(file_path)
-                "id": "1090850822225745"
+                "id": upload_media_on_wp(file_path)
+                # "id": "1090850822225745"
             }
             }
         ]
