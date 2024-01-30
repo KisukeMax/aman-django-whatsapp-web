@@ -393,7 +393,9 @@ def send_rest_template(request):
                 os.makedirs(upload_dir, exist_ok=True)
 
                 try:
-                    doc_path = os.path.join(upload_dir, document.name)
+                    timestamp = datetime.now().strftime("%Y_%m_%d_%H_%M")
+                    unique_filename = f"{timestamp}_{document.name}"
+                    doc_path = os.path.join(upload_dir, unique_filename)
                     # doc_path = ""
 
                     with open(doc_path, 'wb') as file:
