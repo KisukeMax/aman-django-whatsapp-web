@@ -7,14 +7,14 @@ url = 'https://django.casualfootwears.com/wp-send-template-api-for-website/'  # 
 image_file_path = "22121.mp4"  # Replace with the actual path to your image file
 
 # Create a dictionary with the image file and additional data to send as a multipart/form-data request
-data = {"template_name" : "cancelled",
+data = {"template_name" : "order_confirmation",
     'profile_name': 'max',  # Replace with the actual author name
     'to_number': '919956929372',  # Replace with the actual place
     # 'comments': 'A beautiful landscape',  # Replace with the actual comments
-    "components" : ["test1", "test21", "test31"],
+    "components" : ["test1", "test21", "test31", "as", "test1", "test21", "test31", "as", "test1", "test21", "test31", "as", "test1", "test21", "test31", "as"],
     "media_type" :"test"
 }
-files = {'video': (image_file_path, open(image_file_path, 'rb'))}
+files = {'media': (image_file_path, open(image_file_path, 'rb'))}
 
 # Send a POST request to the API endpoint with the image and additional data
 response = requests.post(url, data=data, files=files)

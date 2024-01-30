@@ -777,11 +777,109 @@ def send_order_confirmation(media_path,data):
             "parameters": [
                 {
                     "type": "text",
-                    "text": "maax"
+                    "text": data.get("components")[0]
 
-                }]
+                },
+                {
+                    "type": "text",
+                    "text": data.get("components")[1]
+
+                },
+                {
+                    "type": "text",
+                    "text": data.get("components")[2]
+
+                },
+                {
+                    "type": "text",
+                    "text": data.get("components")[3]
+
+                },
+                {
+                    "type": "text",
+                    "text": data.get("components")[4]
+
+                },
+                {
+                    "type": "text",
+                    "text": data.get("components")[5]
+
+                },
+                {
+                    "type": "text",
+                    "text": data.get("components")[6]
+
+                },
+                {
+                    "type": "text",
+                    "text": data.get("components")[7]
+
+                },
+                {
+                    "type": "text",
+                    "text": data.get("components")[8]
+
+                },
+                {
+                    "type": "text",
+                    "text": data.get("components")[9]
+
+                },
+                {
+                    "type": "text",
+                    "text": data.get("components")[10]
+
+                },
+                {
+                    "type": "text",
+                    "text": data.get("components")[11]
+
+                },
+                {
+                    "type": "text",
+                    "text": data.get("components")[12]
+
+                },
+                {
+                    "type": "text",
+                    "text": data.get("components")[13]
+
+                },
+                {
+                    "type": "text",
+                    "text": data.get("components")[14]
+
+                },
+                {
+                    "type": "text",
+                    "text": data.get("components")[15]
+
+                },
+                {
+                    "type": "text",
+                    "text": data.get("components")[16]
+
+                }
+                ]
         }
     ]
 
     )
     print(res)
+    save_whatsapp_message_template(phoneId="128538200341271",
+                                profileName=data.get("profile_name"),
+                                whatsAppId=data.get("to_number"),
+                                fromId=122,
+                                messageId=res.get("messages", [{}])[0].get("id"),
+                                timestamp=time.time(),
+                                text="",
+                                phoneNumber=data.get("to_number"),
+                                message="",
+                                message_text_sent_by="DJANGO ADMIN",
+                                msg_status_code=res.get("messages", [{}])[0].get("message_status"),
+                                is_template=1,
+                                template_json=data,
+                                wp_template_json=get_meta_template_json(data.get("template_name")),
+                                upload_media_path=media_path,
+                                template_name = data.get("template_name")
+    )
