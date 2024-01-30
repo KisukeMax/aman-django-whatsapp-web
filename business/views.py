@@ -375,7 +375,7 @@ def send_rest_template(request):
                 return Response({'error': "Please pass all 4 parameters"}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
         if data.get("template_name") ==  "cancelled":
-            if len(data.get("components")) == 3:
+            if len(data.getlist('components')) == 3:
                 document = request.data.get('video')    
                 if not document:
                     return Response({'error': 'No document data received'}, status=status.HTTP_400_BAD_REQUEST)
