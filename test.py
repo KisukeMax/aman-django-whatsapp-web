@@ -50,107 +50,107 @@ else:
 # # # else:
 # # #     print("Error:", response.status_code, response.text)
 
-from heyoo import WhatsApp
+# from heyoo import WhatsApp
 
-def upload_media(WHATSAPP_TOKEN,file_path):
-    token =  WHATSAPP_TOKEN
-    messenger = WhatsApp(token , "128538200341271")
-    # status_label.config(text=f"Uploading file")
-    try:
-        media_id = messenger.upload_media(
-        media=file_path,
-    )['id']
+# def upload_media(WHATSAPP_TOKEN,file_path):
+#     token =  WHATSAPP_TOKEN
+#     messenger = WhatsApp(token , "128538200341271")
+#     # status_label.config(text=f"Uploading file")
+#     try:
+#         media_id = messenger.upload_media(
+#         media=file_path,
+#     )['id']
 
-        return media_id
-    except:
-        print(f"Error cant upload")
-        return None
-
-
-WHATSAPP_TOKEN =  "EAAUovSpndZBABO6m0npKSC9M9cGGWwZCD1Rlc1OZAWaiLnvldsq1nOM7TLogU4ZBZCZBZBdZAIFSGKIAWIJesotLXQ88P5yZB5P1fTFrZAZCnodPfXfTusY5iH6Hz7WjBDuzZBmLDvZAdPIyWZAmAZCM1HUD5Ky6fwnBkqJcPlI6GwTJbgyMN6NX95bSNQCFSwZA6vWEQsZBX"
-media_id = upload_media(WHATSAPP_TOKEN,r"C:\Users\ASUS\Videos\Recording 2023-12-02 114610.mp4")
-print(media_id)
-messenger = WhatsApp(WHATSAPP_TOKEN,  "128538200341271")
+#         return media_id
+#     except:
+#         print(f"Error cant upload")
+#         return None
 
 
+# WHATSAPP_TOKEN =  "EAAUovSpndZBABO6m0npKSC9M9cGGWwZCD1Rlc1OZAWaiLnvldsq1nOM7TLogU4ZBZCZBZBdZAIFSGKIAWIJesotLXQ88P5yZB5P1fTFrZAZCnodPfXfTusY5iH6Hz7WjBDuzZBmLDvZAdPIyWZAmAZCM1HUD5Ky6fwnBkqJcPlI6GwTJbgyMN6NX95bSNQCFSwZA6vWEQsZBX"
+# media_id = upload_media(WHATSAPP_TOKEN,r"C:\Users\ASUS\Videos\Recording 2023-12-02 114610.mp4")
+# print(media_id)
+# messenger = WhatsApp(WHATSAPP_TOKEN,  "128538200341271")
 
-res = messenger.send_template("busines_start_chat_text", "9956929372", components=[
-    {
-                        "type": "HEADER",
-                        "parameters": [{
-                            "type": "video",
-                            "video": {
-                            "id": media_id
-                            }}]
-                            },
-    {
+
+
+# res = messenger.send_template("busines_start_chat_text", "9956929372", components=[
+#     {
+#                         "type": "HEADER",
+#                         "parameters": [{
+#                             "type": "video",
+#                             "video": {
+#                             "id": media_id
+#                             }}]
+#                             },
+#     {
         
-            "type": "body",
-            "parameters": [
-            {
-                "type": "text",
-                "text": "maax"
+#             "type": "body",
+#             "parameters": [
+#             {
+#                 "type": "text",
+#                 "text": "maax"
     
-    },
-     {
-            "type": "text",
-            "text": "COD"
-            }]
-            }
-            ]
+#     },
+#      {
+#             "type": "text",
+#             "text": "COD"
+#             }]
+#             }
+#             ]
   
-    )
-print(res.get("messages", [{}])[0].get("message_status"))
+#     )
+# print(res.get("messages", [{}])[0].get("message_status"))
 
 
 
-import requests
+# import requests
 
-url = "https://graph.facebook.com/v18.0/120126377855203/message_templates?name=abandoned_checkout"
+# url = "https://graph.facebook.com/v18.0/120126377855203/message_templates?name=abandoned_checkout"
 
-payload = {}
-headers = {
-  'Authorization': 'Bearer EAAUovSpndZBABO6m0npKSC9M9cGGWwZCD1Rlc1OZAWaiLnvldsq1nOM7TLogU4ZBZCZBZBdZAIFSGKIAWIJesotLXQ88P5yZB5P1fTFrZAZCnodPfXfTusY5iH6Hz7WjBDuzZBmLDvZAdPIyWZAmAZCM1HUD5Ky6fwnBkqJcPlI6GwTJbgyMN6NX95bSNQCFSwZA6vWEQsZBX',
-  'Cookie': 'ps_l=0; ps_n=0'
-}
+# payload = {}
+# headers = {
+#   'Authorization': 'Bearer EAAUovSpndZBABO6m0npKSC9M9cGGWwZCD1Rlc1OZAWaiLnvldsq1nOM7TLogU4ZBZCZBZBdZAIFSGKIAWIJesotLXQ88P5yZB5P1fTFrZAZCnodPfXfTusY5iH6Hz7WjBDuzZBmLDvZAdPIyWZAmAZCM1HUD5Ky6fwnBkqJcPlI6GwTJbgyMN6NX95bSNQCFSwZA6vWEQsZBX',
+#   'Cookie': 'ps_l=0; ps_n=0'
+# }
 
-response = requests.request("GET", url, headers=headers, data=payload)
+# response = requests.request("GET", url, headers=headers, data=payload)
 
-print(response.text)
+# print(response.text)
 
 
 
-# # # # media_id = upload_media(WHATSAPP_TOKEN,"testvideo.mp4")
-# # # n = messenger.send_template("cancelled", "9956929372", components=[
-# # # {
-# # #   "type": "header",
-# # #   "parameters": [
-# # #     {
-# # #       "type": "video",
-# # #       "video": {
-# # #         "id": 2560395534123713
-# # #       }
-# # #     }
-# # #   ]
-# # # },
-# # # {
+# # # # # media_id = upload_media(WHATSAPP_TOKEN,"testvideo.mp4")
+# # # # n = messenger.send_template("cancelled", "9956929372", components=[
+# # # # {
+# # # #   "type": "header",
+# # # #   "parameters": [
+# # # #     {
+# # # #       "type": "video",
+# # # #       "video": {
+# # # #         "id": 2560395534123713
+# # # #       }
+# # # #     }
+# # # #   ]
+# # # # },
+# # # # {
 
-# # #   "type": "BODY",
-# # #   "parameters": [
-# # #     {
-# # #       "type": "text",
-# # #       "text": "COD"
-# # #     },
-# # #     {
-# # #       "type": "text",
-# # #       "text": "https://www.ledshoes.in/led-multicolor-top-lace"
-# # #     },
-# # #     {
-# # #       "type": "text",
-# # #       "text": "https://www.ledshoes.in/"
-# # #     }
-# # #     ]
-# # # }
-# # # ])
+# # # #   "type": "BODY",
+# # # #   "parameters": [
+# # # #     {
+# # # #       "type": "text",
+# # # #       "text": "COD"
+# # # #     },
+# # # #     {
+# # # #       "type": "text",
+# # # #       "text": "https://www.ledshoes.in/led-multicolor-top-lace"
+# # # #     },
+# # # #     {
+# # # #       "type": "text",
+# # # #       "text": "https://www.ledshoes.in/"
+# # # #     }
+# # # #     ]
+# # # # }
+# # # # ])
 
-# # # print(n)
+# # # # print(n)
