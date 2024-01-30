@@ -516,15 +516,15 @@ def send_cancelled_template(file_path, data):
         "parameters": [
             {
             "type": "text",
-            "text": data.getlist("components")[0]
+            "text": 0
             },
             {
             "type": "text",
-            "text": data.getlist("components")[1]
+            "text": 1
             },
             {
             "type": "text",
-            "text": data.getlist("components")[2]
+            "text": 2
             }
             ]
     }
