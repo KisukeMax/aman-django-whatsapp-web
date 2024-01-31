@@ -167,7 +167,7 @@
 #   "to_number": "919956929372",
 #   "from_number": "1212121",
 #   "components": [
-#     "est"
+#     "business_start_chat_realtext"
 #   ]
 # })
 # headers = {
