@@ -162,9 +162,9 @@
 # url = "https://django.casualfootwears.com/wp-send-template-api-for-website/"
 
 # payload = json.dumps({
-#   "name": "max",
-#   "template_name": "business_start_chat_realtext",
-#   "to_number": "918090882360",
+#   "profile_name": "max",
+#   "template_name": "business_chat_start_normaltext",
+#   "to_number": "919956929372",
 #   "from_number": "1212121",
 #   "components": [
 #     "est"
@@ -176,4 +176,4 @@
 
 # response = requests.request("POST", url, headers=headers, data=payload)
 
-# print(response.text)
+# print(response.json())
