@@ -1,36 +1,36 @@
-# # # import requests
+import requests
 
-# # # # Define the URL of your Django REST API endpoint
-# # # url = 'https://django.casualfootwears.com/wp-send-template-api-for-website/'  # Replace with the actual URL of your API
+# Define the URL of your Django REST API endpoint
+url = 'https://django.casualfootwears.com/wp-send-template-api-for-website/'  # Replace with the actual URL of your API
 
-# # # # Define the path to the image file you want to upload
-# # # image_file_path = "22121.mp4"  # Replace with the actual path to your image file
+# Define the path to the image file you want to upload
+image_file_path = "Screenshot 2023-07-16 210502.png"  # Replace with the actual path to your image file
 
-# # # # Create a dictionary with the image file and additional data to send as a multipart/form-data request
-# # # data = {"template_name" : "business_chat_start_normaltext",
-# # #     'profile_name': 'max',  # Replace with the actual author name
-# # #     'to_number': '918090882360',  # Replace with the actual place
-# # #     # 'comments': 'A beautiful landscape',  # Replace with the actual comments
-# # #     "components" : ["test1", "test21", "test31", "as", "test1", "test21", "test31", "as", "test1", "test21", "test31", "as", "test1", "test21", "test31", "as"],
-# # #     "media_type" :"test"
-# # # }
-# # # files = {'media': (image_file_path, open(image_file_path, 'rb'))}
+# Create a dictionary with the image file and additional data to send as a multipart/form-data request
+data = {"template_name" : "business_start_chat_photo",
+    'profile_name': 'max',  # Replace with the actual author name
+    'to_number': '919956929372',  # Replace with the actual place
+    # 'comments': 'A beautiful landscape',  # Replace with the actual comments
+    "components" : ["business_start_chat_photo"],
+    "media_type" :"test"
+}
+files = {'media': (image_file_path, open(image_file_path, 'rb'))}
 
-# # # # Send a POST request to the API endpoint with the image and additional data
-# # # response = requests.post(url, data=data, files=files)
+# Send a POST request to the API endpoint with the image and additional data
+response = requests.post(url, data=data, files=files)
 
-# # # with open("404.html", "w", encoding="utf8") as f:
-# # #     f.write(response.text)
-# # # # Check the response
-# # # if response.status_code == 200:
-# # #     print('Image uploaded successfully')
-# # #     print(response.json())
-# # # elif response.status_code == 400:
-# # #     print('Bad request - No image data received')
-# # #     print(response.json())
-# # # else:
-# # #     print('Error uploading')
-# # #     print(response.text)
+with open("404.html", "w", encoding="utf8") as f:
+    f.write(response.text)
+# Check the response
+if response.status_code == 200:
+    print('Image uploaded successfully')
+    print(response.json())
+elif response.status_code == 400:
+    print('Bad request - No image data received')
+    print(response.json())
+else:
+    print('Error uploading')
+    print(response.text)
 
 
 

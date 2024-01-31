@@ -634,13 +634,30 @@ def send_business_chat_start_document(media_path,data):
                 "parameters": [
                 {
                     "type": "text",
-                    "text": "maax test"
+                    "text": data.get("components")[0]
         }]
                 }
                 ]
     
         )
     print(res)
+    save_whatsapp_message_template(phoneId="128538200341271",
+                                profileName=data.get("profile_name"),
+                                whatsAppId=data.get("to_number"),
+                                fromId=122,
+                                messageId=res.get("messages", [{}])[0].get("id"),
+                                timestamp=time.time(),
+                                text="",
+                                phoneNumber=data.get("to_number"),
+                                message="",
+                                message_text_sent_by="DJANGO ADMIN",
+                                msg_status_code=res.get("messages", [{}])[0].get("message_status"),
+                                is_template=1,
+                                template_json=data,
+                                wp_template_json=get_meta_template_json(data.get("template_name")),
+                                upload_media_path=media_path,
+                                template_name = data.get("template_name")
+    )
 
 
 def send_business_start_chat_photo(media_path,data):
@@ -709,18 +726,35 @@ def send_busines_start_chat_text(media_path,data):
             "parameters": [
                 {
                     "type": "text",
-                    "text": "maax"
+                    "text": data.get("components")[0]
 
                 },
                 {
                     "type": "text",
-                    "text": "COD"
+                    "text": data.get("components")[1]
                 }]
         }
     ]
 
     )
     print(res)
+    save_whatsapp_message_template(phoneId="128538200341271",
+                                profileName=data.get("profile_name"),
+                                whatsAppId=data.get("to_number"),
+                                fromId=122,
+                                messageId=res.get("messages", [{}])[0].get("id"),
+                                timestamp=time.time(),
+                                text="",
+                                phoneNumber=data.get("to_number"),
+                                message="",
+                                message_text_sent_by="DJANGO ADMIN",
+                                msg_status_code=res.get("messages", [{}])[0].get("message_status"),
+                                is_template=1,
+                                template_json=data,
+                                wp_template_json=get_meta_template_json(data.get("template_name")),
+                                upload_media_path=media_path,
+                                template_name = data.get("template_name")
+    )
 
 
 
