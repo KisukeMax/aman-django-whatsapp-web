@@ -565,37 +565,6 @@ def send_business_chat_start_normaltext(data):
     ])
     print(res)
 
-    save_whatsapp_message_template(phoneId="128538200341271",
-                                profileName=data.get("profile_name"),
-                                whatsAppId=data.get("to_number"),
-                                fromId=122,
-                                messageId=res.get("messages", [{}])[0].get("id"),
-                                timestamp=time.time(),
-                                text="",
-                                phoneNumber=data.get("to_number"),
-                                message="",
-                                message_text_sent_by="DJANGO ADMIN",
-                                msg_status_code=res.get("messages", [{}])[0].get("message_status"),
-                                is_template=1,
-                                template_json=data,
-                                wp_template_json=get_meta_template_json(data.get("template_name")),
-                                template_name = data.get("template_name")
-    )
-
-def send_business_start_chat_realtext(data):
-    messenger = WhatsApp(settings.WHATSAPP_TOKEN.replace("Bearer ", ""),  "128538200341271")
-    res = messenger.send_template("business_start_chat_realtext ", data.get("to_number"), components=[
-    {
-            "type": "HEADER",
-            "parameters": [
-            {
-                "type": "text",
-                "text": data.get("components")[0]
-            },
-            ]
-    }
-    ])
-    print(res)
     # save_whatsapp_message_template(phoneId="128538200341271",
     #                             profileName=data.get("profile_name"),
     #                             whatsAppId=data.get("to_number"),
@@ -612,6 +581,37 @@ def send_business_start_chat_realtext(data):
     #                             wp_template_json=get_meta_template_json(data.get("template_name")),
     #                             template_name = data.get("template_name")
     # )
+
+def send_business_start_chat_realtext(data):
+    messenger = WhatsApp(settings.WHATSAPP_TOKEN.replace("Bearer ", ""),  "128538200341271")
+    res = messenger.send_template("business_start_chat_realtext ", data.get("to_number"), components=[
+    {
+            "type": "HEADER",
+            "parameters": [
+            {
+                "type": "text",
+                "text": data.get("components")[0]
+            },
+            ]
+    }
+    ])
+    print(res)
+    save_whatsapp_message_template(phoneId="128538200341271",
+                                profileName=data.get("profile_name"),
+                                whatsAppId=data.get("to_number"),
+                                fromId=122,
+                                messageId=res.get("messages", [{}])[0].get("id"),
+                                timestamp=time.time(),
+                                text="",
+                                phoneNumber=data.get("to_number"),
+                                message="",
+                                message_text_sent_by="DJANGO ADMIN",
+                                msg_status_code=res.get("messages", [{}])[0].get("message_status"),
+                                is_template=1,
+                                template_json=data,
+                                wp_template_json=get_meta_template_json(data.get("template_name")),
+                                template_name = data.get("template_name")
+    )
 
 
 def send_business_chat_start_document(media_path,data):
