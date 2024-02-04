@@ -490,7 +490,7 @@ def send_abandoned_checkout_template(data):
                                 message_text_sent_by="DJANGO ADMIN",
                                 msg_status_code=res.get("messages", [{}])[0].get("message_status"),
                                 is_template=1,
-                                template_json=data,
+                                template_json=json.dumps(data),
                                 wp_template_json=get_meta_template_json(data.get("template_name")),
                                 template_name=data.get("template_name")
     )
@@ -542,7 +542,7 @@ def send_cancelled_template(file_path, data):
                                 message_text_sent_by="DJANGO ADMIN",
                                 msg_status_code=res.get("messages", [{}])[0].get("message_status"),
                                 is_template=1,
-                                template_json=data,
+                                template_json=json.dumps(data),
                                 wp_template_json=get_meta_template_json(data.get("template_name")),
                                 upload_media_path=file_path,
                                 template_name = data.get("template_name")
@@ -577,7 +577,7 @@ def send_business_chat_start_normaltext(data):
                                 message_text_sent_by="DJANGO ADMIN",
                                 msg_status_code=res.get("messages", [{}])[0].get("message_status"),
                                 is_template=1,
-                                template_json=data,
+                                template_json=json.dumps(data),
                                 wp_template_json=get_meta_template_json(data.get("template_name")),
                                 template_name = data.get("template_name")
     )
@@ -608,7 +608,7 @@ def send_business_start_chat_realtext(data):
                                 message_text_sent_by="DJANGO ADMIN",
                                 msg_status_code=res.get("messages", [{}])[0].get("message_status"),
                                 is_template=1,
-                                template_json=data,
+                                template_json=json.dumps(data),
                                 wp_template_json=get_meta_template_json(data.get("template_name")),
                                 template_name = data.get("template_name")
     )
@@ -653,7 +653,7 @@ def send_business_chat_start_document(media_path,data):
                                 message_text_sent_by="DJANGO ADMIN",
                                 msg_status_code=res.get("messages", [{}])[0].get("message_status"),
                                 is_template=1,
-                                template_json=data,
+                                template_json=json.dumps(data),
                                 wp_template_json=get_meta_template_json(data.get("template_name")),
                                 upload_media_path=media_path,
                                 template_name = data.get("template_name")
@@ -699,7 +699,7 @@ def send_business_start_chat_photo(media_path,data):
                                 message_text_sent_by="DJANGO ADMIN",
                                 msg_status_code=res.get("messages", [{}])[0].get("message_status"),
                                 is_template=1,
-                                template_json=data,
+                                template_json=json.dumps(data),
                                 wp_template_json=get_meta_template_json(data.get("template_name")),
                                 upload_media_path=media_path,
                                 template_name = data.get("template_name")
@@ -750,7 +750,7 @@ def send_busines_start_chat_text(media_path,data):
                                 message_text_sent_by="DJANGO ADMIN",
                                 msg_status_code=res.get("messages", [{}])[0].get("message_status"),
                                 is_template=1,
-                                template_json=data,
+                                template_json=json.dumps(data),
                                 wp_template_json=get_meta_template_json(data.get("template_name")),
                                 upload_media_path=media_path,
                                 template_name = data.get("template_name")
@@ -833,7 +833,7 @@ def send_shipped(media_path,data):
                                 message_text_sent_by="DJANGO ADMIN",
                                 msg_status_code=res.get("messages", [{}])[0].get("message_status"),
                                 is_template=1,
-                                template_json=data,
+                                template_json=json.dumps(data),
                                 wp_template_json=get_meta_template_json(data.get("template_name")),
                                 upload_media_path=media_path,
                                 template_name = data.get("template_name")
@@ -955,7 +955,7 @@ def send_order_confirmation(media_path,data):
                                 message_text_sent_by="DJANGO ADMIN",
                                 msg_status_code=res.get("messages", [{}])[0].get("message_status"),
                                 is_template=1,
-                                template_json=data,
+                                template_json=json.dumps(data),
                                 wp_template_json=get_meta_template_json(data.get("template_name")),
                                 upload_media_path=media_path,
                                 template_name = data.get("template_name")
