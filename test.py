@@ -72,9 +72,10 @@ media_id = upload_media(WHATSAPP_TOKEN,r"C:\Users\ASUS\Videos\Recording 2023-12-
 print(media_id)
 messenger = WhatsApp(WHATSAPP_TOKEN,  "132136533319691")
 
-res = messenger.send_template("busines_start_chata_text ", "919956929372", components=[])
+res = messenger.send_template("busines_start_chat_text ", "919956929372", components=[])
 print(res)
-res = messenger.send_template("busines_start_achat_text", "9956929372", components=[
+exit()
+res = messenger.send_template("busines_start_chat_text", "9956929372", components=[
     {
                         "type": "HEADER",
                         "parameters": [{
