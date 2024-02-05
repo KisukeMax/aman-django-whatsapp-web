@@ -83,10 +83,10 @@ class ReactView_rooms(APIView):
                 phone_number = message['phone_number']
                 total_message_count = next((item['message_count'] for item in message_counts if item['phone_number'] == phone_number), 0)
                 admin_unseen_count = next((item['admin_unseen_count'] for item in admin_unseen_message_counts if item['phone_number'] == phone_number), 0)
-                message_text_sent_by = next((item['message_text_sent_by'] for item in admin_unseen_message_counts if item['phone_number'] == phone_number), 0)
+                # message_text_sent_by = next((item['message_text_sent_by'] for item in admin_unseen_message_counts if item['phone_number'] == phone_number), 0)
                 message['message_count'] = total_message_count
                 message['admin_unseen_count'] = admin_unseen_count
-                message['message_text_sent_by'] = message_text_sent_by
+                # message['message_text_sent_by'] = message_text_sent_by
                 recent_messages_with_count.append(message)
 
 
