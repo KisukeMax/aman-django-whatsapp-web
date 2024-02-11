@@ -19,9 +19,33 @@ import time
 from urllib.parse import unquote
 from django.db.models import Count , Q
 import traceback
+from django.contrib.auth import authenticate, login
+from rest_framework.views import APIView
+from rest_framework.response import Response
+from rest_framework import status
+from rest_framework.authtoken.models import Token
+from rest_framework.permissions import AllowAny
 
 
 
+# LOGIN
+# =============================================
+
+class UserLoginView(APIView):
+    permission_classes = [AllowAny]
+
+    def post(self, request, *args, **kwargs):
+        email = request.data.get('email')
+        password = request.data.get('password')
+
+        user = authenticate(request, email=email, password=password)
+
+        if user is not None:
+            login(request, user)
+            token, created = Token.objects.get_or_create(user=user)
+            return Response({'authenticated': True, 'token': token.key}, status=status.HTTP_200_OK)
+        else:
+            return Response({'authenticated': False, 'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
 def upload_parser_media(request):
     try:

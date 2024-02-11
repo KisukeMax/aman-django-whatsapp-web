@@ -1,4 +1,6 @@
 from django.db import models
+from django.contrib.auth.models import AbstractUser
+
 
 #
 class WhatsAppMessage(models.Model):
@@ -21,3 +23,9 @@ class WhatsAppMessage(models.Model):
     template_name = models.TextField(default=None, null=True)
     template_json = models.TextField(default=None, null=True)
     wp_template_json = models.TextField(default=None, null=True)
+
+
+
+class User(AbstractUser):
+    pass
+
