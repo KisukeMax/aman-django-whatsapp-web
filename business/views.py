@@ -25,12 +25,22 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny
+from django.contrib.auth import get_user_model
+
 
 
 
 # LOGIN
 # =============================================
 
+def check_user_exists(email):
+    UserModel = get_user_model()
+
+    try:
+        user = UserModel.objects.get(email=email)
+        return True
+    except UserModel.DoesNotExist:
+        return False
 class UserLoginView(APIView):
     permission_classes = [AllowAny]
 
@@ -38,6 +48,13 @@ class UserLoginView(APIView):
         email = request.data.get('email')
         password = request.data.get('password')
         print(email, password)
+         # Check if the user exists
+        if check_user_exists(email):
+            # User exists, but don't authenticate
+            return Response({'user_exists': True}, status=status.HTTP_200_OK)
+        else:
+            # User does not exist
+            return Response({'user_exists': False, 'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
         user = authenticate(request, email=email, password=password)
 
