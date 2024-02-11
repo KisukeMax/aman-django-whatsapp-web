@@ -48,6 +48,7 @@ class UserLoginView(APIView):
         email = request.data.get('email')
         password = request.data.get('password')
         print(email, password)
+        print(check_user_exists(email))
          # Check if the user exists
         if check_user_exists(email):
             # User exists, but don't authenticate
@@ -56,14 +57,14 @@ class UserLoginView(APIView):
             # User does not exist
             return Response({'user_exists': False, 'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
-        user = authenticate(request, email=email, password=password)
+        # user = authenticate(request, email=email, password=password)
 
-        if user is not None:
-            login(request, user)
-            token, created = Token.objects.get_or_create(user=user)
-            return Response({'authenticated': True, 'token': token.key}, status=status.HTTP_200_OK)
-        else:
-            return Response({'authenticated': False, 'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+        # if user is not None:
+        #     login(request, user)
+        #     token, created = Token.objects.get_or_create(user=user)
+        #     return Response({'authenticated': True, 'token': token.key}, status=status.HTTP_200_OK)
+        # else:
+        #     return Response({'authenticated': False, 'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
 class UserListView(APIView):
