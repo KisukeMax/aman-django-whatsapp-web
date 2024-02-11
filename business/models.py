@@ -31,5 +31,5 @@ class User(AbstractUser):
     pass
 
 # Add or change the related_name for groups and user_permissions
-User.groups.field.related_query_name = 'business_user'
-User.user_permissions.field.related_query_name = 'business_user_permissions'
+User._meta.get_field('groups').remote_field.related_name = 'business_user'
+User._meta.get_field('user_permissions').remote_field.related_name = 'business_user_permissions'
