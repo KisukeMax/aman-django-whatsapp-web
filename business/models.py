@@ -1,6 +1,7 @@
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.contrib.auth.models import AbstractUser, Group, Permission
+from django.contrib.auth.hashers import make_password
 
 
 #
@@ -28,7 +29,15 @@ class WhatsAppMessage(models.Model):
 
 
 class User(AbstractUser):
-    pass
+    # your existing fields here
+
+    def save(self, *args, **kwargs):
+        # Check if the password is set and not already hashed
+        if self.password and not self.password.startswith(('pbkdf2_sha256$', 'bcrypt$', 'argon2')):
+            # Hash the password
+            self.password = make_password(self.password)
+
+        super().save(*args, **kwargs)
 
 # Add or change the related_name for groups and user_permissions
 User._meta.get_field('groups').remote_field.related_name = 'business_user'
