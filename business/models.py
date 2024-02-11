@@ -29,3 +29,6 @@ class WhatsAppMessage(models.Model):
 class User(AbstractUser):
     pass
 
+# Add or change the related_name for groups and user_permissions
+User.groups.field.related_query_name = 'business_user'
+User.user_permissions.field.related_query_name = 'business_user_permissions'
