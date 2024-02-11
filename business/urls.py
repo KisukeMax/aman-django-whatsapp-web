@@ -11,6 +11,7 @@ path('upload_media_video', views.upload_video, name = 'whatsapp-webhook-media-up
 path('update_msg_seen', views.mark_msg_seen_by_admin, name = 'whatsapp-webhook-msg-seen-update'),
 path('wp-send-template-api-for-website/', views.send_rest_template, name = 'wp-send-template-api-for-website'),
 path('login/',views.UserLoginView.as_view(), name='user-login'),
+path('users/', views.UserListView.as_view(), name='user-list'),
 # path('send_rest_template', views., name = 'whatsapp-webhook-msg-seen-update'),
 
 

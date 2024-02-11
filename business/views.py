@@ -48,6 +48,13 @@ class UserLoginView(APIView):
         else:
             return Response({'authenticated': False, 'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
+
+class UserListView(APIView):
+    def get(self, request, *args, **kwargs):
+        users = User.objects.all()
+        serializer = UserSerializer(users, many=True)
+        return Response(serializer.data, status=status.HTTP_200_OK)
+
 def upload_parser_media(request):
     try:
         print("uploading")
