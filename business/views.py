@@ -50,12 +50,12 @@ class UserLoginView(APIView):
         print(email, password)
         print(check_user_exists(email))
          # Check if the user exists
-        if check_user_exists(email):
-            # User exists, but don't authenticate
-            return Response({'user_exists': True}, status=status.HTTP_200_OK)
-        else:
-            # User does not exist
-            return Response({'user_exists': False, 'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+        # if check_user_exists(email):
+        #     # User exists, but don't authenticate
+        #     return Response({'user_exists': True}, status=status.HTTP_200_OK)
+        # else:
+        #     # User does not exist
+        #     return Response({'user_exists': False, 'error': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
         user = authenticate(request, email=email, password=password)
 
