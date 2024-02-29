@@ -1,4 +1,4 @@
-# import requests
+import requests
 
 # # Define the URL of your Django REST API endpoint
 # url = 'https://django.casualfootwears.com/wp-send-template-api-for-website/'  # Replace with the actual URL of your API
@@ -68,9 +68,24 @@ def upload_media(WHATSAPP_TOKEN,file_path):
 
 
 WHATSAPP_TOKEN =  "EAAUovSpndZBABO6m0npKSC9M9cGGWwZCD1Rlc1OZAWaiLnvldsq1nOM7TLogU4ZBZCZBZBdZAIFSGKIAWIJesotLXQ88P5yZB5P1fTFrZAZCnodPfXfTusY5iH6Hz7WjBDuzZBmLDvZAdPIyWZAmAZCM1HUD5Ky6fwnBkqJcPlI6GwTJbgyMN6NX95bSNQCFSwZA6vWEQsZBX"
-media_id = upload_media(WHATSAPP_TOKEN,r"C:\Users\ASUS\Videos\Recording 2023-12-02 114610.mp4")
+media_id = upload_media(WHATSAPP_TOKEN,r"F:\MAX\freelancer\test projects\12\large-underwater-explosion-190270.mp3")
 print(media_id)
 messenger = WhatsApp(WHATSAPP_TOKEN,  "132136533319691")
+
+tokenn = "Bearer EAAUovSpndZBABO6m0npKSC9M9cGGWwZCD1Rlc1OZAWaiLnvldsq1nOM7TLogU4ZBZCZBZBdZAIFSGKIAWIJesotLXQ88P5yZB5P1fTFrZAZCnodPfXfTusY5iH6Hz7WjBDuzZBmLDvZAdPIyWZAmAZCM1HUD5Ky6fwnBkqJcPlI6GwTJbgyMN6NX95bSNQCFSwZA6vWEQsZBX"
+WHATSAPP_URL = 'https://graph.facebook.com/v17.0/128538200341271/messages'
+
+headers = {"Authorization" : tokenn}
+payload = {
+    "messaging_product": "whatsapp",
+    "recipient_type": "individual",
+    "to" : "+919956929372",
+    "type": "audio",
+    "audio" : {"id" : media_id}    
+    }
+response = requests.post(WHATSAPP_URL, headers=headers, json=payload)
+ans = response.json()
+ans
 
 res = messenger.send_template("busines_start_chat_text ", "919956929372", components=[])
 print(res)

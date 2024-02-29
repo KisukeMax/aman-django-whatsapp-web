@@ -49,7 +49,7 @@ def sendWhatsAppMessage(phoneNumber, message ):
  # Import the WhatsAppMessage model
 
 # def save_whatsapp_message(phoneId, profileName, whatsAppId, fromId, messageId, timestamp, text, phoneNumber, message, message_text_sent_by, msg_status_code, upload_media_path):
-def save_whatsapp_message(phoneId=None, profileName=None, whatsAppId=None, fromId=None, messageId=None, timestamp=None, text=None, phoneNumber=None, message=None, message_text_sent_by=None, msg_status_code=None, upload_media_path=None):
+def save_whatsapp_message(phoneId=None, profileName=None, whatsAppId=None, fromId=None, messageId=None, timestamp=None, text=None, phoneNumber=None, message=None, message_text_sent_by=None, msg_status_code=None, upload_media_path=None, whatsapp_bussiness_number = None):
 
     # Create a new WhatsAppMessage instance and save it to the database
     whatsapp_message = WhatsAppMessage(
@@ -65,6 +65,7 @@ def save_whatsapp_message(phoneId=None, profileName=None, whatsAppId=None, fromI
         message_text_sent_by = message_text_sent_by,
         msg_status_code = msg_status_code,
         upload_media_path = upload_media_path,
+        whatsapp_bussiness_number = whatsapp_bussiness_number,
     )
     whatsapp_message.save()
 
@@ -227,6 +228,7 @@ def process_msg_rec(data):
                 if changes:
                     first_change = changes[0]
                     phoneId = first_change['value']['metadata']['phone_number_id']
+                    whatsapp_bussiness_number = first_change['value']['metadata']['display_phone_number']
                     profileName = first_change['value']['contacts'][0]['profile']['name']
                     whatsAppId = first_change['value']['contacts'][0]['wa_id']
                     if 'messages' in first_change['value']:

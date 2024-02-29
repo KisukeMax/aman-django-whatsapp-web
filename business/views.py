@@ -41,6 +41,7 @@ def check_user_exists(email):
         return True
     except UserModel.DoesNotExist:
         return False
+
 class UserLoginView(APIView):
     permission_classes = [AllowAny]
 

@@ -25,6 +25,7 @@ class WhatsAppMessage(models.Model):
     template_name = models.TextField(default=None, null=True)
     template_json = models.TextField(default=None, null=True)
     wp_template_json = models.TextField(default=None, null=True)
+    whatsapp_bussiness_number = models.TextField(default=None, null=True)
 
 
 
