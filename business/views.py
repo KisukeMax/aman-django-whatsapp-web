@@ -173,7 +173,8 @@ class ReactView_rooms2(APIView):
             # Query to get the most recent messages for all business numbers
             recent_messages = WhatsAppMessage.objects.filter(
                 timestamp=Subquery(subquery)
-            ).values('profile_name', 'text', "phone_number", "whatsapp_bussiness_number", "timestamp", "admin_seen_count", "message_text_sent_by", "msg_status_code").order_by('whatsapp_bussiness_number', '-timestamp').distinct('whatsapp_bussiness_number')
+            ).values('profile_name', 'text', "phone_number", "whatsapp_bussiness_number", "timestamp", "admin_seen_count", "message_text_sent_by", "msg_status_code").order_by('whatsapp_bussiness_number', '-timestamp')
+
 
              # Query to get the message counts for each phone number
             message_counts = WhatsAppMessage.objects.values('phone_number').annotate(message_count=Count('id'))
