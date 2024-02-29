@@ -154,6 +154,54 @@ class ReactView_rooms(APIView):
             return Response(recent_messages)
         except WhatsAppMessage.DoesNotExist:
             return Response({"error": "Item not found"}, status=404)
+        
+
+
+
+
+class ReactView_rooms2(APIView):
+    def get(self, request):
+        try:
+            # Get the most recent timestamp for each phone number and business number
+            subquery = WhatsAppMessage.objects.filter(
+                phone_number=OuterRef('phone_number'),
+                whatsapp_bussiness_number=OuterRef('whatsapp_bussiness_number')
+            ).values('phone_number', 'whatsapp_bussiness_number').annotate(
+                max_timestamp=Max('timestamp')
+            ).values('max_timestamp')
+
+            # Query to get the most recent messages for all business numbers
+            recent_messages = WhatsAppMessage.objects.filter(
+                timestamp=Subquery(subquery)
+            ).values('profile_name', 'text', "phone_number", "whatsapp_bussiness_number", "timestamp", "admin_seen_count", "message_text_sent_by", "msg_status_code").order_by('whatsapp_bussiness_number', '-timestamp').distinct('whatsapp_bussiness_number')
+
+             # Query to get the message counts for each phone number
+            message_counts = WhatsAppMessage.objects.values('phone_number').annotate(message_count=Count('id'))
+
+            # Query to get the admin unseen message counts for each phone number
+            admin_unseen_message_counts = WhatsAppMessage.objects.values('phone_number').annotate(admin_unseen_count=Count('id', filter=Q(admin_seen_count=False) | Q(admin_seen_count=0)))
+
+
+            # Combine the message counts with the recent messages
+            recent_messages_with_count = []
+            for message in recent_messages:
+                phone_number = message['phone_number']
+                total_message_count = next((item['message_count'] for item in message_counts if item['phone_number'] == phone_number), 0)
+                admin_unseen_count = next((item['admin_unseen_count'] for item in admin_unseen_message_counts if item['phone_number'] == phone_number), 0)
+                message['message_count'] = total_message_count
+                message['admin_unseen_count'] = admin_unseen_count
+                recent_messages_with_count.append(message)
+
+            # Encode text and handle non-ASCII characters
+            for message in recent_messages:
+                message['text'] = message['text'].encode(sys.stdout.encoding, errors='replace').decode()
+
+            return Response(recent_messages_with_count)
+        except WhatsAppMessage.DoesNotExist:
+            return Response({"error": "Item not found"}, status=404)
+
+
+
 
 class ReactView(APIView):
     def get(self, request, id=None):
