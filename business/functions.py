@@ -378,10 +378,11 @@ def parse_recd_media_msgs(data):
     wp_id = messenger.get_mobile(data)
     message_id = messenger.get_message_id(data)
     timestamp = messenger.get_message_timestamp(data)
-
+    print(data)
     try:
         whatsapp_bussiness_number = data["entry"][0]["changes"][0]["value"]["metadata"]["display_phone_number"]
-    except:
+    except Exception as e:
+        print(e)
         whatsapp_bussiness_number = ""
 
     if message_type == "location":
