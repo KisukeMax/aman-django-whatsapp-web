@@ -379,6 +379,11 @@ def parse_recd_media_msgs(data):
     message_id = messenger.get_message_id(data)
     timestamp = messenger.get_message_timestamp(data)
 
+    try:
+        whatsapp_bussiness_number = data["entry"][0]["changes"][0]["value"]["metadata"]["display_phone_number"]
+    except:
+        whatsapp_bussiness_number = ""
+
     if message_type == "location":
         message_location = messenger.get_location(data)
         message_latitude = message_location["latitude"]
@@ -424,7 +429,9 @@ def parse_recd_media_msgs(data):
                               message="",
                               message_text_sent_by=profile_name,
                               msg_status_code="read",
-                              upload_media_path=filename)
+                              upload_media_path=filename,
+                              whatsapp_bussiness_number = whatsapp_bussiness_number
+                              )
 
 
 def mark_msg_seen_by_admin_func(data):
