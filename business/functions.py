@@ -258,6 +258,7 @@ def process_msg_rec(data):
                                 message,
                                 message_text_sent_by,
                                 msg_status_code,
+                                whatsapp_bussiness_number = whatsapp_bussiness_number
                                 
                             )
                             
