@@ -28,5 +28,5 @@ urlpatterns = [
     path('react_rooms/', ReactView_rooms.as_view(), name="rooms"),
     path('react_rooms2/', ReactView_rooms2.as_view(), name="rooms"),
     path('react_rooms_sendmsg/', send_message, name="rooms_send_msg"),
-
+    path('react/v2/<int:id>/<str:whatsapp_bussiness_number>/', ReactViewv2.as_view(), name="your_view_name"),
 ]

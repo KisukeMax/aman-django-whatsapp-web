@@ -246,6 +246,33 @@ class ReactView(APIView):
             output = [{"profile_name": item.profile_name, "phone_number": item.phone_number} for item in queryset]
             return Response(output)
 
+
+
+class ReactViewv2(APIView):
+    def get(self, request, id=None, whatsapp_bussiness_number = None):
+        if id is not None:
+            # print(id)
+            # An 'id' is provided, fetch and display the specific item
+            try:
+                items = WhatsAppMessage.objects.filter(Q(phone_number=id) & Q(whatsapp_bussiness_number=whatsapp_bussiness_number)).order_by('-timestamp')
+                fields = ["phone_id", "whatsapp_id", "from_id", "timestamp", "profile_name", "phone_number", "text","message_text_sent_by", "msg_status_code", "upload_media_path" , "fb_media_id", "msg_status_comment", "admin_seen_count", "message_id", "wp_template_json", "template_json", "is_template", "template_name"]
+                data = [
+                    {field: getattr(item, field) for field in fields}
+                    for item in items
+                ]
+                return Response(data)
+            except WhatsAppMessage.DoesNotExist:
+                return Response({"error": "Item not found"}, status=404)
+        else:
+            # No 'id' is provided, display all items
+            queryset = WhatsAppMessage.objects.all()
+            output = [{"profile_name": item.profile_name, "phone_number": item.phone_number} for item in queryset]
+            return Response(output)
+
+
+
+
+
     # def post(self, request):
     #     serializer = ReactSerializer(data=request.data)
     #     print(serializer)
