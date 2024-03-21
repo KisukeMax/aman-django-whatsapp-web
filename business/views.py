@@ -164,34 +164,6 @@ class ReactView_rooms(APIView):
 from django.db.models import Subquery, OuterRef, Max, F, RowRange, Window
 from django.db.models.functions import RowNumber
 
-class ReactView_rooms2(APIView):
-    def get(self, request):
-        try:
-            # Subquery to get the most recent timestamp for each phone number and business number
-            subquery = WhatsAppMessage.objects.filter(
-                phone_number=OuterRef('phone_number'),
-                whatsapp_bussiness_number=OuterRef('whatsapp_bussiness_number')
-            ).order_by('-timestamp').values('timestamp')[:1]
-
-            # Query to get the most recent message for each phone number and business number
-            recent_messages = WhatsAppMessage.objects.annotate(
-                row_number=Window(
-                    expression=RowNumber(),
-                    order_by=[F('whatsapp_bussiness_number'), F('timestamp').desc()]
-                )
-            ).filter(
-                timestamp=Subquery(subquery),
-                row_number=1
-            ).values('profile_name', 'text', "phone_number", "whatsapp_bussiness_number", "timestamp", "admin_seen_count", "message_text_sent_by", "msg_status_code").order_by('whatsapp_bussiness_number', '-timestamp')
-
-            # Encode text and handle non-ASCII characters
-            for message in recent_messages:
-                message['text'] = message['text'].encode(sys.stdout.encoding, errors='replace').decode()
-
-            return Response(recent_messages)
-        except WhatsAppMessage.DoesNotExist:
-            return Response({"error": "Item not found"}, status=404)
-
 # class ReactView_rooms2(APIView):
 #     def get(self, request):
 #         try:
@@ -219,6 +191,34 @@ class ReactView_rooms2(APIView):
 #             return Response(recent_messages)
 #         except WhatsAppMessage.DoesNotExist:
 #             return Response({"error": "Item not found"}, status=404)
+
+class ReactView_rooms2(APIView):
+    def get(self, request):
+        try:
+            # Subquery to get the most recent timestamp for each phone number and business number
+            subquery = WhatsAppMessage.objects.filter(
+                phone_number=OuterRef('phone_number'),
+                whatsapp_bussiness_number=OuterRef('whatsapp_bussiness_number')
+            ).order_by('-timestamp').values('timestamp')[:1]
+
+            # Query to get the most recent message for each phone number and business number
+            recent_messages = WhatsAppMessage.objects.annotate(
+                row_number=Window(
+                    expression=RowNumber(),
+                    order_by=[F('whatsapp_bussiness_number'), F('timestamp').desc()]
+                )
+            ).filter(
+                timestamp=Subquery(subquery),
+                row_number=1
+            ).values('profile_name', 'text', "phone_number", "whatsapp_bussiness_number", "timestamp", "admin_seen_count", "message_text_sent_by", "msg_status_code").order_by('whatsapp_bussiness_number', '-timestamp')
+
+            # Encode text and handle non-ASCII characters
+            for message in recent_messages:
+                message['text'] = message['text'].encode(sys.stdout.encoding, errors='replace').decode()
+
+            return Response(recent_messages)
+        except WhatsAppMessage.DoesNotExist:
+            return Response({"error": "Item not found"}, status=404)
 
 
 
