@@ -199,7 +199,7 @@ class ReactView_rooms2(APIView):
             subquery = WhatsAppMessage.objects.filter(
                 phone_number=OuterRef('phone_number'),
                 whatsapp_bussiness_number=OuterRef('whatsapp_bussiness_number')
-            ).order_by('-timestamp').values('timestamp')[:1]
+            ).order_by('-timestamp').values('timestamp')
 
             # Query to get the most recent message for each phone number and business number
             recent_messages = WhatsAppMessage.objects.annotate(
