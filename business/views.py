@@ -26,6 +26,10 @@ from rest_framework import status
 from rest_framework.authtoken.models import Token
 from rest_framework.permissions import AllowAny
 from django.contrib.auth import get_user_model
+from django.core.cache import cache
+from django.utils.decorators import method_decorator
+from django.views.decorators.cache import cache_page
+
 
 
 
@@ -165,79 +169,31 @@ from django.db.models import Subquery, OuterRef, Max, F, RowRange, Window
 from django.db.models.functions import RowNumber
 
 
-# class ReactView_rooms2(APIView):
-#     def get(self, request):
-#         try:
-#             # Subquery to get the most recent timestamp for each phone number and business number
-#             subquery = WhatsAppMessage.objects.filter(
-#                 phone_number=OuterRef('phone_number'),
-#                 whatsapp_bussiness_number=OuterRef('whatsapp_bussiness_number')
-#             ).values('phone_number').annotate(
-#                 max_timestamp=Max('timestamp')
-#             ).values('max_timestamp')
-#             # recent_messages = subquery.order_by('-max_timestamp')
-#             # Query to get the most recent messages
-#             recent_messages = WhatsAppMessage.objects.filter(
-#                 timestamp=Subquery(subquery)
-#             ).values('profile_name','text', "phone_number", "timestamp", "admin_seen_count", "message_text_sent_by", "msg_status_code").order_by('-timestamp')
-
-#             # Encode text and handle non-ASCII characters
-#             for message in recent_messages:
-#                 message['text'] = message['text'].encode(sys.stdout.encoding, errors='replace').decode()
-
-#             return Response(recent_messages)
-#         except WhatsAppMessage.DoesNotExist:
-#             return Response({"error": "Item not found"}, status=404)
-
-
-from django.core.paginator import Paginator
-
-# Define batch size
-BATCH_SIZE = 100  # Adjust based on your requirements
 
 class ReactView_rooms2(APIView):
+    @method_decorator(cache_page(60 * 15)) 
     def get(self, request):
         try:
-            # Get all WhatsAppMessage objects
-            all_messages = WhatsAppMessage.objects.all().order_by('-timestamp')
-            
-            # Create a paginator object with the batch size
-            paginator = Paginator(all_messages, BATCH_SIZE)
-            
-            # Process each batch
-            batch_number = 1
-            while True:
-                batch = paginator.get_page(batch_number)
-                if not batch:
-                    break
-                
-                # Process messages in the current batch
-                processed_messages = self.process_batch(batch)
-                
-                # Do something with processed_messages (e.g., store in a list, return as response, etc.)
-                
-                batch_number += 1
-            
-            return Response({"success": "Batch processing completed"})
+            # Subquery to get the most recent timestamp for each phone number and business number
+            subquery = WhatsAppMessage.objects.filter(
+                phone_number=OuterRef('phone_number'),
+                whatsapp_bussiness_number=OuterRef('whatsapp_bussiness_number')
+            ).values('phone_number').annotate(
+                max_timestamp=Max('timestamp')
+            ).values('max_timestamp')
+            # recent_messages = subquery.order_by('-max_timestamp')
+            # Query to get the most recent messages
+            recent_messages = WhatsAppMessage.objects.filter(
+                timestamp=Subquery(subquery)
+            ).values('profile_name','text', "phone_number", "timestamp", "admin_seen_count", "message_text_sent_by", "msg_status_code").order_by('-timestamp')
+
+            # Encode text and handle non-ASCII characters
+            for message in recent_messages:
+                message['text'] = message['text'].encode(sys.stdout.encoding, errors='replace').decode()
+
+            return Response(recent_messages)
         except WhatsAppMessage.DoesNotExist:
             return Response({"error": "Item not found"}, status=404)
-    
-    def process_batch(self, batch):
-        processed_messages = []
-        for message in batch:
-            # Your processing logic goes here
-            processed_message = {
-                'profile_name': message.profile_name,
-                'text': message.text.encode(sys.stdout.encoding, errors='replace').decode(),
-                'phone_number': message.phone_number,
-                'timestamp': message.timestamp,
-                'admin_seen_count': message.admin_seen_count,
-                'message_text_sent_by': message.message_text_sent_by,
-                'msg_status_code': message.msg_status_code,
-            }
-            processed_messages.append(processed_message)
-        
-        return processed_messages
 
 
 
